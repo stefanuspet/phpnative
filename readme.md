@@ -13,8 +13,8 @@ Follow these steps to set up the project:
 1. **Clone the Repository**
 
    ```bash
-   git clone <repository-url>
-   cd <repository-directory>
+   git clone https://github.com/stefanuspet/phpnative.git
+   cd phpnative
 
    ```
 
