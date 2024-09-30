@@ -1,4 +1,4 @@
-@extends('layouts.DashboardLayout')
+@extends('layouts.MajelisLayout')
 
 @section('title', 'Dashboard')
 @section('content')
@@ -7,7 +7,7 @@
     <div class="w-4/5 grid grid-cols-1 gap-10 mb-10">
         <div class="bg-white shadow-xl rounded-md px-12 py-14 flex justify-start gap-x-24 items-center">
             <div class="bg-slate-100 w-52 h-52 rounded-full">
-                <img src="{{$majelis->foto}}" alt="foto_profile">
+                <img src="/uploads/{{$majelis->foto}}" alt="foto_profile">
             </div>
             <div>
                 <table class="font-semibold table-auto">
@@ -64,19 +64,19 @@
         <div class="bg-white shadow-xl rounded-md px-8 py-4">
             <p>Total Anggota</p>
             <p class="text-center text-2xl font-bold py-5">{{$count_anggota}}</p>
-            <a href="#">
+            <a href="/dashboard-majelis/anggota">
                 <div class="w-full bg-blue-600 text-white hover:bg-blue-500 rounded-md py-2">
 
-                    <p class="text-center">Lihat Prestasi</p>
+                    <p class="text-center">Lihat Anggota</p>
                 </div>
             </a>
         </div>
         <div class="bg-white shadow-xl rounded-md px-8 py-4">
             <p>Total Kegiatan</p>
             <p class="text-center text-2xl font-bold py-5">{{$count_dojo}}</p>
-            <a href="#">
+            <a href="/dashboard-majelis/cabang">
                 <div class="w-full bg-blue-600 text-white hover:bg-blue-500 rounded-md py-2">
-                    <p class="text-center">Lihat Kegiatan</p>
+                    <p class="text-center">Lihat Dojo</p>
                 </div>
             </a>
         </div>

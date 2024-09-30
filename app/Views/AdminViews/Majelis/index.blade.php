@@ -14,13 +14,26 @@
         <div class="bg-white shadow-xl rounded-md px-8 py-4">
             @forelse ($majelis as $items )
             <div class="grid grid-cols-6 justify-items-center">
-                <div class="rounded-full h-44 w-44 bg-slate-300">
-                    <img src="//storage/uploads/{{$items->foto}}" alt="/storage/uploads/<?php echo htmlspecialchars($items->foto); ?>">
-                    <p>${{$items->foto}}</p>
+                <div class="rounded-full h-44 w-44 bg-slate-300 overflow-hidden flex justify-center items-center">
+                    <!-- get current localhost -->
+                    <?php
+                    // Mendapatkan protokol (http atau https)
+                    $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
+
+                    // Mendapatkan hostname (misalnya localhost)
+                    $host = $_SERVER['SERVER_NAME'];
+
+                    // Mendapatkan port (misalnya 8080)
+                    $port = $_SERVER['SERVER_PORT'];
+
+                    // Menggabungkan semuanya untuk mendapatkan localhost:8080
+                    $baseUrl = $protocol . $host . ':' . $port;
+                    ?>
+                    <img class="object-cover" src="/uploads/{{$items->foto}}" alt="/storage/uploads/<?php echo htmlspecialchars($items->foto); ?>">
                 </div>
                 <table class="w-fit mt-2  col-span-2">
                     <tr>
-                        <td>Nama Dojo</td>
+                        <td>Nama</td>
                         <td class="px-2">:</td>
                         <td>{{$items->nama}}</td>
                     </tr>

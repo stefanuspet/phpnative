@@ -8,6 +8,15 @@ return function (RouteCollector $r) {
     $r->addRoute('GET', '/', 'AuthController@index');
     $r->addRoute('POST', '/login', 'AuthController@login');
     $r->addRoute('GET', '/logout', 'AuthController@logout');
+    $r->addRoute('GET', '/register', 'AuthController@register');
+    $r->addRoute('POST', '/register/create', 'AuthController@registerStore');
+    $r->addRoute('GET', '/register/majelis', 'AuthController@registerMajelis');
+    $r->addRoute('GET', '/register/anggota', 'AuthController@registerAnggota');
+    $r->addRoute('POST', '/register/majelis/create', 'AuthController@registerMajelisStore');
+    $r->addRoute('POST', '/register/anggota/create', 'AuthController@registerAnggotaStore');
+    $r->addRoute('GET', '/register/guest', 'AuthController@registerAnggotaDojo');
+
+
 
     // ************************************ ADMIN ************************************
     $r->addRoute('GET', '/dashboard', 'AdminController@index');
@@ -16,6 +25,9 @@ return function (RouteCollector $r) {
     $r->addRoute('GET', '/dashboard/cabang/create', 'AdminController@createDojo');
     $r->addRoute('GET', '/dashboard/cabang/show/{id}', 'AdminController@showDetailDojo');
     $r->addRoute('GET', '/dashboard/cabang/edit/{id}', 'AdminController@editDojo');
+    $r->addRoute('GET', '/dashboard/cabang-bone', 'AdminController@cabangBone');
+    $r->addRoute('GET', '/dashboard/cabang-makasar', 'AdminController@cabangMakasar');
+    $r->addRoute('GET', '/dashboard/cabang-gowa', 'AdminController@cabangGowa');
 
     $r->addRoute('GET', '/dashboard/majelis', 'AdminController@majelis');
     $r->addRoute('GET', '/dashboard/majelis/create', 'AdminController@createMajelis');
@@ -25,6 +37,8 @@ return function (RouteCollector $r) {
     $r->addRoute('GET', '/dashboard/anggota/create', 'AdminController@createAnggota');
     $r->addRoute('GET', '/dashboard/anggota/edit/{id}', 'AdminController@editAnggota');
     $r->addRoute('GET', '/dashboard/anggota/show/{id}', 'AdminController@showAnggotaByid');
+    $r->addRoute('GET', '/dashboard/anggota-atlet', 'AdminController@showAnggotaAtlet');
+    $r->addRoute('GET', '/dashboard/anggota-biasa', 'AdminController@showAnggotaBiasa');
 
     $r->addRoute('GET', '/dashboard/latihan', 'AdminController@latihan');
     $r->addRoute('GET', '/dashboard/latihan/show/{id}', 'AdminController@showlatihanByid');
@@ -32,12 +46,52 @@ return function (RouteCollector $r) {
     $r->addRoute('GET', '/dashboard/pembayaran', 'AdminController@pembayaran');
     $r->addRoute('GET', '/dashboard/pembayaran/show/{id}', 'AdminController@showPembayaranByid');
 
+    $r->addRoute('GET', '/dashboard/kegiatan', 'AdminController@kegiatan');
+    $r->addRoute('GET', '/dashboard/kegiatan/show/{id}', 'AdminController@showKegiatanByid');
+    $r->addRoute('GET', '/dashboard/kegiatan/create', 'AdminController@createKegiatan');
+    $r->addRoute('GET', '/dashboard/kegiatan/edit/{id}', 'AdminController@editKegiatan');
+
+    $r->addRoute('GET', '/dashboard/prestasi', 'AdminController@prestasi');
+    $r->addRoute('GET', '/dashboard/prestasi/create/{id_anggota}', 'AdminController@createPrestasi');
+    $r->addRoute('GET', '/dashboard/prestasi/edit/{id}/{id_anggota}', 'AdminController@editPrestasi');
+
+    $r->addRoute('GET', '/dashboard/pengurus', 'AdminController@pengurus');
+    $r->addRoute('GET', '/dashboard/pengurus/create', 'AdminController@createPengurus');
+    $r->addRoute('GET', '/dashboard/pengurus/edit/{id}', 'AdminController@editPengurus');
+
+    $r->addRoute('GET', '/dashboard/dojoMajelis', 'AdminController@dojoMajelis');
+
+
+
+
+
     // ************************************ ANGGOTA ************************************
     $r->addRoute('GET', '/dashboard-anggota', 'AnggotaController@index');
+    $r->addRoute('GET', '/dashboard-anggota/kegiatan', 'AnggotaController@kegiatan');
+    $r->addRoute('GET', '/dashboard-anggota/kegiatan-terdaftar', 'AnggotaController@kegiatanbyUser');
+    $r->addRoute('GET', '/dashboard-anggota/prestasi', 'AnggotaController@prestasi');
+    $r->addRoute('GET', '/dashboard-anggota/latihan', 'AnggotaController@latihan');
+    $r->addRoute('GET', '/dashboard-anggota/latihan/create', 'AnggotaController@latihanCreate');
+    $r->addRoute('GET', '/dashboard-anggota/latihan/edit/{id}', 'AnggotaController@latihanEdit');
+    $r->addRoute('GET', '/dashboard-anggota/pembayaran', 'AnggotaController@pembayaran');
+    $r->addRoute('GET', '/dashboard-anggota/pembayaran/create', 'AnggotaController@pembayaranCreate');
+
+
+
+
 
 
     // ************************************ MAJELIS ************************************
     $r->addRoute('GET', '/dashboard-majelis', 'MajelisController@index');
+    $r->addRoute('GET', '/dashboard-majelis/kegiatan', 'MajelisController@kegiatan');
+    $r->addRoute('GET', '/dashboard-majelis/cabang', 'MajelisController@cabang');
+    $r->addRoute('GET', '/dashboard-majelis/cabang/show/{id}', 'MajelisController@showDetailDojo');
+    $r->addRoute('GET', '/dashboard-majelis/anggota', 'MajelisController@anggota');
+    $r->addRoute('GET', '/dashboard-majelis/anggota/show/{id}', 'MajelisController@showAnggotaByid');
+    $r->addRoute('GET', '/dashboard-majelis/latihan/show/{id}', 'MajelisController@showlatihanByid');
+    $r->addRoute('GET', '/dashboard-majelis/latihan/edit/{id}', 'MajelisController@latihanEdit');
+    $r->addRoute('GET', '/dashboard-majelis/pembayaran/show/{id}', 'MajelisController@showPembayaranByid');
+
 
 
     // ======================================== CRUD ========================================
@@ -60,6 +114,37 @@ return function (RouteCollector $r) {
     $r->addRoute('POST', '/dashboard/latihan/store', 'LatihanController@store');
     $r->addRoute('POST', '/dashboard/latihan/update/{id}', 'LatihanController@update');
     $r->addRoute('POST', '/dashboard/latihan/delete/{id}', 'LatihanController@destroy');
+    $r->addRoute('POST', '/dashboard/latihan/reset/{id}', 'LatihanController@reset');
+
+    // kegiatan
+    $r->addRoute('POST', '/dashboard/kegiatan/store', 'KegiatanController@store');
+    $r->addRoute('POST', '/dashboard/kegiatan/update/{id}', 'KegiatanController@update');
+    $r->addRoute('POST', '/dashboard/kegiatan/delete/{id}', 'KegiatanController@destroy');
+
+    //peserta
+    $r->addRoute('POST', '/dashboard/peserta/store', 'PesertaController@store');
+    $r->addRoute('POST', '/dashboard/peserta/update/{id}', 'PesertaController@update');
+    $r->addRoute('POST', '/dashboard/peserta/delete', 'PesertaController@destroy');
+
+    // prestasi
+    $r->addRoute('POST', '/dashboard/prestasi/store/{id_anggota}', 'PrestasiController@store');
+    $r->addRoute('POST', '/dashboard/prestasi/update/{id}/{id_anggota}', 'PrestasiController@update');
+    $r->addRoute('POST', '/dashboard/prestasi/delete/{id}/{id_anggota}', 'PrestasiController@destroy');
+
+    // pengurus
+    $r->addRoute('POST', '/dashboard/pengurus/store', 'PengurusController@store');
+    $r->addRoute('POST', '/dashboard/pengurus/update/{id}', 'PengurusController@update');
+    $r->addRoute('POST', '/dashboard/pengurus/delete/{id}', 'PengurusController@destroy');
+
+    // dojoMajelis
+    $r->addRoute('POST', '/dashboard/dojoMajelis/store', 'DojoMajelisController@store');
+    $r->addRoute('POST', '/dashboard/dojoMajelis/update/{id}', 'DojoMajelisController@update');
+    $r->addRoute('POST', '/dashboard/dojoMajelis/delete', 'DojoMajelisController@destroy');
+
+    // pembayaran
+    $r->addRoute('POST', '/dashboard/pembayaran/store', 'PembayaranController@store');
+    $r->addRoute('POST', '/dashboard/pembayaran/update/{id}', 'PembayaranController@update');
+    $r->addRoute('POST', '/dashboard/pembayaran/delete/{id}', 'PembayaranController@destroy');
 
 
     //errors

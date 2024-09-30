@@ -4,7 +4,7 @@
 @section('content')
 <div class="w-full">
     <h1 class="text-4xl font-bold pb-10 text-blue-950">{{$dojo->nama}}</h1>
-    <div class="grid grid-cols-1">
+    <div class="w-full">
         <table class="w-fit">
             <tr>
                 <td>Lokasi</td>
@@ -25,11 +25,14 @@
             <tr>
                 <td>Pelatih</td>
                 <td class="px-2">:</td>
-                @foreach ($majelis as $index => $m)
-                <td>
-                    {{$m->nama}}
+                <td class="flex justify-end w-full">
+                    <div>
+                        @foreach ($majelis as $index => $m)
+
+                        {{$m->nama}},
+                        @endforeach
+                    </div>
                 </td>
-                @endforeach
             </tr>
         </table>
 
@@ -53,6 +56,7 @@
             </tr>
             @endforeach
         </table>
+
     </div>
 </div>
 @endsection

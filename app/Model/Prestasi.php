@@ -8,14 +8,14 @@ use illuminate\Database\Eloquent\Model;
 class Prestasi extends Model
 {
     protected $table = 'prestasis';
-    protected $primaryKey = 'id_prestasi';
+    protected $primaryKey = 'id';
 
     public $timestamps = true;
 
     protected $fillable = [
-        'id_prestasi',
+        'id',
         'id_anggota',
-        'nama_prestasi',
+        'nama',
         'tahun',
         'tingkat',
         'created_at',

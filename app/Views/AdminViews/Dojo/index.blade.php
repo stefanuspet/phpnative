@@ -5,20 +5,73 @@
 <div class="w-full">
     <h1 class="text-4xl font-bold pb-10 text-blue-950">Cabang</h1>
     <div class="flex justify-between">
+        @php
+        // Mengambil segmen terakhir dari URL
+        $segments = explode('/', $_SERVER['REQUEST_URI']);
+        $lastSegment = end($segments);
+        @endphp
+
+        @if ($lastSegment == 'cabang-gowa')
         <div class="flex items-center justify-start gap-x-5">
-            <div class="px-3 py-1 bg-blue-600 rounded-md text-white cursor-pointer">
+            <a href="/dashboard/cabang" class="px-3 py-1 border border-blue-600 hover:bg-blue-600 hover:text-white rounded-md text-blue-600 cursor-pointer">
                 Semua
-            </div>
-            <div class="px-3 py-1 border border-blue-600 rounded-md text-blue-600 hover:bg-blue-600 hover:text-white cursor-pointer">
+            </a>
+            <a href="/dashboard/cabang-gowa" class="px-3 py-1 bg-blue-600 rounded-md text-white hover:bg-blue-600 hover:text-white cursor-pointer">
                 Gowa
-            </div>
-            <div class="px-3 py-1 border border-blue-600 rounded-md text-blue-600 hover:bg-blue-600 hover:text-white cursor-pointer">
+            </a>
+            <a href="/dashboard/cabang-makasar" class="px-3 py-1 border border-blue-600 rounded-md text-blue-600 hover:bg-blue-600 hover:text-white cursor-pointer">
                 Makasar
-            </div>
-            <div class="px-3 py-1 border border-blue-600 rounded-md text-blue-600 hover:bg-blue-600 hover:text-white cursor-pointer">
+            </a>
+            <a href="/dashboard/cabang-bone" class="px-3 py-1 border border-blue-600 rounded-md text-blue-600 hover:bg-blue-600 hover:text-white cursor-pointer">
                 Bone
-            </div>
+            </a>
         </div>
+        @elseif ($lastSegment == 'cabang-makasar')
+        <div class="flex items-center justify-start gap-x-5">
+            <a href="/dashboard/cabang" class="px-3 py-1 border border-blue-600 hover:bg-blue-600 hover:text-white rounded-md text-blue-600 cursor-pointer">
+                Semua
+            </a>
+            <a href="/dashboard/cabang-gowa" class="px-3 py-1 border border-blue-600 rounded-md text-blue-600 hover:bg-blue-600 hover:text-white cursor-pointer">
+                Gowa
+            </a>
+            <a href="/dashboard/cabang-makasar" class="px-3 py-1 bg-blue-600 rounded-md text-white hover:bg-blue-600 hover:text-white cursor-pointer">
+                Makasar
+            </a>
+            <a href="/dashboard/cabang-bone" class="px-3 py-1 border border-blue-600 rounded-md text-blue-600 hover:bg-blue-600 hover:text-white cursor-pointer">
+                Bone
+            </a>
+        </div>
+        @elseif ($lastSegment == 'cabang-bone')
+        <div class="flex items-center justify-start gap-x-5">
+            <a href="/dashboard/cabang" class="px-3 py-1 border border-blue-600 hover:bg-blue-600 hover:text-white rounded-md text-blue-600 cursor-pointer">
+                Semua
+            </a>
+            <a href="/dashboard/cabang-gowa" class="px-3 py-1 border border-blue-600 rounded-md text-blue-600 hover:bg-blue-600 hover:text-white cursor-pointer">
+                Gowa
+            </a>
+            <a href="/dashboard/cabang-makasar" class="px-3 py-1 border border-blue-600 rounded-md text-blue-600 hover:bg-blue-600 hover:text-white cursor-pointer">
+                Makasar
+            </a>
+            <a href="/dashboard/cabang-bone" class="px-3 py-1 bg-blue-600 rounded-md text-white hover:bg-blue-600 hover:text-white cursor-pointer">
+                Bone
+            </a>
+        </div>
+        @else
+        <div class="flex items-center justify-start gap-x-5">
+            <a href="/dashboard/cabang" class="px-3 py-1 bg-blue-600 rounded-md text-white cursor-pointer">
+                Semua
+            </a>
+            <a href="/dashboard/cabang-gowa" class="px-3 py-1 border border-blue-600 rounded-md text-blue-600 hover:bg-blue-600 hover:text-white cursor-pointer">
+                Gowa
+            </a>
+            <a href="/dashboard/cabang-makasar" class="px-3 py-1 border border-blue-600 rounded-md text-blue-600 hover:bg-blue-600 hover:text-white cursor-pointer">
+                Makasar
+            </a>
+            <a href="/dashboard/cabang-bone" class="px-3 py-1 border border-blue-600 rounded-md text-blue-600 hover:bg-blue-600 hover:text-white cursor-pointer">
+                Bone
+            </a>
+        </div>
+        @endif
         <a href="/dashboard/cabang/create" class="px-3 py-1 bg-green-600 rounded-md text-white">Tambah Dojo</a>
     </div>
     <div class="w-full py-5">
@@ -58,8 +111,6 @@
                             <input type="hidden" name="id" value="{{ $items->id }}">
                             <button type="submit" class="px-3 py-1 hover:bg-red-700 bg-red-600 rounded-md text-white">Hapus</button>
                         </form>
-
-
                     </div>
                 </div>
             </div>

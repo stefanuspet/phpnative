@@ -18,5 +18,8 @@
     <?php unset($_SESSION['error']); ?> <!-- Hapus pesan error setelah ditampilkan -->
     @endif
     <button type="submit" class="bg-blue-600 text-white w-full rounded-sm py-2 mt-5">MASUK</button>
+    <div class="text-center mt-5">
+        <a href="/register" class="text-blue-600">Belum punya akun? Daftar disini</a>
+    </div>
 </form>
 @endsection

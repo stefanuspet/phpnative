@@ -31,31 +31,58 @@
             </div>
             <div class="mb-3">
                 <label for="jenis_kelamin" class="block">Jenis Kelamin</label>
-                <select name="jenis_kelamin" id="jenis_kelamin" class="w-full border border-blue-600 rounded-md p-2" required>
-                    <option value="">Choose</option>
-                    <option value="Laki-laki">Laki-laki</option>
-                    <option value="Perempuan">Perempuan</option>
-                </select>
+                <div class="flex items-center ml-4">
+                    <input type="radio" name="jenis_kelamin" id="jenis_kelamin_laki" value="Laki-laki" class="mr-2" required>
+                    <label for="jenis_kelamin_laki" class="mr-4">Laki-laki</label>
+                    <input type="radio" name="jenis_kelamin" id="jenis_kelamin_perempuan" value="Perempuan" class="mr-2" required>
+                    <label for="jenis_kelamin_perempuan">Perempuan</label>
+                </div>
             </div>
             <div class="mb-3">
-                <label for="alamat" class="block">Alamat</label>
+                <label for="alamat" class="block">Alamat Rumah</label>
                 <input type="text" name="alamat" id="alamat" class="w-full border border-blue-600 rounded-md p-2" required>
             </div>
             <div class="mb-3">
-                <label for="tahun_gabung" class="block">Tahun Gabung</label>
-                <input type="number" name="tahun_gabung" id="tahun_gabung" class="w-full border border-blue-600 rounded-md p-2" required>
+                <label for="tahun_gabung" class="block">Bergabung Pada Tahun (Masuk BKC)</label>
+                <input type="number" name="tahun_gabung" id="tahun_gabung" class="w-full border border-blue-600 rounded-md p-2" required min="1900" max="9999" placeholder="YYYY" oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 4)">
             </div>
             <div class="mb-3">
                 <label for="jabatan" class="block">Jabatan</label>
-                <input type="text" name="jabatan" id="jabatan" class="w-full border border-blue-600 rounded-md p-2" required>
+                <select name="jabatan" id="jabatan" class="w-full border border-blue-600 rounded-md p-2" required>
+                    <option value="">Choose</option>
+                    <option value="Ketua Umum">Ketua Umum</option>
+                    <option value="Sekretaris Umum">Serketaris Umum</option>
+                    <option value="Bendahara Umum">Bendahara Umum</option>
+                    <option value="Ketua Staf Pelatih">Ketua Staf Pelatih</option>
+                    <option value="Ketua Majelis Sabuk Hitam">Ketua Majelis Sabuk Hitam</option>
+                    <option value="Perwasitan">Perwasitan</option>
+                    <option value="Usaha Dan Dana">Usaha Dan Dana</option>
+                    <option value="Humas">Humas</option>
+                    <option value="Pelatih Dojo">Pelatih Dojo</option>
+                </select>
             </div>
             <div class="mb-3">
-                <label for="tingkat_sabuk" class="block">Tingkat Sabuk</label>
-                <input type="text" name="tingkat_sabuk" id="tingkat_sabuk" class="w-full border border-blue-600 rounded-md p-2" required>
+                <label for="tingkat_sabuk" class="block">Tingkatan Sabuk Saat ini</label>
+                <select name="tingkat_sabuk" id="tingkat_sabuk" class="w-full border border-blue-600 rounded-md p-2" required>
+                    <option value="">Choose</option>
+                    <option value="DAN I">DAN I</option>
+                    <option value="DAN II">DAN II</option>
+                    <option value="DAN III">DAN III</option>
+                    <option value="DAN IV">DAN IV</option>
+                    <option value="DAN V">DAN V</option>
+                    <option value="DAN VI">DAN VI</option>
+                    <option value="DAN VII">DAN VII</option>
+                    <option value="DAN VIII">DAN VIII</option>
+                </select>
             </div>
             <div class="mb-3">
                 <label for="spesialis" class="block">Spesialis</label>
-                <input type="text" name="spesialis" id="spesialis" class="w-full border border-blue-600 rounded-md p-2" required>
+                <div class="flex items-center ml-4">
+                    <input type="radio" name="spesialis" id="spesialis_kata" value="KATA" class="mr-2" required>
+                    <label for="spesialis_kata" class="mr-4">KATA</label>
+                    <input type="radio" name="spesialis" id="spesialis_kumite" value="KUMITE" class="mr-2" required>
+                    <label for="spesialis_kumite">KUMITE</label>
+                </div>
             </div>
             <div class="mb-3">
                 <label for="foto" class="block">Foto</label>

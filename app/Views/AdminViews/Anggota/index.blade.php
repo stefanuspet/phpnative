@@ -7,15 +7,43 @@
     <h1 class="text-4xl font-bold text-blue-950 pb-10">Data Anggota</h1>
     <div class="flex justify-between">
         <div class="flex items-center justify-start gap-x-5">
-            <div class="px-3 py-1 bg-blue-600 rounded-md text-white cursor-pointer">
+            @php
+            // Mengambil segmen terakhir dari URL
+            $segments = explode('/', $_SERVER['REQUEST_URI']);
+            $lastSegment = end($segments);
+            @endphp
+
+            @if ($lastSegment == 'anggota-biasa')
+            <a href="/dashboard/anggota" class="px-3 py-1 border border-blue-600 rounded-md text-blue-600 hover:bg-blue-600 hover:text-white cursor-pointer">
                 Semua
-            </div>
-            <div class="px-3 py-1 border border-blue-600 rounded-md text-blue-600 hover:bg-blue-600 hover:text-white cursor-pointer">
+            </a>
+            <a href="/dashboard/anggota-biasa" class="px-3 py-1 bg-blue-600 rounded-md text-white cursor-pointer">
                 Anggota
-            </div>
-            <div class="px-3 py-1 border border-blue-600 rounded-md text-blue-600 hover:bg-blue-600 hover:text-white cursor-pointer">
+            </a>
+            <a href="/dashboard/anggota-atlet" class="px-3 py-1 border border-blue-600 rounded-md text-blue-600 hover:bg-blue-600 hover:text-white cursor-pointer">
                 Atlet
-            </div>
+            </a>
+            @elseif ($lastSegment == 'anggota-atlet')
+            <a href="/dashboard/anggota" class="px-3 py-1 border border-blue-600 rounded-md text-blue-600 hover:bg-blue-600 hover:text-white cursor-pointer">
+                Semua
+            </a>
+            <a href="/dashboard/anggota-biasa" class="px-3 py-1 border border-blue-600 rounded-md text-blue-600 hover:bg-blue-600 hover:text-white cursor-pointer">
+                Anggota
+            </a>
+            <a href="/dashboard/anggota-atlet" class="px-3 py-1 bg-blue-600 rounded-md text-white cursor-pointer">
+                Atlet
+            </a>
+            @else
+            <a href="/dashboard/anggota" class="px-3 py-1 bg-blue-600 rounded-md text-white cursor-pointer">
+                Semua
+            </a>
+            <a href="/dashboard/anggota-biasa" class="px-3 py-1 border border-blue-600 rounded-md text-blue-600 hover:bg-blue-600 hover:text-white cursor-pointer">
+                Anggota
+            </a>
+            <a href="/dashboard/anggota-atlet" class="px-3 py-1 border border-blue-600 rounded-md text-blue-600 hover:bg-blue-600 hover:text-white cursor-pointer">
+                Atlet
+            </a>
+            @endif
         </div>
         <a href="/dashboard/anggota/create" class="px-3 py-2 bg-green-600 rounded-md text-white">
             Tambah Anggota

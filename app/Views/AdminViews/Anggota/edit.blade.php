@@ -57,12 +57,21 @@
             </div>
             <div class="mb-3">
                 <label for="status" class="block">Status</label>
-                <input type="text" name="status" id="status" class="w-full border border-blue-600 rounded-md p-2" required value="{{ $anggota->status }}">
+                <div class="flex items-center">
+                    <input type="radio" name="status" id="status_atlet" value="Atlet" class="mr-2" {{ $anggota->status == 'Atlet' ? 'checked' : '' }}>
+                    <label for="status_atlet" class="mr-4">Atlet</label>
+                    <input type="radio" name="status" id="status_anggota_biasa" value="Anggota Biasa" class="mr-2" {{ $anggota->status == 'Anggota Biasa' ? 'checked' : '' }}>
+                    <label for="status_anggota_biasa">Anggota Biasa</label>
+                </div>
             </div>
             <div class="mb-3">
                 <label for="foto" class="block">Foto</label>
                 <input type="file" name="foto" id="foto" class="w-full border border-blue-600 rounded-md p-2">
-
+                @if($anggota->foto)
+                <div class="mt-3">
+                    <img src="/uploads/{{$anggota->foto}}" alt="Foto Anggota" class="w-32 h-32 object-cover rounded-md">
+                </div>
+                @endif
             </div>
             <div class="flex justify-end mt-10">
                 <button class="px-3 py-1 bg-green-600 rounded-md text-white">Update</button>

@@ -7,8 +7,10 @@ use App\Model\Prestasi;
 use App\Model\Majelis;
 use App\Model\Dojo;
 use App\Model\DojoMajelis;
+use App\Model\Kegiatan;
 use App\Model\Latihan;
 use App\Model\Pembayaran;
+use App\Model\Pengurus;
 
 class AdminController
 {
@@ -57,6 +59,74 @@ class AdminController
             ]
         );
     }
+
+    public function cabangBone()
+    {
+        $dojos = Dojo::where('cabang', 'Bone')->get();
+        // get anggota in every dojo
+
+        foreach ($dojos as $dojo) {
+            $dojo->count_anggota = Dojo::find($dojo->id)->anggota()->count();
+        }
+
+        echo $this->blade->run(
+            "adminViews.Dojo.index",
+            [
+                'dojos' => $dojos
+            ]
+        );
+    }
+
+    public function cabangMakasar()
+    {
+        $dojos = Dojo::where('cabang', 'Makasar')->get();
+        // get anggota in every dojo
+
+        foreach ($dojos as $dojo) {
+            $dojo->count_anggota = Dojo::find($dojo->id)->anggota()->count();
+        }
+
+        echo $this->blade->run(
+            "adminViews.Dojo.index",
+            [
+                'dojos' => $dojos
+            ]
+        );
+    }
+
+    public function cabangGowa()
+    {
+        $dojos = Dojo::where('cabang', 'Gowa')->get();
+        // get anggota in every dojo
+
+        foreach ($dojos as $dojo) {
+            $dojo->count_anggota = Dojo::find($dojo->id)->anggota()->count();
+        }
+
+        echo $this->blade->run(
+            "adminViews.Dojo.index",
+            [
+                'dojos' => $dojos
+            ]
+        );
+    }
+
+    // public function showDetailDojoBone()
+    // {
+    //     $dojos = Dojo::where('cabang', 'Bone')->get();
+    //     // get anggota in every dojo
+
+    //     foreach ($dojos as $dojo) {
+    //         $dojo->count_anggota = Dojo::find($dojo->id)->anggota()->count();
+    //     }
+
+    //     echo $this->blade->run(
+    //         "adminViews.Dojo.index",
+    //         [
+    //             'dojos' => $dojos
+    //         ]
+    //     );
+    // }
 
     public function showDetailDojo()
     {
@@ -241,6 +311,43 @@ class AdminController
         );
     }
 
+    public function showAnggotaAtlet()
+    {
+        $anggota = Anggota::where('status', 'Atlet')->get();
+        // get anggota dojo
+        foreach ($anggota as $a) {
+            $a->dojo = Dojo::find($a->id_dojo);
+        }
+        // add count total prestasi
+        foreach ($anggota as $a) {
+            $a->count_prestasi = Anggota::find($a->nid)->prestasi()->count();
+        }
+        echo $this->blade->run(
+            "adminViews.Anggota.index",
+            [
+                'anggota' => $anggota
+            ]
+        );
+    }
+    public function showAnggotaBiasa()
+    {
+        $anggota = Anggota::where('status', 'Anggota Biasa')->get();
+        // get anggota dojo
+        foreach ($anggota as $a) {
+            $a->dojo = Dojo::find($a->id_dojo);
+        }
+        // add count total prestasi
+        foreach ($anggota as $a) {
+            $a->count_prestasi = Anggota::find($a->nid)->prestasi()->count();
+        }
+        echo $this->blade->run(
+            "adminViews.Anggota.index",
+            [
+                'anggota' => $anggota
+            ]
+        );
+    }
+
     public function latihan()
     {
         $anggota = Anggota::all();
@@ -296,6 +403,209 @@ class AdminController
             [
                 'anggota' => $anggota,
                 'pembayaran' => $pembayaran
+            ]
+        );
+    }
+    public function kegiatan()
+    {
+        $kegiatan = Kegiatan::all();
+        // count peserta
+        foreach ($kegiatan as $k) {
+            $k->count_peserta = Kegiatan::find($k->id)->peserta()->count();
+        }
+        // get dd on kegiatan->date
+        foreach ($kegiatan as $k) {
+            $k->day = date('d', strtotime($k->tanggal));
+        }
+        //get month years on kegiatan->date
+        foreach ($kegiatan as $k) {
+            $k->month = date('F Y', strtotime($k->tanggal));
+        }
+        echo $this->blade->run(
+            "adminViews.Kegiatan.index",
+            [
+                'kegiatan' => $kegiatan
+            ]
+        );
+
+        // var_dump($kegiatan);
+    }
+
+    public function showKegiatanById()
+    {
+        $requestUri = $_SERVER['REQUEST_URI'];
+        $uri = strtok($requestUri, '?');
+        $pathSegments = explode('/', $uri);
+        $id = end($pathSegments);
+
+        $kegiatan = Kegiatan::find($id);
+        // count perserta
+        $kegiatan->count_peserta = Kegiatan::find($id)->peserta()->count();
+        // format tanggal kegiatan day Mother Year
+        $kegiatan->date = date('d F Y', strtotime($kegiatan->tanggal));
+        $peserta = Kegiatan::find($id)->peserta()->get();
+        // add anggota to peserta
+        foreach ($peserta as $p) {
+            $p->anggota = Anggota::find($p->id_anggota);
+        }
+
+        // format tanggal lahir dd-mm-yyyy
+        foreach ($peserta as $p) {
+            $p->anggota->tanggal_lahir = date('d-m-Y', strtotime($p->anggota->tanggal_lahir));
+        }
+
+        // add
+
+        echo $this->blade->run(
+            "adminViews.Kegiatan.showDetail",
+            [
+                'kegiatan' => $kegiatan,
+                'peserta' => $peserta
+            ]
+        );
+    }
+
+    public function createKegiatan()
+    {
+        echo $this->blade->run(
+            "adminViews.Kegiatan.create"
+        );
+    }
+
+    public function editKegiatan()
+    {
+        $requestUri = $_SERVER['REQUEST_URI'];
+        $uri = strtok($requestUri, '?');
+        $pathSegments = explode('/', $uri);
+        $id = end($pathSegments);
+
+        $kegiatan = Kegiatan::find($id);
+        echo $this->blade->run(
+            "adminViews.Kegiatan.edit",
+            [
+                'kegiatan' => $kegiatan
+            ]
+        );
+    }
+
+    public function prestasi()
+    {
+        $prestasi = Prestasi::all();
+        // add anggota to prestasi
+        foreach ($prestasi as $p) {
+            $p->anggota = Anggota::find($p->id_anggota);
+        }
+        // format tanggal lahir dd-mm-yyyy
+        foreach ($prestasi as $p) {
+            $p->anggota->tanggal_lahir = date('d-m-Y', strtotime($p->anggota->tanggal_lahir));
+        }
+        echo $this->blade->run(
+            "adminViews.Prestasi.index",
+            [
+                'prestasi' => $prestasi
+            ]
+        );
+    }
+
+    public function createPrestasi()
+    {
+        $requestUri = $_SERVER['REQUEST_URI'];
+        $uri = strtok($requestUri, '?');
+        $pathSegments = explode('/', $uri);
+        $id = end($pathSegments);
+
+        $anggota = Anggota::find($id);
+        echo $this->blade->run(
+            "adminViews.Prestasi.create",
+            [
+                'anggota' => $anggota
+            ]
+        );
+    }
+
+    public function editPrestasi()
+    {
+        // Mendapatkan URL yang diakses
+        $requestUri = $_SERVER['REQUEST_URI'];
+
+        // Menghapus query string jika ada
+        $uri = strtok($requestUri, '?');
+
+        // Memecah URL menjadi segmen
+        $pathSegments = explode('/', $uri);
+        // Mendapatkan {id} dan {id_anggota}
+        $id_anggota = end($pathSegments); // Segmen terakhir
+        $id = prev($pathSegments); // Segmen sebelum terakhir
+
+        $prestasi = Prestasi::find($id);
+        echo $this->blade->run(
+            "adminViews.Prestasi.edit",
+            [
+                'prestasi' => $prestasi,
+                'id_anggota' => $id_anggota
+            ]
+        );
+    }
+
+    public function pengurus()
+    {
+        $pengurus = Pengurus::orderByRaw("FIELD(jabatan, 'Ketua Dewan Pembina', 'Anggota Dewan Pembina', 'Ketua umum', 'Sekretaris umum', 'Bendahara umum', 'Ketua staf pelatih', 'Ketua majelis sabuk hitam', 'Bidang Prestasi', 'Perwasitan', 'Usaha dan dana', 'Humas')")->get();
+        echo $this->blade->run(
+            "adminViews.Pengurus.index",
+            [
+                'pengurus' => $pengurus
+            ]
+        );
+    }
+
+
+    public function createPengurus()
+    {
+        echo $this->blade->run(
+            "adminViews.Pengurus.create"
+        );
+    }
+
+    public function editPengurus()
+    {
+        // Mendapatkan URL yang diakses
+        $requestUri = $_SERVER['REQUEST_URI'];
+
+        // Menghapus query string jika ada
+        $uri = strtok($requestUri, '?');
+
+        // Memecah URL menjadi segmen
+        $pathSegments = explode('/', $uri);
+        // Mendapatkan {id} dan {id_anggota}
+        $id = end($pathSegments); // Segmen terakhir
+
+        $pengurus = Pengurus::find($id);
+        echo $this->blade->run(
+            "adminViews.Pengurus.edit",
+            [
+                'pengurus' => $pengurus
+            ]
+        );
+    }
+
+    public function dojoMajelis()
+    {
+        $dojoMajelis = DojoMajelis::all();
+        // get dojo and majelis
+        foreach ($dojoMajelis as $dm) {
+            $dm->dojo = Dojo::find($dm->id_dojo);
+            $dm->majelis = Majelis::find($dm->id_majelis);
+        }
+
+        $dojoall = Dojo::all();
+
+        $majelisall = Majelis::all();
+        echo $this->blade->run(
+            "adminViews.DojoMajelis.index",
+            [
+                'dojoMajelis' => $dojoMajelis,
+                'dojoall' => $dojoall,
+                'majelisall' => $majelisall
             ]
         );
     }

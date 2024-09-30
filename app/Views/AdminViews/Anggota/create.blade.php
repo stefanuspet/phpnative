@@ -17,7 +17,7 @@
                 <input type="number" name="nid" id="nid" class="w-full border border-blue-600 rounded-md p-2" required>
             </div>
             <div class="mb-3">
-                <label for="nama" class="block">Nama Anggotas</label>
+                <label for="nama" class="block">Nama Anggota</label>
                 <input type="text" name="nama" id="nama" class="w-full border border-blue-600 rounded-md p-2" required>
             </div>
             <div class="mb-3">
@@ -40,19 +40,20 @@
             </div>
             <div class="mb-3">
                 <label for="jenis_kelamin" class="block">Jenis Kelamin</label>
-                <select name="jenis_kelamin" id="jenis_kelamin" class="w-full border border-blue-600 rounded-md p-2" required>
-                    <option value="">Choose</option>
-                    <option value="Laki-laki">Laki-laki</option>
-                    <option value="Perempuan">Perempuan</option>
-                </select>
+                <div class="flex items-center">
+                    <input type="radio" name="jenis_kelamin" id="jenis_kelamin_laki" value="Laki-laki" class="mr-2" required>
+                    <label for="jenis_kelamin_laki" class="mr-4">Laki-laki</label>
+                    <input type="radio" name="jenis_kelamin" id="jenis_kelamin_perempuan" value="Perempuan" class="mr-2" required>
+                    <label for="jenis_kelamin_perempuan">Perempuan</label>
+                </div>
             </div>
             <div class="mb-3">
                 <label for="alamat" class="block">Alamat</label>
-                <input type="text" name="alamat" id="alamat" class="w-full border border-blue-600 rounded-md p-2" required>
+                <input type="text" name="alamat" id="alamat" class="w-full border border-blue-600 rounded-md p-2">
             </div>
             <div class="mb-3">
                 <label for="tahun_gabung" class="block">Tahun Gabung</label>
-                <input type="number" name="tahun_gabung" id="tahun_gabung" class="w-full border border-blue-600 rounded-md p-2" required>
+                <input type="number" name="tahun_gabung" id="tahun_gabung" class="w-full border border-blue-600 rounded-md p-2">
             </div>
             <div class="mb-3">
                 <label for="nomor" class="block">Nomor</label>
@@ -60,15 +61,20 @@
             </div>
             <div class="mb-3">
                 <label for="tingkat_sabuk" class="block">Tingkat Sabuk</label>
-                <input type="text" name="tingkat_sabuk" id="tingkat_sabuk" class="w-full border border-blue-600 rounded-md p-2" required>
+                <input type="text" name="tingkat_sabuk" id="tingkat_sabuk" class="w-full border border-blue-600 rounded-md p-2">
             </div>
             <div class="mb-3">
                 <label for="status" class="block">Status</label>
-                <input type="text" name="status" id="status" class="w-full border border-blue-600 rounded-md p-2" required>
+                <div class="flex items-center">
+                    <input type="radio" name="status" id="status_Atlet" value="Atlet" class="mr-2" required>
+                    <label for="status_Atlet" class="mr-4">Atlet</label>
+                    <input type="radio" name="status" id="status_Anggota_biasa" value="Anggota Biasa" class="mr-2" required>
+                    <label for="status_Anggota_biasa">Anggota Biasa</label>
+                </div>
             </div>
             <div class="mb-3">
                 <label for="foto" class="block">Foto</label>
-                <input type="file" name="foto" id="foto" class="w-full border border-blue-600 rounded-md p-2" required>
+                <input type="file" name="foto" id="foto" class="w-full border border-blue-600 rounded-md p-2">
             </div>
             <div class="flex justify-end mt-10">
                 <button class="px-3 py-1 bg-green-600 rounded-md text-white">Simpan</button>

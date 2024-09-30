@@ -24,6 +24,7 @@ final class CreatePesertasTable extends AbstractMigration
             ->addColumn('id', 'biginteger', ['signed' => false, 'identity' => true])
             ->addColumn('id_kegiatan', 'biginteger', ['signed' => false, 'null' => false])
             ->addColumn('id_anggota', 'biginteger', ['signed' => false, 'null' => false])
+            ->addColumn('tanggal_daftar', 'date', ['null' => false])
             ->addColumn('created_at', 'timestamp', ['default' => 'CURRENT_TIMESTAMP'])
             ->addColumn('updated_at', 'timestamp', ['default' => 'CURRENT_TIMESTAMP'])
             ->addForeignKey("id_kegiatan", "kegiatans", "id", ['delete' => 'CASCADE', 'update' => 'CASCADE'])

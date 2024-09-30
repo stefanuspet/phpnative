@@ -22,7 +22,8 @@
             <tbody>
                 @forelse ($latihan as $items )
                 <tr>
-                    <td class="px-6 py-4">{{$items->created_at}}</td>
+                    <td class="px-6 py-4">{{ \Carbon\Carbon::parse($items->created_at)->format('d-m-Y') }}</td>
+
                     <td class="px-6 py-4">{{$items->progres}}</td>
                     <td class="px-6 py-4">{{$items->catatan }}</td>
                     <!-- form delete -->
@@ -35,7 +36,7 @@
                 </tr>
                 @empty
                 <tr>
-                    <td colspan="3" class="text-center">Data tidak ditemukan</td>
+                    <td colspan="4" class="text-center">Data tidak ditemukan</td>
                 </tr>
                 @endforelse
             </tbody>

@@ -64,7 +64,7 @@ switch ($routeInfo[0]) {
 
             // Panggil metode controller
             if (method_exists($controller, $methodName)) {
-                if (in_array($methodName, ['store', 'update', 'destroy', 'login'])) {
+                if (in_array($methodName, ['store', 'update', 'destroy', 'login', 'registerStore', 'registerAnggotaStore', 'registerMajelisStore'])) {
                     $controller->$methodName($_REQUEST);
                 } else {
                     $controller->$methodName();

@@ -8,7 +8,7 @@ use League\Flysystem\Filesystem;
 use League\Flysystem\Local\LocalFilesystemAdapter;
 use League\Flysystem\UnixVisibility\PortableVisibilityConverter;
 
-$adapter = new LocalFilesystemAdapter(__DIR__ . '/storage/uploads');
+$adapter = new LocalFilesystemAdapter(__DIR__ . '/public/uploads');
 $filesystem = new Filesystem($adapter);
 
 $GLOBALS['filesystem'] = $filesystem;
