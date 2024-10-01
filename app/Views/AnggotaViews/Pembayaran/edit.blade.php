@@ -42,7 +42,7 @@
                         $currentYear = date('Y');
                         $startYear = $currentYear - 10; // Adjust as needed
                     @endphp
-                    @for ($year = $startYear; $year <= $currentYear + 10; $year++)
+                    @for ($year = $startYear; $year <= $currentYear + 1; $year++)
                         <option value="{{ $year }}" {{ $year == explode('-', $pembayaran->bulan)[1] ? 'selected' : '' }}>{{ $year }}</option>
                     @endfor
                 </select>

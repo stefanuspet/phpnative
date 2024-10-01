@@ -43,7 +43,7 @@
  $currentYear = date('Y');
  $startYear = $currentYear - 10; // Adjust as needed
  ?>
- <?php for($year = $startYear; $year <= $currentYear + 10; $year++): ?>
+ <?php for($year = $startYear; $year <= $currentYear + 1; $year++): ?>
  <option value="<?php echo \htmlentities($year??'', ENT_QUOTES, 'UTF-8', false); ?>" <?php echo \htmlentities($year == explode('-', $pembayaran->bulan)[1] ? 'selected' : ''??'', ENT_QUOTES, 'UTF-8', false); ?>><?php echo \htmlentities($year??'', ENT_QUOTES, 'UTF-8', false); ?></option>
  <?php endfor; ?>
  </select>
