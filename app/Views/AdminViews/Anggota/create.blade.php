@@ -1,101 +1,44 @@
-@extends('layouts.DashboardLayout')
+@extends('layouts.AnggotaLayout')
 
-@section('title', 'Cabang-store')
+@section('title', 'Pembayaran-store')
 @section('content')
 <div class="w-full">
-    <h1 class="text-4xl font-bold pb-10 text-blue-950">Tambah Anggota</h1>
-    @if (isset($_SESSION['error']))
-    <div class="bg-red-500 text-white p-3 rounded-md w-4/5 mb-4">
-        {{$_SESSION['error']}}
-    </div>
-    <?php unset($_SESSION['error']); ?>
-    @endif
+    <h1 class="text-4xl font-bold pb-10 text-blue-950">Tambah Pembayaran</h1>
     <div class="shadow-md rounded-md bg-white w-4/5">
-        <form action="/dashboard/anggota/store" class="p-4" method="post" enctype="multipart/form-data">
+        <form action="/dashboard/pembayaran/store" class="p-4" method="post" enctype="multipart/form-data">
             <div class="mb-3">
-                <label for="nama" class="block">Nama Anggota</label>
-                <input type="text" name="nama" id="nama" class="w-full border border-blue-600 rounded-md p-2" required>
+                <label for="foto" class="block">Bukti Pembayaran</label>
+                <input type="file" name="foto" id="foto" class="w-full border border-blue-600 rounded-md p-2" accept="image/*" required>
             </div>
-            <div class="mb-3">
-                <label for="tempat_lahir" class="block">Tempat Lahir</label>
-                <input type="text" name="tempat_lahir" id="tempat_lahir" class="w-full border border-blue-600 rounded-md p-2" required>
+            
+            <!-- Input Tanggal (optional) -->
+            <div class="mb-3 relative">
+                <label for="tanggal" class="block">Tanggal Hari Ini</label>
+                <input type="date" name="tanggal" id="tanggal" class="w-full border border-blue-600 rounded-md p-2" value="{{ date('Y-m-d') }}" disabled required>
             </div>
+
             <div class="mb-3">
-                <label for="tanggal_lahir" class="block">Tanggal Lahir</label>
-                <input type="date" name="tanggal_lahir" id="tanggal_lahir" class="w-full border border-blue-600 rounded-md p-2" required>
-            </div>
-            <!-- dojo select -->
-            <div class="mb-3">
-                <label for="id_dojo" class="block">Dojo</label>
-                <select name="id_dojo" id="id_dojo" class="w-full border border-blue-600 rounded-md p-2" required>
-                    <option value="">Choose</option>
-                    @foreach($dojos as $dojo)
-                    <option value="{{$dojo->id}}">{{$dojo->nama}}</option>
-                    @endforeach
+                <label for="bulan" class="block">Pembayaran untuk Bulan</label>
+                <select name="bulan" id="bulan" class="w-full border border-blue-600 rounded-md p-2" required>
+                    <option value="Januari">Januari</option>
+                    <option value="Februari">Februari</option>
+                    <option value="Maret">Maret</option>
+                    <option value="April">April</option>
+                    <option value="Mei">Mei</option>
+                    <option value="Juni">Juni</option>
+                    <option value="Juli">Juli</option>
+                    <option value="Agustus">Agustus</option>
+                    <option value="September">September</option>
+                    <option value="Oktober">Oktober</option>
+                    <option value="November">November</option>
+                    <option value="Desember">Desember</option>
                 </select>
             </div>
-            <div class="mb-3">
-                <label for="jenis_kelamin" class="block">Jenis Kelamin</label>
-                <div class="flex items-center">
-                    <input type="radio" name="jenis_kelamin" id="jenis_kelamin_laki" value="Laki-laki" class="mr-2" required>
-                    <label for="jenis_kelamin_laki" class="mr-4">Laki-laki</label>
-                    <input type="radio" name="jenis_kelamin" id="jenis_kelamin_perempuan" value="Perempuan" class="mr-2" required>
-                    <label for="jenis_kelamin_perempuan">Perempuan</label>
-                </div>
-            </div>
-            <div class="mb-3">
-                <label for="alamat" class="block">Alamat</label>
-                <input type="text" name="alamat" id="alamat" class="w-full border border-blue-600 rounded-md p-2">
-            </div>
-            <div class="mb-3">
-                <label for="tahun_gabung" class="block">Tahun Gabung</label>
-                <input type="number" name="tahun_gabung" id="tahun_gabung" class="w-full border border-blue-600 rounded-md p-2">
-            </div>
-            <div class="mb-3">
-                <label for="nomor" class="block">Nomor</label>
-                <input type="number" name="nomor" id="nomor" class="w-full border border-blue-600 rounded-md p-2" required>
-            </div>
-            <div class="mb-3">
-                <label for="tingkat_sabuk" class="block">Tingkat Sabuk</label>
-                <input type="text" name="tingkat_sabuk" id="tingkat_sabuk" class="w-full border border-blue-600 rounded-md p-2">
-            </div>
-            <!-- Status field -->
-            <div class="mb-3">
-                <label for="status" class="block">Status</label>
-                <div class="flex items-center">
-                    <input type="radio" name="status" id="status_Atlet" value="Atlet" class="mr-2" onclick="toggleNID(true)" required>
-                    <label for="status_Atlet" class="mr-4">Atlet</label>
-                    <input type="radio" name="status" id="status_Anggota_biasa" value="Anggota Biasa" class="mr-2" onclick="toggleNID(false)" required>
-                    <label for="status_Anggota_biasa">Anggota Biasa</label>
-                </div>
-            </div>
-            <!-- NID field (now below Status) -->
-            <div class="mb-3" id="nid-field" style="display: none;">
-                <label for="nid" class="block">Nomor Induk</label>
-                <input type="number" name="nomor_induk" id="nid" class="w-full border border-blue-600 rounded-md p-2">
-            </div>
-            <div class="mb-3">
-                <label for="foto" class="block">Foto</label>
-                <input type="file" name="foto" id="foto" class="w-full border border-blue-600 rounded-md p-2">
-            </div>
+            
             <div class="flex justify-end mt-10">
                 <button class="px-3 py-1 bg-green-600 rounded-md text-white">Simpan</button>
             </div>
         </form>
     </div>
 </div>
-
-<script>
-    // Function to show or hide the NID field
-    function toggleNID(show) {
-        var nidField = document.getElementById('nid-field');
-        if (show) {
-            nidField.style.display = 'block';
-            document.getElementById('nid').required = true;
-        } else {
-            nidField.style.display = 'none';
-            document.getElementById('nid').required = false;
-        }
-    }
-</script>
 @endsection

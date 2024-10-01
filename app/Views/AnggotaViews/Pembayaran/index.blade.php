@@ -12,7 +12,7 @@
         <table class="w-full mt-2 text-center border">
             <thead>
                 <tr class="border text-center">
-                    <th scope="col" class="px-6 py-3">Tanggal Pembayaran</th>
+                    <th scope="col" class="px-6 py-3">Tanggal Bukti Diunggah</th>
                     <th scope="col" class="px-6 py-3">Pembayaran Bulan</th>
                     <th scope="col" class="px-6 py-3">Foto Bukti</th>
                     <th scope="col" class="px-6 py-3">Aksi</th>
@@ -30,7 +30,7 @@
                         </a>
                     </td>
                     <td class="px-6 py-4 inline-flex gap-x-5">
-                        <a href="/dashboard-anggota/latihan/edit/{{$items->id}}" class="bg-yellow-500 text-white p-2 rounded-md">Edit</a>
+                        <a href="/dashboard-anggota/pembayaran/edit/{{$items->id}}" class="bg-yellow-500 text-white p-2 rounded-md">Edit</a>
                         <form action="/dashboard/pembayaran/delete/{{$items->id}}" method="POST">
                             <input type="hidden" name="id" value="{{ $items->id }}">
                             <button type="submit" class="bg-red-500 text-white p-2 rounded-md">Delete</button>

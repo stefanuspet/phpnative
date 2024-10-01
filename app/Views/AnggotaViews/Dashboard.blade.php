@@ -10,6 +10,7 @@
             <img src="/uploads/{{$anggota->foto}}" alt="{{$anggota->foto}}" class="object-cover w-full h-full">
         </div>
             <div>
+                
                 <table class="font-semibold table-auto">
                     <tr>
                         <td>Nomor Induk</td>
@@ -79,6 +80,7 @@
                 </div>
             </a>
         </div>
+       
     </div>
 </div>
 @endsection

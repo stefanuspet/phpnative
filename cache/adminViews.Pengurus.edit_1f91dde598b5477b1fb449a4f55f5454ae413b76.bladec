@@ -1,0 +1,41 @@
+<?php $_shouldextend[1]=1; ?>
+
+<?php $this->startSection('title', 'Pengurus'); ?>
+<?php $this->startSection('content'); ?>
+<div class="w-full">
+ <div class="flex justify-between items-center pb-10">
+ <h1 class="text-4xl font-bold text-blue-950">Tambah Data Pengurus</h1>
+ </div>
+ <div class="shadow-md rounded-md bg-white w-4/5">
+ <form action="/dashboard/pengurus/update/<?php echo \htmlentities($pengurus->id??'', ENT_QUOTES, 'UTF-8', false); ?>" class="p-4" method="post">
+ <input type='hidden' name='<?php  echo '_token'; ?>' value='<?php echo $this->csrf_token; ?>'/>
+ <input type='hidden' name='_method' value='<?php echo 'PUT'; ?>'/>
+ <div class="mb-3">
+ <label for="nama" class="block">Nama</label>
+ <input type="text" name="nama" id="nama" class="w-full border border-blue-600 rounded-md p-2" value="<?php echo \htmlentities($pengurus->nama??'', ENT_QUOTES, 'UTF-8', false); ?>" required>
+ </div>
+ <div class="mb-3">
+ <label for="jabatan" class="block">Jabatan</label>
+ <select name="jabatan" id="jabatan" class="w-full border border-blue-600 rounded-md p-2" required>
+ <option value="">Choose Jabatan</option>
+ <option value="Ketua Dewan Pembina" <?php echo \htmlentities($pengurus->jabatan == 'Ketua Dewan Pembina' ? 'selected' : ''??'', ENT_QUOTES, 'UTF-8', false); ?>>Ketua Dewan Pembina</option>
+ <option value="Anggota Dewan Pembina" <?php echo \htmlentities($pengurus->jabatan == 'Anggota Dewan Pembina' ? 'selected' : ''??'', ENT_QUOTES, 'UTF-8', false); ?>>Anggota Dewan Pembina</option>
+ <option value="Ketua umum" <?php echo \htmlentities($pengurus->jabatan == 'Ketua umum' ? 'selected' : ''??'', ENT_QUOTES, 'UTF-8', false); ?>>Ketua umum</option>
+ <option value="Serketaris umum" <?php echo \htmlentities($pengurus->jabatan == 'Serketaris umum' ? 'selected' : ''??'', ENT_QUOTES, 'UTF-8', false); ?>>Serketaris umum</option>
+ <option value="Bendahara umum" <?php echo \htmlentities($pengurus->jabatan == 'Bendahara umum' ? 'selected' : ''??'', ENT_QUOTES, 'UTF-8', false); ?>>Bendahara umum</option>
+ <option value="Ketua staf pelatih" <?php echo \htmlentities($pengurus->jabatan == 'Ketua staf pelatih' ? 'selected' : ''??'', ENT_QUOTES, 'UTF-8', false); ?>>Ketua staf pelatih</option>
+ <option value="Ketua majelis sabuk hitam" <?php echo \htmlentities($pengurus->jabatan == 'Ketua majelis sabuk hitam' ? 'selected' : ''??'', ENT_QUOTES, 'UTF-8', false); ?>>Ketua majelis sabuk hitam</option>
+ <option value="Bidang Prestasi" <?php echo \htmlentities($pengurus->jabatan == 'Bidang Prestasi' ? 'selected' : ''??'', ENT_QUOTES, 'UTF-8', false); ?>>Bidang Prestasi</option>
+ <option value="Perwasitan" <?php echo \htmlentities($pengurus->jabatan == 'Perwasitan' ? 'selected' : ''??'', ENT_QUOTES, 'UTF-8', false); ?>>Perwasitan</option>
+ <option value="Usaha dan dana" <?php echo \htmlentities($pengurus->jabatan == 'Usaha dan dana' ? 'selected' : ''??'', ENT_QUOTES, 'UTF-8', false); ?>>Usaha dan dana</option>
+ <option value="Humas" <?php echo \htmlentities($pengurus->jabatan == 'Humas' ? 'selected' : ''??'', ENT_QUOTES, 'UTF-8', false); ?>>Humas</option>
+ </select>
+ </div>
+ <div class="flex justify-end mt-10">
+ <button class="px-3 py-1 bg-green-600 rounded-md text-white">Simpan</button>
+ </div>
+ </form>
+ </div>
+</div>
+<?php $this->stopSection(); ?>
+<?php if (isset($_shouldextend[1])) { echo $this->runChild('layouts.DashboardLayout'); } ?>

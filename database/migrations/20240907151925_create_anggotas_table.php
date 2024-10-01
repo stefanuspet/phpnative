@@ -35,6 +35,7 @@ final class CreateAnggotasTable extends AbstractMigration
             ->addColumn('tempat_lahir', 'string', ['null' => false])
             ->addColumn('created_at', 'timestamp', ['default' => 'CURRENT_TIMESTAMP'])
             ->addColumn('updated_at', 'timestamp', ['default' => 'CURRENT_TIMESTAMP'])
+            ->addColumn('nomor_induk', 'string', ['null' => false])
             ->addForeignKey("id_dojo", "dojos", "id", ['delete' => 'CASCADE', 'update' => 'CASCADE'])
             ->addIndex(['nid'], ['unique' => true])
             ->create();

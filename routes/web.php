@@ -75,6 +75,7 @@ return function (RouteCollector $r) {
     $r->addRoute('GET', '/dashboard-anggota/latihan/edit/{id}', 'AnggotaController@latihanEdit');
     $r->addRoute('GET', '/dashboard-anggota/pembayaran', 'AnggotaController@pembayaran');
     $r->addRoute('GET', '/dashboard-anggota/pembayaran/create', 'AnggotaController@pembayaranCreate');
+    $r->addRoute('GET', '/dashboard-anggota/pembayaran/edit/{id}', 'AnggotaController@pembayaranEdit');
 
 
 

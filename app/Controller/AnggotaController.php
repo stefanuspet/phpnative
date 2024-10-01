@@ -270,6 +270,25 @@ class AnggotaController
         echo $this->blade->run("AnggotaViews.Latihan.edit", ['latihan' => $latihan]);
     }
 
+    public function pembayaranEdit()
+    {
+        if ($_SESSION['user']['role'] != 'anggota') {
+            header('Location: /error');
+        }
+        // Mendapatkan URL yang diakses
+        $requestUri = $_SERVER['REQUEST_URI'];
+
+        // Menghapus query string jika ada
+        $uri = strtok($requestUri, '?');
+
+        // Memecah URL menjadi segmen
+        $pathSegments = explode('/', $uri);
+        // Mendapatkan {id} dan {id_anggota}
+        $id = end($pathSegments); // Segmen terakhir
+        $pembayaran = Pembayaran::find($id);
+        echo $this->blade->run("AnggotaViews.Pembayaran.edit", ['pembayaran' => $pembayaran]);
+    }
+
     public function pembayaran()
     {
         if ($_SESSION['user']['role'] != 'anggota') {
