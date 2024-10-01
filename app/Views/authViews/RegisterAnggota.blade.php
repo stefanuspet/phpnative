@@ -5,8 +5,8 @@
 <h1 class="text-center font-semibold text-xl">Register Anggota</h1>
 <form action="/register/anggota/create" class="p-4" method="post" enctype="multipart/form-data">
     <div class="mb-3">
-        <label for="nid" class="block">Nid</label>
-        <input type="number" name="nid" id="nid" class="w-full border border-blue-600 rounded-md p-2" required value="{{ $anggota->nid }}" disabled>
+        <label for="nid" class="block">Nomor Induk</label>
+        <input type="number" name="nomor_induk" id="nid" class="w-full border border-blue-600 rounded-md p-2" required value="{{ $anggota->nomor_induk }}" disabled>
     </div>
     <div class="mb-3">
         <label for="password" class="block">Password</label>
