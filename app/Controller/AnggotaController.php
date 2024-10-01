@@ -28,56 +28,70 @@ class AnggotaController
 
     public function store($request)
     {
-        if($request['nomor_induk']){
-            if ($request['nomor_induk'] == Anggota::where('nomor_induk', $request['nomor_induk'])->exists() || $request['nomor_induk'] == Majelis::where('nit', $request['nomor_induk'])->exists() || $request['nomor_induk'] == User::where('credential_id', $request['nomor_induk'])->exists()) {
-                header('Location: /dashboard/anggota/create');
-                $_SESSION['error'] = 'Nomor Induk sudah Terpakai';
-                exit();
-            }
-        }
+        $anggota = new Anggota();
+        // Check the status of 'anggota'
+        if ($request['status'] === 'Anggota Biasa') {
+            // If status is 'Anggota Biasa', set nomor_induk to empty
+            $anggota->nomor_induk = '';
+        } else {
+            // If status is not 'Anggota Biasa', check nomor_induk
+            if (isset($request['nomor_induk']) && !empty($request['nomor_induk'])) {
+                // Check for duplicates
+                if (Anggota::where('nomor_induk', $request['nomor_induk'])->exists() ||
+                    Majelis::where('nit', $request['nomor_induk'])->exists() ||
+                    User::where('credential_id', $request['nomor_induk'])->exists()) {
+                    $_SESSION['error'] = 'Nomor Induk sudah Terpakai';
+                    echo $_SESSION['error'];
+                    exit();
+                }
         
+                // Check if old_nomor_induk exists in User table
+                $user = User::where('credential_id', $request['old_nomor_induk'])->first();
+                if ($user) {
+                    // Update User credential_id with the new nomor_induk
+                    $user->credential_id = $request['nomor_induk'];
+                    $user->save(); // Save the updated User record
+                }
+                
+            
+                // Update nomor_induk if it is unique or if old_nomor_induk is the same as nomor_induk
+                $anggota->nomor_induk = $request['nomor_induk'];
+            } 
+        }
+
+        // Handle file upload for foto
         if (isset($_FILES['foto']) && $_FILES['foto']['error'] === UPLOAD_ERR_OK) {
             $file = $_FILES['foto'];
 
-            // Menghasilkan nama file unik
-            $uniqueId = uniqid(); // Menghasilkan ID unik
+            // Generate a unique file name
+            $uniqueId = uniqid();
             $fileExtension = pathinfo($file['name'], PATHINFO_EXTENSION);
             $fileName = "{$uniqueId}.{$fileExtension}";
 
             $fileContent = file_get_contents($file['tmp_name']);
             $this->filesystem->write($fileName, $fileContent);
 
-            $anggota = new Anggota();
-            $anggota->nid = $request['nid'];
-            $anggota->id_dojo = $request['id_dojo'];
-            $anggota->nama = $request['nama'];
-            $anggota->jenis_kelamin = $request['jenis_kelamin'];
-            $anggota->alamat = $request['alamat'];
-            $anggota->tahun_gabung = $request['tahun_gabung'];
-            $anggota->status = $request['status'];
-            $anggota->tingkat_sabuk = $request['tingkat_sabuk'];
-            $anggota->nomor = $request['nomor'];
+            // Update the Anggota record with the new file name
             $anggota->foto = $fileName;
-            $anggota->tanggal_lahir = $request['tanggal_lahir'];
-            $anggota->tempat_lahir = $request['tempat_lahir'];
-            $anggota->save();
         } else {
-            // if dont have foto make foto default from /public/uploads/default_img.jpg
-            $anggota = new Anggota();
-            $anggota->nomor_induk = $request['nomor_induk'];
-            $anggota->id_dojo = $request['id_dojo'];
-            $anggota->nama = $request['nama'];
-            $anggota->jenis_kelamin = $request['jenis_kelamin'];
-            $anggota->alamat = $request['alamat'];
-            $anggota->tahun_gabung = $request['tahun_gabung'];
-            $anggota->status = $request['status'];
-            $anggota->tingkat_sabuk = $request['tingkat_sabuk'];
-            $anggota->nomor = $request['nomor'];
-            $anggota->foto = 'default_img.jpg';
-            $anggota->tanggal_lahir = $request['tanggal_lahir'];
-            $anggota->tempat_lahir = $request['tempat_lahir'];
-            $anggota->save();
+            // If no new photo is uploaded, keep the existing photo
+            if (!$anggota->foto) {
+                $anggota->foto = 'default_img.jpg'; // Default photo if not already set
+            }
         }
+
+        // Update other fields
+        $anggota->id_dojo = $request['id_dojo'];
+        $anggota->nama = $request['nama'];
+        $anggota->jenis_kelamin = $request['jenis_kelamin'];
+        $anggota->alamat = $request['alamat'];
+        $anggota->tahun_gabung = $request['tahun_gabung'];
+        $anggota->status = $request['status'];
+        $anggota->tingkat_sabuk = $request['tingkat_sabuk'];
+        $anggota->nomor = $request['nomor'];
+        $anggota->tanggal_lahir = $request['tanggal_lahir'];
+        $anggota->tempat_lahir = $request['tempat_lahir'];
+        $anggota->save();
 
         header('Location: /dashboard/anggota');
     }
@@ -125,8 +139,7 @@ class AnggotaController
         
             // Update nomor_induk if it is unique or if old_nomor_induk is the same as nomor_induk
             $anggota->nomor_induk = $request['nomor_induk'];
-        }
-        
+        } 
     }
 
     // Handle file upload for foto
@@ -170,14 +183,62 @@ class AnggotaController
     exit();
 }
 
-
-    public function destroy($request)
-    {
-        $anggota = Anggota::find($request['id']);
-        $anggota->delete();
-
-        header('Location: /dashboard/anggota');
+public function destroy($request)
+{
+    // Find the Anggota record by ID
+    $anggota = Anggota::find($request['id']);
+    if (!$anggota) {
+        // Handle case if 'Anggota' not found
+        die('Anggota not found');
     }
+
+    // // Define the directory where photos are stored (adjust as per your setup)
+    // $photoDirectory = __DIR__ . '/../../public/uploads/';
+
+    // // Check if the anggota has an associated photo and delete it
+    // if ($anggota->foto && $anggota->foto !== 'default_img.jpg') {
+    //     $filePath = $photoDirectory . $anggota->foto; // Construct the full path to the photo file
+    //     if (file_exists($filePath)) {
+    //         unlink($filePath); // Delete the file from the filesystem
+    //     }
+    // }
+
+    // Delete the User record associated with the Anggota's nomor_induk
+    if ($anggota->nomor_induk) {
+        $user = User::where('credential_id', $anggota->nomor_induk)->first();
+        if ($user) {
+            $user->delete(); // Delete the User record
+        }
+
+        $latihan = Latihan::where('id_anggota', $anggota->nomor_induk)->first();
+        if ($latihan) {
+            $latihan->delete(); // Delete the User record
+        }
+
+        $pembayaran = Pembayaran::where('id_anggota', $anggota->nomor_induk)->first();
+        if ($pembayaran) {
+            $pembayaran->delete(); // Delete the User record
+        }
+
+        $prestasi = Pembayaran::where('id_anggota', $anggota->nomor_induk)->first();
+        if ($prestasi) {
+            $prestasi->delete(); // Delete the User record
+        }
+
+        $peserta = Peserta::where('id_anggota', $anggota->nomor_induk)->first();
+        if ($peserta) {
+            $peserta->delete(); // Delete the User record
+        }
+    }
+
+    // Delete the Anggota record
+    $anggota->delete();
+
+    // Redirect back to the anggota page
+    header('Location: /dashboard/anggota');
+    exit();
+}
+
 
     public function index()
     {
