@@ -21,10 +21,10 @@ class PesertaController
     {
         $peserta = new Peserta();
         $peserta->id_kegiatan = $request['id_kegiatan'];
-        $peserta->id_anggota = $_SESSION['user']['id'];
+        $peserta->id_anggota = $_SESSION['user']['nid'];
         $peserta->tanggal_daftar = date('Y-m-d');
         // if peserta already exist
-        if (Peserta::where('id_kegiatan', $request['id_kegiatan'])->where('id_anggota', $_SESSION['user']['id'])->exists()) {
+        if (Peserta::where('id_kegiatan', $request['id_kegiatan'])->where('id_anggota', $_SESSION['user']['nid'])->exists()) {
             if ($_SESSION['user']['role'] == 'anggota') {
                 header('Location: /dashboard-anggota/kegiatan');
                 // if succes give message

@@ -12,12 +12,12 @@
             </div>
             <!-- input tanggal -->
             <div class="mb-3 relative">
-                <label for="tanggal" class="block">Tanggal Latihan</label>
+                <label for="tanggal" class="block">Tanggal Hari Ini</label>
                 <input type="date" name="tanggal" id="tanggal" class="w-full border border-blue-600 rounded-md p-2" value="{{ date('Y-m-d') }}" disabled required>
             </div>
             <div class="mb-3">
 
-                <label for="bulan" class="block">Bulan Latihan</label>
+                <label for="bulan" class="block">Pembayaran untuk Bulan</label>
                 <input type="text" name="bulan_display" id="bulan_display" class="w-full border border-blue-600 rounded-md p-2" value="{{ date('F') }}" disabled required>
                 <!-- Hidden input to send the 'bulan' value -->
                 <input type="hidden" name="bulan" value="{{ date('F') }}">

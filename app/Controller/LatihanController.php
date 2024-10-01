@@ -20,8 +20,9 @@ class LatihanController
     public function store($request)
     {
         $latihan = new Latihan();
-        $latihan->id_anggota = $_SESSION['user']['id'];
+        $latihan->id_anggota = $_SESSION['user']['nid'];
         $latihan->progres = $request['progres'];
+        $latihan->catatan = isset ($request ['catatan']) ? $request['catatan']:'';
         $latihan->save();
         if ($_SESSION['user']['role'] == 'anggota') {
             header('Location: /dashboard-anggota/latihan');

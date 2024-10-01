@@ -1,0 +1,125 @@
+<?php $_shouldextend[1]=1; ?>
+
+<?php $this->startSection('title', 'Cabang'); ?>
+<?php $this->startSection('content'); ?>
+<div class="w-full">
+ <h1 class="text-4xl font-bold pb-10 text-blue-950">Cabang</h1>
+ <div class="flex justify-between">
+ <?php 
+ // Mengambil segmen terakhir dari URL
+ $segments = explode('/', $_SERVER['REQUEST_URI']);
+ $lastSegment = end($segments);
+ ?>
+
+ <?php if($lastSegment == 'cabang-gowa'): ?>
+ <div class="flex items-center justify-start gap-x-5">
+ <a href="/dashboard/cabang" class="px-3 py-1 border border-blue-600 hover:bg-blue-600 hover:text-white rounded-md text-blue-600 cursor-pointer">
+ Semua
+ </a>
+ <a href="/dashboard/cabang-gowa" class="px-3 py-1 bg-blue-600 rounded-md text-white hover:bg-blue-600 hover:text-white cursor-pointer">
+ Gowa
+ </a>
+ <a href="/dashboard/cabang-makasar" class="px-3 py-1 border border-blue-600 rounded-md text-blue-600 hover:bg-blue-600 hover:text-white cursor-pointer">
+ Makasar
+ </a>
+ <a href="/dashboard/cabang-bone" class="px-3 py-1 border border-blue-600 rounded-md text-blue-600 hover:bg-blue-600 hover:text-white cursor-pointer">
+ Bone
+ </a>
+ </div>
+ <?php elseif($lastSegment == 'cabang-makasar'): ?>
+ <div class="flex items-center justify-start gap-x-5">
+ <a href="/dashboard/cabang" class="px-3 py-1 border border-blue-600 hover:bg-blue-600 hover:text-white rounded-md text-blue-600 cursor-pointer">
+ Semua
+ </a>
+ <a href="/dashboard/cabang-gowa" class="px-3 py-1 border border-blue-600 rounded-md text-blue-600 hover:bg-blue-600 hover:text-white cursor-pointer">
+ Gowa
+ </a>
+ <a href="/dashboard/cabang-makasar" class="px-3 py-1 bg-blue-600 rounded-md text-white hover:bg-blue-600 hover:text-white cursor-pointer">
+ Makasar
+ </a>
+ <a href="/dashboard/cabang-bone" class="px-3 py-1 border border-blue-600 rounded-md text-blue-600 hover:bg-blue-600 hover:text-white cursor-pointer">
+ Bone
+ </a>
+ </div>
+ <?php elseif($lastSegment == 'cabang-bone'): ?>
+ <div class="flex items-center justify-start gap-x-5">
+ <a href="/dashboard/cabang" class="px-3 py-1 border border-blue-600 hover:bg-blue-600 hover:text-white rounded-md text-blue-600 cursor-pointer">
+ Semua
+ </a>
+ <a href="/dashboard/cabang-gowa" class="px-3 py-1 border border-blue-600 rounded-md text-blue-600 hover:bg-blue-600 hover:text-white cursor-pointer">
+ Gowa
+ </a>
+ <a href="/dashboard/cabang-makasar" class="px-3 py-1 border border-blue-600 rounded-md text-blue-600 hover:bg-blue-600 hover:text-white cursor-pointer">
+ Makasar
+ </a>
+ <a href="/dashboard/cabang-bone" class="px-3 py-1 bg-blue-600 rounded-md text-white hover:bg-blue-600 hover:text-white cursor-pointer">
+ Bone
+ </a>
+ </div>
+ <?php else: ?>
+ <div class="flex items-center justify-start gap-x-5">
+ <a href="/dashboard/cabang" class="px-3 py-1 bg-blue-600 rounded-md text-white cursor-pointer">
+ Semua
+ </a>
+ <a href="/dashboard/cabang-gowa" class="px-3 py-1 border border-blue-600 rounded-md text-blue-600 hover:bg-blue-600 hover:text-white cursor-pointer">
+ Gowa
+ </a>
+ <a href="/dashboard/cabang-makasar" class="px-3 py-1 border border-blue-600 rounded-md text-blue-600 hover:bg-blue-600 hover:text-white cursor-pointer">
+ Makasar
+ </a>
+ <a href="/dashboard/cabang-bone" class="px-3 py-1 border border-blue-600 rounded-md text-blue-600 hover:bg-blue-600 hover:text-white cursor-pointer">
+ Bone
+ </a>
+ </div>
+ <?php endif; ?>
+ <a href="/dashboard/cabang/create" class="px-3 py-1 bg-green-600 rounded-md text-white">Tambah Dojo</a>
+ </div>
+ <div class="w-full py-5">
+ <div class="bg-white shadow-xl rounded-md px-8 py-4">
+ <?php $__empty_1 = true; foreach($dojos as $items ): $__empty_1 = false; ?>
+ <div class="grid grid-cols-3">
+ <table class="w-fit mt-2">
+ <tr>
+ <td>Nama Dojo</td>
+ <td class="px-2">:</td>
+ <td><?php echo \htmlentities($items->nama??'', ENT_QUOTES, 'UTF-8', false); ?></td>
+ </tr>
+ <tr>
+ <td>Lokasi</td>
+ <td class="px-2">:</td>
+ <td><?php echo \htmlentities($items->lokasi??'', ENT_QUOTES, 'UTF-8', false); ?></td>
+ </tr>
+ <tr>
+ <td>Cabang</td>
+ <td class="px-2">:</td>
+ <td><?php echo \htmlentities($items->cabang??'', ENT_QUOTES, 'UTF-8', false); ?></td>
+ </tr>
+ </table>
+ <div class="h-full">
+ </div>
+ <div class="h-full flex justify-end gap-x-5">
+ <a href="/dashboard/cabang/show/<?php echo \htmlentities($items->id??'', ENT_QUOTES, 'UTF-8', false); ?>">
+ <div class="h-full bg-slate-300 p-5 rounded-md">
+ <h1 class="text-center font-bold text-2xl"><?php echo \htmlentities($items->count_anggota??'', ENT_QUOTES, 'UTF-8', false); ?></h1>
+ <p>Jumlah Anggota</p>
+ </div>
+ </a>
+ <div class="flex flex-col justify-center gap-5">
+ <a href="/dashboard/cabang/edit/<?php echo \htmlentities($items->id??'', ENT_QUOTES, 'UTF-8', false); ?>" class="px-3 py-1 hover:bg-yellow-600 bg-yellow-500  rounded-md text-white">Edit</a>
+ <form action="/dashboard/cabang/delete/<?php echo \htmlentities($items->id??'', ENT_QUOTES, 'UTF-8', false); ?>" method="post">
+ <input type="hidden" name="_method" value="DELETE">
+ <input type="hidden" name="id" value="<?php echo \htmlentities($items->id??'', ENT_QUOTES, 'UTF-8', false); ?>">
+ <button type="submit" class="px-3 py-1 hover:bg-red-700 bg-red-600 rounded-md text-white">Hapus</button>
+ </form>
+ </div>
+ </div>
+ </div>
+ <hr class="mt-4">
+ <?php endforeach; if ($__empty_1): ?>
+ <p class="text-center text-blue-950">Data Masih Kosong !!!</p>
+ <?php endif; ?>
+ </div>
+ </div>
+</div>
+<?php $this->stopSection(); ?>
+<?php if (isset($_shouldextend[1])) { echo $this->runChild('layouts.DashboardLayout'); } ?>

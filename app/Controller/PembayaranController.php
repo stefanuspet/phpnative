@@ -34,14 +34,14 @@ class PembayaranController
             $this->filesystem->write($fileName, $fileContent);
 
             $pembayaran = new Pembayaran();
-            $pembayaran->id_anggota = $_SESSION['user']['id'];
+            $pembayaran->id_anggota = $_SESSION['user']['nid'];
             $pembayaran->bulan = $request['bulan'];
             $pembayaran->bukti_pembayaran = $fileName;
             $pembayaran->save();
         } else {
             // if dont have foto make foto default from /public/uploads/default_img.jpg
             $pembayaran = new Pembayaran();
-            $pembayaran->id_anggota = $_SESSION['user']['id'];
+            $pembayaran->id_anggota = $_SESSION['user']['nid'];
             $pembayaran->bulan = $request['bulan'];
             $pembayaran->save();
         }
@@ -59,7 +59,7 @@ class PembayaranController
         $pathSegments = explode('/', $uri);
         $id = end($pathSegments);
         $pembayaran = Pembayaran::find($id);
-        $pembayaran->id_anggota = $_SESSION['user']['id'];
+        $pembayaran->id_anggota = $_SESSION['user']['nid'];
         $pembayaran->id_kegiatan = $request['id_kegiatan'];
         $pembayaran->tanggal_bayar = $request['tanggal_bayar'];
         $pembayaran->nominal = $request['nominal'];

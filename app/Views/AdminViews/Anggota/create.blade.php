@@ -13,10 +13,6 @@
     <div class="shadow-md rounded-md bg-white w-4/5">
         <form action="/dashboard/anggota/store" class="p-4" method="post" enctype="multipart/form-data">
             <div class="mb-3">
-                <label for="nid" class="block">NID</label>
-                <input type="number" name="nid" id="nid" class="w-full border border-blue-600 rounded-md p-2" required>
-            </div>
-            <div class="mb-3">
                 <label for="nama" class="block">Nama Anggota</label>
                 <input type="text" name="nama" id="nama" class="w-full border border-blue-600 rounded-md p-2" required>
             </div>
@@ -28,7 +24,7 @@
                 <label for="tanggal_lahir" class="block">Tanggal Lahir</label>
                 <input type="date" name="tanggal_lahir" id="tanggal_lahir" class="w-full border border-blue-600 rounded-md p-2" required>
             </div>
-            <!-- dojo select-->
+            <!-- dojo select -->
             <div class="mb-3">
                 <label for="id_dojo" class="block">Dojo</label>
                 <select name="id_dojo" id="id_dojo" class="w-full border border-blue-600 rounded-md p-2" required>
@@ -63,14 +59,20 @@
                 <label for="tingkat_sabuk" class="block">Tingkat Sabuk</label>
                 <input type="text" name="tingkat_sabuk" id="tingkat_sabuk" class="w-full border border-blue-600 rounded-md p-2">
             </div>
+            <!-- Status field -->
             <div class="mb-3">
                 <label for="status" class="block">Status</label>
                 <div class="flex items-center">
-                    <input type="radio" name="status" id="status_Atlet" value="Atlet" class="mr-2" required>
+                    <input type="radio" name="status" id="status_Atlet" value="Atlet" class="mr-2" onclick="toggleNID(true)" required>
                     <label for="status_Atlet" class="mr-4">Atlet</label>
-                    <input type="radio" name="status" id="status_Anggota_biasa" value="Anggota Biasa" class="mr-2" required>
+                    <input type="radio" name="status" id="status_Anggota_biasa" value="Anggota Biasa" class="mr-2" onclick="toggleNID(false)" required>
                     <label for="status_Anggota_biasa">Anggota Biasa</label>
                 </div>
+            </div>
+            <!-- NID field (now below Status) -->
+            <div class="mb-3" id="nid-field" style="display: none;">
+                <label for="nid" class="block">Nomor Induk</label>
+                <input type="number" name="nomor_induk" id="nid" class="w-full border border-blue-600 rounded-md p-2">
             </div>
             <div class="mb-3">
                 <label for="foto" class="block">Foto</label>
@@ -82,4 +84,18 @@
         </form>
     </div>
 </div>
+
+<script>
+    // Function to show or hide the NID field
+    function toggleNID(show) {
+        var nidField = document.getElementById('nid-field');
+        if (show) {
+            nidField.style.display = 'block';
+            document.getElementById('nid').required = true;
+        } else {
+            nidField.style.display = 'none';
+            document.getElementById('nid').required = false;
+        }
+    }
+</script>
 @endsection

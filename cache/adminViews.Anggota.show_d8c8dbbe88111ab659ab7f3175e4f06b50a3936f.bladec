@@ -1,0 +1,149 @@
+<?php $_shouldextend[1]=1; ?>
+
+<?php $this->startSection('title', 'Anggota'); ?>
+<?php $this->startSection('content'); ?>
+<div class="w-full">
+ <!-- <div class="flex justify-between items-center pb-10"> -->
+ <div class="p-4 bg-white shadow-lg rounded-md">
+ <h1 class="text-3xl font-bold"><?php echo \htmlentities($anggota->nama??'', ENT_QUOTES, 'UTF-8', false); ?></h1>
+ <div class="rounded-md px-12 py-14 grid grid-cols-4 items-center">
+ <div class="bg-slate-100 w-52 h-52 rounded-full overflow-hidden flex justify-center">
+ <!-- get current localhost -->
+ <?php
+ // Mendapatkan protokol (http atau https)
+ $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
+
+ // Mendapatkan hostname (misalnya localhost)
+ $host = $_SERVER['SERVER_NAME'];
+
+ // Mendapatkan port (misalnya 8080)
+ $port = $_SERVER['SERVER_PORT'];
+
+ // Menggabungkan semuanya untuk mendapatkan localhost:8080
+ $baseUrl = $protocol . $host . ':' . $port;
+ ?>
+ <img class="w-full object-cover" src="<?php echo \htmlentities($baseUrl??'', ENT_QUOTES, 'UTF-8', false); ?>/uploads/<?php echo \htmlentities($anggota->foto??'', ENT_QUOTES, 'UTF-8', false); ?>" alt="foto_profile">
+ </div>
+ <div class="flex justify-between col-span-3">
+ <table class="font-semibold table-auto">
+ <tr>
+ <td>Dojo</td>
+ <td class="px-4">:</td>
+ <td><?php echo \htmlentities($anggota->dojo->nama??'', ENT_QUOTES, 'UTF-8', false); ?></td>
+ </tr>
+ <!-- tempat tanggal lahir -->
+ <tr>
+ <td>TTL</td>
+ <td class="px-4">:</td>
+ <?php if($anggota->tempat_lahir == null): ?>
+ <td><?php echo \htmlentities($anggota->tanggal_lahir??'', ENT_QUOTES, 'UTF-8', false); ?></td>
+ <?php elseif($anggota->tanggal_lahir == 00-00-0000 && $anggota->tempat_lahir != null): ?>
+ <td><?php echo \htmlentities($anggota->tempat_lahir??'', ENT_QUOTES, 'UTF-8', false); ?></td>
+ <?php elseif($anggota->tanggal_lahir == 00-00-0000 && $anggota->tempat_lahir == null): ?>
+ <td>-</td>
+ <?php else: ?>
+ <td><?php echo \htmlentities($anggota->tempat_lahir??'', ENT_QUOTES, 'UTF-8', false); ?>, <?php echo \htmlentities($anggota->tanggal_lahir??'', ENT_QUOTES, 'UTF-8', false); ?></td>
+ <?php endif; ?>
+ </tr>
+ <!-- jenis kelamin -->
+ <tr>
+ <td>Jenis Kelamin</td>
+ <td class="px-4">:</td>
+ <td><?php echo \htmlentities($anggota->jenis_kelamin??'', ENT_QUOTES, 'UTF-8', false); ?></td>
+ </tr>
+ <!-- alamat -->
+ <tr>
+ <td>Alamat</td>
+ <td class="px-4">:</td>
+ <td><?php echo \htmlentities($anggota->alamat??'', ENT_QUOTES, 'UTF-8', false); ?></td>
+ </tr>
+ <tr>
+ <td>Tahun Bergabung</td>
+ <td class="px-4">:</td>
+ <?php if($anggota->tahun_gabung == 0): ?>
+ <td>-</td>
+ <?php else: ?>
+ <td><?php echo \htmlentities($anggota->tahun_gabung??'', ENT_QUOTES, 'UTF-8', false); ?></td>
+ <?php endif; ?>
+ </tr>
+ <tr>
+ <td>Tingkat Sabuk</td>
+ <td class="px-4">:</td>
+ <td><?php echo \htmlentities($anggota->tingkat_sabuk??'', ENT_QUOTES, 'UTF-8', false); ?></td>
+ </tr>
+ <tr>
+ <td>Nomor</td>
+ <td class="px-4">:</td>
+ <td><?php echo \htmlentities($anggota->nomor??'', ENT_QUOTES, 'UTF-8', false); ?></td>
+ </tr>
+ <tr>
+ <td>Status</td>
+ <td class="px-4">:</td>
+ <td><?php echo \htmlentities($anggota->status??'', ENT_QUOTES, 'UTF-8', false); ?></td>
+ </tr>
+ <tr>
+ <td>Nomor Induk</td>
+ <td class="px-4">:</td>
+ <td><?php echo \htmlentities($anggota->nomor_induk??'', ENT_QUOTES, 'UTF-8', false); ?></td>
+ </tr>
+ </table>
+ <div class="w-fit h-fit justify-between flex self-end">
+ <div class="flex gap-4">
+ <?php if($anggota->status == 'Atlet'): ?>
+ <div class="grid grid-cols-1 ">
+ <a href="/dashboard/latihan/show/<?php echo \htmlentities($anggota->nid??'', ENT_QUOTES, 'UTF-8', false); ?>" class="px-3 py-2 hover:bg-blue-600 bg-blue-500 my-1  rounded-md text-white text-center">Progres latihan</a>
+ <a href="/dashboard/pembayaran/show/<?php echo \htmlentities($anggota->nid??'', ENT_QUOTES, 'UTF-8', false); ?>" class="px-3 py-2 hover:bg-blue-600 bg-blue-500 my-1  rounded-md text-white text-center">Pembayaran</a>
+ </div>
+ <div class="p-5 text-center bg-slate-300 rounded-md shadow-sm">
+ <h1 class="text-2xl font-bold"><?php echo \htmlentities($anggota->count_prestasi??'', ENT_QUOTES, 'UTF-8', false); ?></h1>
+ <p class="">Prestasi</p>
+ </div>
+ <?php endif; ?>
+
+ </div>
+ </div>
+ </div>
+ </div>
+ <hr>
+ <div class="flex justify-between items-center mt-5">
+ <h1 class="text-xl font-bold">Prestasi</h1>
+ <a href="/dashboard/prestasi/create/<?php echo \htmlentities($anggota->nid??'', ENT_QUOTES, 'UTF-8', false); ?>" class="px-3 py-2 hover:bg-green-600 bg-green-500 rounded-md text-white">Tambah Prestasi</a>
+ </div>
+ <table class="w-full mt-2 text-center border">
+ <thead>
+ <tr class="border">
+ <th scope="col" class="px-6 py-3">Nama Prestasi</th>
+ <th scope="col" class="px-6 py-3">Tingkat</th>
+ <th scope="col" class="px-6 py-3">Peringkat atau Medali</th>
+ <th scope="col" class="px-6 py-3">Waktu</th>
+ </tr>
+
+ </thead>
+ <tbody>
+ <?php $__empty_1 = true; foreach($prestasi as $items ): $__empty_1 = false; ?>
+ <tr>
+ <td class="px-6 py-4"><?php echo \htmlentities($items->nama??'', ENT_QUOTES, 'UTF-8', false); ?></td>
+ <td class="px-6 py-4"><?php echo \htmlentities($items->tingkat??'', ENT_QUOTES, 'UTF-8', false); ?></td>
+ <td class="px-6 py-4"><?php echo \htmlentities($items->peringkat??'', ENT_QUOTES, 'UTF-8', false); ?></td>
+ <td class="px-6 py-4"><?php echo \htmlentities($items->waktu_dapat??'', ENT_QUOTES, 'UTF-8', false); ?></td>
+ <td class="px-6 py-4 flex justify-center gap-x-4">
+ <a href="/dashboard/prestasi/edit/<?php echo \htmlentities($items->id??'', ENT_QUOTES, 'UTF-8', false); ?>/<?php echo \htmlentities($anggota->nid??'', ENT_QUOTES, 'UTF-8', false); ?>" class="px-3 py-1 hover:bg-yellow-600 bg-yellow-500  rounded-md text-white">Edit</a>
+ <form action="/dashboard/prestasi/delete/<?php echo \htmlentities($items->id??'', ENT_QUOTES, 'UTF-8', false); ?>/<?php echo \htmlentities($anggota->nid??'', ENT_QUOTES, 'UTF-8', false); ?>" method="POST">
+ <input type='hidden' name='<?php  echo '_token'; ?>' value='<?php echo $this->csrf_token; ?>'/>
+ <input type='hidden' name='_method' value='<?php echo 'DELETE'; ?>'/>
+ <input type="hidden" name="id" value="<?php echo \htmlentities($items->id??'', ENT_QUOTES, 'UTF-8', false); ?>">
+ <button type="submit" class="px-3 py-1 hover:bg-red-600 bg-red-500 rounded-md text-white">Delete</button>
+ </form>
+ </td>
+ </tr>
+ <?php endforeach; if ($__empty_1): ?>
+ <tr>
+ <td colspan="4" class="text-center">Data tidak ditemukan</td>
+ </tr>
+ <?php endif; ?>
+ </tbody>
+ </table>
+ </div>
+</div>
+<?php $this->stopSection(); ?>
+<?php if (isset($_shouldextend[1])) { echo $this->runChild('layouts.DashboardLayout'); } ?>

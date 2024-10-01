@@ -6,9 +6,10 @@
     <h1 class="text-4xl font-bold pb-10 text-blue-950">Dashboard</h1>
     <div class="w-4/5 grid grid-cols-1 gap-10 mb-10">
         <div class="bg-white shadow-xl rounded-md px-12 py-14 flex justify-start gap-x-24 items-center">
-            <div class="bg-slate-100 w-52 h-52 rounded-full">
-                <img src="/uploads/{{$majelis->foto}}" alt="foto_profile">
-            </div>
+        <div class="bg-slate-100 w-52 h-52 rounded-full overflow-hidden flex items-center justify-center">
+             <img src="/uploads/{{$majelis->foto}}" alt="{{$majelis->foto}}" class="object-cover w-full h-full">
+        </div>
+
             <div>
                 <table class="font-semibold table-auto">
                     <tr>

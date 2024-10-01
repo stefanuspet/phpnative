@@ -55,7 +55,7 @@ class AuthController
         }
         // chech if credential_id is already exist on table user
         $majelis = Majelis::where('nit', $credential_id)->first();
-        $anggota = Anggota::where('nid', $credential_id)->first();
+        $anggota = Anggota::where('nomor_induk', $credential_id)->first();
         $user = User::where('credential_id', $credential_id)->first();
         if ($user) {
             header('Location: /register');
@@ -89,7 +89,7 @@ class AuthController
         // get seesion credential_id
         $credential_id = $_SESSION['credential_id'];
         // get anggota data
-        $anggota = Anggota::where('nid', $credential_id)->first();
+        $anggota = Anggota::where('nomor_induk', $credential_id)->first();
         $dojos = Dojo::all();
 
         echo $this->blade->run("authViews.RegisterAnggota", ['anggota' => $anggota, 'dojos' => $dojos]);
@@ -149,11 +149,16 @@ class AuthController
         if ($user && password_verify($password, $user->password)) {
             // if user is anggota and status atlet
             if ($user->role == 'anggota') {
-                $_SESSION['user'] = [
-                    'id' => $user->credential_id,
-                    'role' => $user->role,
-                    'status' => Anggota::where('nid', $user->credential_id)->first()->status
-                ];
+                $anggota = Anggota::where('nomor_induk', $user->credential_id)->first();
+
+                if ($anggota) {
+                    $_SESSION['user'] = [
+                        'id' => $user->credential_id, // nomor induk
+                        'role' => $user->role,
+                        'status' => $anggota->status,
+                        'nid' => $anggota->nid // Save nid
+                    ];
+                }
             } else {
 
                 $_SESSION['user'] = [

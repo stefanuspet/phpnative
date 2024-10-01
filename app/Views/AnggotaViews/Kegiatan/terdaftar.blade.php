@@ -69,18 +69,18 @@
                 <div class="h-full flex justify-end gap-x-5">
                     <div class="flex flex-col justify-center gap-5">
                         <!-- if user not register -->
-                        @if ($items->peserta->where('id_anggota', $_SESSION['user']['id'])->count() == 0)
+                        @if ($items->peserta->where('id_anggota', $_SESSION['user']['nid'])->count() == 0)
                         <form action="/dashboard/peserta/store" method="post">
                             @csrf
                             <input type="hidden" name="id_kegiatan" value="{{$items->id}}">
-                            <input type="hidden" name="id_anggota" value="{{$_SESSION['user']['id']}}">
+                            <input type="hidden" name="id_anggota" value="{{$_SESSION['user']['nid']}}">
                             <button class="px-3 py-2 hover:bg-blue-600 bg-blue-500  rounded-md text-white">Daftar Kegiatan</button>
                         </form>
                         @else
                         <form action="/dashboard/peserta/delete" method="post">
                             @csrf
                             <input type="hidden" name="id_kegiatan" value="{{$items->id}}">
-                            <input type="hidden" name="id_anggota" value="{{$_SESSION['user']['id']}}">
+                            <input type="hidden" name="id_anggota" value="{{$_SESSION['user']['nid']}}">
                             <button class="px-3 py-2 hover:bg-red-600 bg-red-500  rounded-md text-white">Batalkan Pendaftaran</button>
                         </form>
                         @endif

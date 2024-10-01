@@ -6,10 +6,10 @@
     <h1 class="text-4xl font-bold pb-10 text-blue-950">Edit Anggota</h1>
     <div class="shadow-md rounded-md bg-white w-4/5">
         <form action="/dashboard/anggota/update/{{$anggota->nid}}" class="p-4" method="post" enctype="multipart/form-data">
-            <div class="mb-3">
+            <!-- <div class="mb-3">
                 <label for="nid" class="block">Nid</label>
                 <input type="number" name="nid" id="nid" class="w-full border border-blue-600 rounded-md p-2" required value="{{ $anggota->nid }}">
-            </div>
+            </div> -->
             <div class="mb-3">
                 <label for="nama" class="block">Nama Anggota</label>
                 <input type="text" name="nama" id="nama" class="w-full border border-blue-600 rounded-md p-2" required value="{{ $anggota->nama }}">
@@ -58,11 +58,16 @@
             <div class="mb-3">
                 <label for="status" class="block">Status</label>
                 <div class="flex items-center">
-                    <input type="radio" name="status" id="status_atlet" value="Atlet" class="mr-2" {{ $anggota->status == 'Atlet' ? 'checked' : '' }}>
+                    <input type="radio" name="status" id="status_atlet" value="Atlet" class="mr-2" {{ $anggota->status == 'Atlet' ? 'checked' : '' }} onchange="toggleNID(true)">
                     <label for="status_atlet" class="mr-4">Atlet</label>
-                    <input type="radio" name="status" id="status_anggota_biasa" value="Anggota Biasa" class="mr-2" {{ $anggota->status == 'Anggota Biasa' ? 'checked' : '' }}>
+                    <input type="radio" name="status" id="status_anggota_biasa" value="Anggota Biasa" class="mr-2" {{ $anggota->status == 'Anggota Biasa' ? 'checked' : '' }} onchange="toggleNID(false)">
                     <label for="status_anggota_biasa">Anggota Biasa</label>
                 </div>
+            </div>
+
+            <div class="mb-3" id="nid-field" style="display: none;">
+                <label for="nid" class="block">Nomor Induk</label>
+                <input type="text" name="nomor_induk" id="nid" class="w-full border border-blue-600 rounded-md p-2" value="{{ $anggota->nomor_induk }}">
             </div>
             <div class="mb-3">
                 <label for="foto" class="block">Foto</label>
@@ -79,4 +84,23 @@
         </form>
     </div>
 </div>
+
+<script>
+    // Function to show or hide the NID field based on the selected status
+    function toggleNID(isAtlet) {
+        var nidField = document.getElementById('nid-field');
+        if (isAtlet) {
+            nidField.style.display = 'block';
+            document.getElementById('nid').required = true;
+        } else {
+            nidField.style.display = 'none';
+            document.getElementById('nid').required = false;
+        }
+    }
+
+    // Call toggleNID on page load to set the initial state
+    document.addEventListener('DOMContentLoaded', function() {
+        toggleNID("{{ $anggota->status }}" === "Atlet");
+    });
+</script>
 @endsection

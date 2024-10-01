@@ -28,11 +28,14 @@ class AnggotaController
 
     public function store($request)
     {
-        if ($request['nid'] == Anggota::where('nid', $request['nid'])->exists() || $request['nid'] == Majelis::where('nit', $request['nid'])->exists() || $request['nid'] == User::where('credential_id', $request['nid'])->exists()) {
-            header('Location: /dashboard/anggota/create');
-            $_SESSION['error'] = 'NID sudah Terpakai';
-            exit();
+        if($request['nomor_induk']){
+            if ($request['nomor_induk'] == Anggota::where('nomor_induk', $request['nomor_induk'])->exists() || $request['nomor_induk'] == Majelis::where('nit', $request['nomor_induk'])->exists() || $request['nomor_induk'] == User::where('credential_id', $request['nomor_induk'])->exists()) {
+                header('Location: /dashboard/anggota/create');
+                $_SESSION['error'] = 'NID sudah Terpakai';
+                exit();
+            }
         }
+        
         if (isset($_FILES['foto']) && $_FILES['foto']['error'] === UPLOAD_ERR_OK) {
             $file = $_FILES['foto'];
 
@@ -61,7 +64,7 @@ class AnggotaController
         } else {
             // if dont have foto make foto default from /public/uploads/default_img.jpg
             $anggota = new Anggota();
-            $anggota->nid = $request['nid'];
+            $anggota->nomor_induk = $request['nomor_induk'];
             $anggota->id_dojo = $request['id_dojo'];
             $anggota->nama = $request['nama'];
             $anggota->jenis_kelamin = $request['jenis_kelamin'];
@@ -114,7 +117,7 @@ class AnggotaController
         }
 
         // Update the existing Anggota record with new data
-        $anggota->nid = $request['nid'];
+        $anggota->nomor_induk = $request['nomor_induk'];
         $anggota->id_dojo = $request['id_dojo'];
         $anggota->nama = $request['nama'];
         $anggota->jenis_kelamin = $request['jenis_kelamin'];
@@ -145,7 +148,7 @@ class AnggotaController
         if ($_SESSION['user']['role'] != 'anggota') {
             header('Location: /error');
         }
-        $anggota = Anggota::where('nid', $_SESSION['user']['id'])->first();
+        $anggota = Anggota::where('nomor_induk', $_SESSION['user']['id'])->first();
         // count prestasi
         $count_prestasi = Prestasi::where('id_anggota', $anggota->nid)->count();
         // count kegiatan
@@ -168,7 +171,7 @@ class AnggotaController
         if ($_SESSION['user']['role'] != 'anggota') {
             header('Location: /error');
         }
-        $peserta = Peserta::where('id_anggota', $_SESSION['user']['id'])->get();
+        $peserta = Peserta::where('id_anggota', $_SESSION['user']['nid'])->get();
         // get kegiatan 
         $kegiatan = [];
         foreach ($peserta as $p) {
@@ -182,7 +185,7 @@ class AnggotaController
             header('Location: /error');
         }
         // prestasi by user current loign
-        $prestasi = Prestasi::where('id_anggota', $_SESSION['user']['id'])->get();
+        $prestasi = Prestasi::where('id_anggota', $_SESSION['user']['nid'])->get();
         // format date to d-m-Y
         foreach ($prestasi as $p) {
             $p->waktu_dapat = date('d-m-Y', strtotime($p->waktu_dapat));
@@ -196,7 +199,7 @@ class AnggotaController
             header('Location: /error');
         }
         // latihan where id_anggota = id_anggota
-        $latihan = Latihan::where('id_anggota', $_SESSION['user']['id'])->get();
+        $latihan = Latihan::where('id_anggota', $_SESSION['user']['nid'])->get();
         // format created_at to d-m-Y
         foreach ($latihan as $l) {
             $l->created_at = date('d-m-Y', strtotime($l->created_at));
@@ -237,7 +240,7 @@ class AnggotaController
             header('Location: /error');
         }
         // pembayaran where id_anggota = id_anggota
-        $pembayaran = Pembayaran::where('id_anggota', $_SESSION['user']['id'])->get();
+        $pembayaran = Pembayaran::where('id_anggota', $_SESSION['user']['nid'])->get();
         echo $this->blade->run("AnggotaViews.Pembayaran.index", ['pembayaran' => $pembayaran]);
     }
 

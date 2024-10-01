@@ -26,6 +26,7 @@ class Anggota extends Model
         'tempat_lahir',
         'created_at',
         'updated_at',
+        'nomor_induk'
     ];
 
     public function dojo()

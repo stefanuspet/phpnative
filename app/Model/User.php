@@ -16,6 +16,7 @@ class User extends Model
         'password',
         'role',
         'created_at',
-        'updated_at'
+        'updated_at',
+        'id_role'
     ];
 }
