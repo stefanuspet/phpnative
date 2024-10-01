@@ -11,14 +11,15 @@
         <div class="bg-white shadow-xl rounded-md px-8 py-4">
             @forelse ($anggota as $items )
             <div class="grid grid-cols-6">
-                <div class="col-span-1">
-                    <img src="/uploads/{{$items->foto}}" alt="{{$items->foto}}" class="w-40 h-40 rounded-full">
-                </div>
+            <div class="col-span-1" style="margin-top: 15px;">
+                <img src="/uploads/{{$items->foto}}" alt="{{$items->foto}}" class="w-40 h-40 rounded-full">
+            </div>
+
                 <table class="w-fit mt-2 col-span-4">
                     <tr>
                         <td>Nama</td>
                         <td class="px-2">:</td>
-                        <td>{{$items->nid}}</td>
+                        <td>{{$items->nama}}</td>
                     </tr>
                     <tr>
                         <td>Dojo</td>
