@@ -1,0 +1,66 @@
+<?php $_shouldextend[1]=1; ?>
+
+<?php $this->startSection('title', 'Cabang-store'); ?>
+<?php $this->startSection('content'); ?>
+<div class="w-full">
+ <div class="bg-white shadow-xl rounded-md px-8 py-4">
+ <h1 class="text-4xl font-bold text-blue-950 pb-4"><?php echo \htmlentities($kegiatan->nama??'', ENT_QUOTES, 'UTF-8', false); ?></h1>
+ <table class="mb-4">
+ <tr>
+ <td>Lokasi</td>
+ <td class="px-2">:</td>
+ <td><?php echo \htmlentities($kegiatan->lokasi??'', ENT_QUOTES, 'UTF-8', false); ?></td>
+ </tr>
+ <tr>
+ <td>Tanggal</td>
+ <td class="px-2">:</td>
+ <td><?php echo \htmlentities($kegiatan->date??'', ENT_QUOTES, 'UTF-8', false); ?></td>
+ </tr>
+ <tr>
+ <td>Jumlah Pendaftar</td>
+ <td class="px-2">:</td>
+ <td><?php echo \htmlentities($kegiatan->count_peserta??'', ENT_QUOTES, 'UTF-8', false); ?></td>
+ </tr>
+ </table>
+ <hr>
+ <h1 class="text-xl font-bold text-blue-950 pb-4 mt-2">Daftar Peserta Kegiatan</h1>
+ <table class="w-full mt-2 text-center border">
+ <thead>
+ <tr class="border">
+ <th scope="col" class="px-6 py-3">Nama</th>
+ <th scope="col" class="px-6 py-3">Tempat Tanggal Lahir</th>
+ <th scope="col" class="px-6 py-3">Jenis Kelamin</th>
+ <th scope="col" class="px-6 py-3">Alamat</th>
+ <th scope="col" class="px-6 py-3">Tahun Bergabung</th>
+ </tr>
+
+ </thead>
+ <tbody>
+ <?php $__empty_1 = true; foreach($peserta as $items ): $__empty_1 = false; ?>
+ <tr>
+ <td class="px-6 py-4"><?php echo \htmlentities($items->anggota->nama??'', ENT_QUOTES, 'UTF-8', false); ?></td>
+ <td class="px-6 py-4"><?php echo \htmlentities($items->anggota->tempat_lahir??'', ENT_QUOTES, 'UTF-8', false); ?>, <?php echo \htmlentities($items->anggota->tanggal_lahir??'', ENT_QUOTES, 'UTF-8', false); ?></td>
+ <td class="px-6 py-4"><?php echo \htmlentities($items->anggota->jenis_kelamin??'', ENT_QUOTES, 'UTF-8', false); ?></td>
+ <td class="px-6 py-4"><?php echo \htmlentities($items->anggota->alamat??'', ENT_QUOTES, 'UTF-8', false); ?></td>
+ <td class="px-6 py-4"><?php echo \htmlentities($items->anggota->tahun_gabung??'', ENT_QUOTES, 'UTF-8', false); ?></td>
+ <!-- form delete -->
+ <td>
+ <form action="/dashboard/peserta/delete/<?php echo \htmlentities($items->id??'', ENT_QUOTES, 'UTF-8', false); ?>/<?php echo \htmlentities($kegiatan->id??'', ENT_QUOTES, 'UTF-8', false); ?>" method="post">
+ <input type='hidden' name='<?php  echo '_token'; ?>' value='<?php echo $this->csrf_token; ?>'/>
+ <input type='hidden' name='_method' value='<?php echo 'delete'; ?>'/>
+ <input type="hidden" name="id" value="<?php echo \htmlentities($items->id??'', ENT_QUOTES, 'UTF-8', false); ?>">
+ <button type="submit" class="px-3 py-2 hover:bg-red-600 bg-red-500 my-1  rounded-md text-white text-center">Hapus</button>
+ </form>
+ </td>
+ </tr>
+ <?php endforeach; if ($__empty_1): ?>
+ <tr>
+ <td colspan="5" class="text-center">Data tidak ditemukan</td>
+ </tr>
+ <?php endif; ?>
+ </tbody>
+ </table>
+ </div>
+</div>
+<?php $this->stopSection(); ?>
+<?php if (isset($_shouldextend[1])) { echo $this->runChild('layouts.DashboardLayout'); } ?>

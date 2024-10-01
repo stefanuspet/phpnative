@@ -9,6 +9,10 @@
             @csrf
             @method('PUT')
             <div class="mb-3">
+            
+                <input type="hidden" name="old_nit" id="nit" value="{{ $majelis->nit }}" required>
+            </div>
+            <div class="mb-3">
                 <label for="nit" class="block">NIT</label>
                 <input type="number" name="nit" id="nit" class="w-full border border-blue-600 rounded-md p-2" value="{{ $majelis->nit }}" required>
             </div>
