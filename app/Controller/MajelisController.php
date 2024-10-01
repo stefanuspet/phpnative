@@ -180,13 +180,31 @@ class MajelisController
 }
 
 
-    //destroy
-    public function destroy($request): void
-    {
-        $majelis = Majelis::find($request['id']);
-        $majelis->delete();
-        header('Location: /dashboard/majelis');
+public function destroy($request): void
+{
+    // Find the Majelis record based on the ID
+    $majelis = Majelis::find($request['id']);
+    if (!$majelis) {
+        die('Majelis not found');
     }
+
+    // Get the NIT of the Majelis
+    $nit = $majelis->nit;
+
+    // Delete related entries from the User table
+    User::where('credential_id', $nit)->delete();
+
+    // Delete related entries from the DojoMajelis table
+    DojoMajelis::where('id_majelis', $majelis->id)->delete();
+
+    // Delete the Majelis record
+    $majelis->delete();
+
+    // Redirect back to the Majelis page
+    header('Location: /dashboard/majelis');
+    exit();
+}
+
 
     public function index()
     {
