@@ -14,7 +14,10 @@ return function (RouteCollector $r) {
     $r->addRoute('GET', '/register/anggota', 'AuthController@registerAnggota');
     $r->addRoute('POST', '/register/majelis/create', 'AuthController@registerMajelisStore');
     $r->addRoute('POST', '/register/anggota/create', 'AuthController@registerAnggotaStore');
-    $r->addRoute('GET', '/register/guest', 'AuthController@registerAnggotaDojo');
+    $r->addRoute('GET', '/register/guest/anggota', 'AuthController@registerGuestAnggota');
+    $r->addRoute('GET', '/register/guest/majelis', 'AuthController@registerGuestMajelis');
+    $r->addRoute('POST', '/register/guest/anggota/create', 'AuthController@registerGuestAnggotaStore');
+    $r->addRoute('POST', '/register/guest/majelis/create', 'AuthController@registerGuestMajelisStore');
 
 
 

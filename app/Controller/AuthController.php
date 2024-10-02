@@ -6,6 +6,7 @@ use App\Model\Anggota;
 use App\Model\Dojo;
 use App\Model\Majelis;
 use App\Model\User;
+use Exception;
 
 class AuthController
 {
@@ -70,6 +71,7 @@ class AuthController
             header('Location: /register/anggota');
             exit();
         } else {
+            $_SESSION['credential_id'] = $credential_id;
             header('Location: /register');
             $_SESSION['error'] = 'Credential ID tidak ditemukan';
 
@@ -125,13 +127,17 @@ class AuthController
         $user->credential_id = $credential_id;
         // check request password and confirm_password is equal?
         if ($request['password'] !== $request['confirm_password']) {
-            header('Location: /register/anggota');
+            header('Location: /register/guest/anggota');
             $_SESSION['error'] = 'Password tidak sama';
             exit();
         }
         $user->password = password_hash($request['password'], PASSWORD_DEFAULT);
         $user->role = 'anggota';
         $user->save();
+
+        $anggota = new Anggota();
+        $anggota->nomor_induk = $credential_id;
+
 
         // delete session credential_id
         unset($_SESSION['credential_id']);
@@ -200,5 +206,68 @@ class AuthController
         }
         session_destroy();
         header('Location: /');
+    }
+
+    public function registerGuestAnggota()
+    {
+        $dojos = Dojo::all();
+        echo $this->blade->run("authViews.RegisterGuestAnggota", ['dojos' => $dojos]);
+    }
+
+    public function registerGuestAnggotaStore($request)
+    {
+        $user = new User();
+        $user->credential_id = $request['nomor_induk'];
+        $user->password = password_hash($request['password'], PASSWORD_DEFAULT);
+        $user->role = 'anggota';
+        if (!$user->save()) {
+            echo "Failed to save user.";
+            return;
+        }
+
+        $anggota = new Anggota();
+        $anggota->nomor_induk = $request['nomor_induk'];
+        $anggota->nama = $request['nama'];
+        $anggota->status = 'Atlet';
+        $anggota->id_dojo = $request['id_dojo'];
+        $anggota->foto = 'default_img.jpg';
+
+        if ($anggota->save()) {
+            unset($_SESSION['credential_id']);
+            header('Location: /');
+        } else {
+            echo "Failed to save anggota.";
+        }
+    }
+
+
+
+    public function registerGuestMajelis()
+    {
+        echo $this->blade->run("authViews.RegisterGuestMajelis");
+    }
+
+    public function registerGuestMajelisStore($request)
+    {
+        $user = new User();
+        $user->credential_id = $request['nit'];
+        $user->password = password_hash($request['password'], PASSWORD_DEFAULT);
+        $user->role = 'majelis';
+        if (!$user->save()) {
+            echo "Failed to save user.";
+            return;
+        }
+
+        $majelis = new Majelis();
+        $majelis->nit = $request['nit'];
+        $majelis->nama = $request['nama'];
+        $majelis->foto = 'default_img.jpg';
+
+        if ($majelis->save()) {
+            unset($_SESSION['credential_id']);
+            header('Location: /');
+        } else {
+            echo "Failed to save majelis.";
+        }
     }
 }

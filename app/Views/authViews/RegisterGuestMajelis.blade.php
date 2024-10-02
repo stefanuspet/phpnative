@@ -3,10 +3,14 @@
 
 @section('content')
 <h1 class="text-center font-semibold text-xl">Register Guest</h1>
-<form action="/register/anggota/create" class="p-4" method="post" enctype="multipart/form-data">
+<form action="/register/guest/majelis/create" class="p-4" method="post" enctype="multipart/form-data">
     <div class="mb-3">
-        <label for="nid" class="block">Nomor Induk</label>
-        <input type="number" name="nomor_induk" id="nid" class="w-full border border-blue-600 rounded-md p-2" required value="{{ $anggota->nomor_induk }}" disabled>
+        <label for="nit" class="block">NIT</label>
+        <input type="number" name="nit" id="nit" class="w-full border border-blue-600 rounded-md p-2" required value="{{ $_SESSION['credential_id'] }}" readonly>
+    </div>
+    <div class="mb-3">
+        <label for="nama" class="block">Nama</label>
+        <input type="text" name="nama" id="nama" class="w-full border border-blue-600 rounded-md p-2" required>
     </div>
     <div class="mb-3">
         <label for="password" class="block">Password</label>
