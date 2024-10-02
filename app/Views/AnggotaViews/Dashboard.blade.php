@@ -30,7 +30,14 @@
                     <tr>
                         <td>TTL</td>
                         <td class="px-4">:</td>
-                        <td>{{$anggota->tempat_lahir}}, {{$anggota->tanggal_lahir}}</td>
+                        <td>
+                            {{$anggota->tempat_lahir}},
+                            @if($anggota->tanggal_lahir == '30-11--0001')
+                            -
+                            @else
+                            {{$anggota->tanggal_lahir}}
+                            @endif
+                        </td>
                     </tr>
                     <tr>
                         <td>Tahun bergabung</td>
