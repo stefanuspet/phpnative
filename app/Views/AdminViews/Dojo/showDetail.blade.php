@@ -25,7 +25,7 @@
             <tr>
                 <td>Pelatih</td>
                 <td class="px-2">:</td>
-                <td class="flex justify-end w-full">
+                <td class="flex justify-start w-full">
                     <div>
                         @foreach ($majelis as $index => $m)
 
