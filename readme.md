@@ -62,7 +62,7 @@ Follow these steps to set up the project:
    Start the PHP built-in server to run the application:
 
    ```bash
-   composer seed
+   composer start
    ```
 
    The application will be accessible at http://localhost:8000 (or another port if configured differently).
