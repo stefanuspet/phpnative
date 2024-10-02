@@ -45,6 +45,7 @@ class AnggotaController
                 ) {
                     $_SESSION['error'] = 'Nomor Induk sudah Terpakai';
                     echo $_SESSION['error'];
+                    $_SESSION['error'] = null;
                     exit();
                 }
 
@@ -134,6 +135,7 @@ class AnggotaController
                     ) {
                         $_SESSION['error'] = 'Nomor Induk sudah Terpakai';
                         echo $_SESSION['error'];
+                        $_SESSION['error'] = null;
                         exit();
                     }
 

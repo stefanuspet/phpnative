@@ -80,6 +80,7 @@ class MajelisController
         }
 
         header('Location: /dashboard/majelis');
+        $_SESSION['error'] = null;
     }
 
     public function update($request): void
@@ -111,6 +112,7 @@ class MajelisController
             ) {
                 $_SESSION['error'] = "Nomor Induk sudah Terpakai. Old NIT: $old_nit, New NIT: $nit";
                 echo $_SESSION['error'];
+                $_SESSION['error'] = null;
                 exit();
             }
         }
@@ -175,7 +177,7 @@ class MajelisController
             // Update DojoMajelis with the new nit
             DojoMajelis::where('id_majelis', $id)->update(['id_majelis' => $nit]);
         }
-
+        
         // Redirect back to the Majelis page
         if ($_SESSION['user']['role'] == 'admin') {
             header('Location: /dashboard/majelis');

@@ -82,9 +82,9 @@
                         <td>{{$anggota->status}}</td>
                     </tr>
                     <tr>
-                        <td>NID</td>
+                        <td>Nomor Induk</td>
                         <td class="px-4">:</td>
-                        <td>{{$anggota->nid}}</td>
+                        <td>{{$anggota->nomor_induk}}</td>
                     </tr>
                 </table>
                 <div class="w-fit h-fit justify-between flex self-end">

@@ -1,4 +1,4 @@
-@extends('layouts.DashboardLayout')
+@extends('layouts.MajelisLayout')
 
 @section('title', 'Cabang-edit')
 @section('content')
@@ -10,11 +10,11 @@
             @method('PUT')
             <div class="mb-3">
             
-                <input type="hidden" name="old_nit" id="nit" value="{{ $majelis->nit }}" required>
+                <input type="hidden" name="old_nit" id="nit" value="{{ $majelis->nit }}" required disabled>
             </div>
             <div class="mb-3">
-                <label for="nit" class="block">NIT</label>
-                <input type="number" name="nit" id="nit" class="w-full border border-blue-600 rounded-md p-2" value="{{ $majelis->nit }}" required>
+                <label for="nit" class="block">NIT (tidak dapat diedit)</label>
+                <input type="number" name="nit" id="nit" class="w-full border border-blue-600 rounded-md p-2" value="{{ $majelis->nit }}" required disabled>
             </div>
             <div class="mb-3">
                 <label for="nama" class="block">Nama Majelis</label>

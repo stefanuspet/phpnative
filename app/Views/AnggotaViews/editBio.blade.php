@@ -1,4 +1,4 @@
-@extends('layouts.DashboardLayout')
+@extends('layouts.AnggotaLayout')
 
 @section('title', 'Edit Anggota')
 @section('content')
@@ -7,7 +7,7 @@
     <div class="shadow-md rounded-md bg-white w-4/5">
         <form action="/dashboard/anggota/update/{{$anggota->nid}}" class="p-4" method="post" enctype="multipart/form-data">
             <div class="mb-3">
-                <input type="hidden" name="old_nomor_induk" id="nid" value="{{ $anggota->nomor_induk }}">
+                <input type="hidden" name="old_nomor_induk" id="nid" value="{{ $anggota->nomor_induk }}" disabled>
             </div>
             <div class="mb-3">
                 <label for="nama" class="block">Nama Anggota</label>
@@ -67,8 +67,8 @@
             </div>
 
             <div class="mb-3" id="nid-field" style="display: none;">
-                <label for="nid" class="block">Nomor Induk</label>
-                <input type="text" name="nomor_induk" id="nid" class="w-full border border-blue-600 rounded-md p-2" value="{{ $anggota->nomor_induk }}">
+                <label for="nid" class="block">Nomor Induk (tidak dapat diedit)</label>
+                <input type="text" name="nomor_induk" id="nid" class="w-full border border-blue-600 rounded-md p-2" value="{{ $anggota->nomor_induk }}" disabled >
             </div>
             <div class="mb-3">
                 <label for="foto" class="block">Foto</label>
