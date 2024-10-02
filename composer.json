@@ -4,8 +4,8 @@
   "type": "project",
   "authors": [
     {
-      "name": "",
-      "email": ""
+      "name": "test",
+      "email": "test@test.com"
     }
   ],
   "require": {
