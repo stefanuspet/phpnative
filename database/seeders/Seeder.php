@@ -20,7 +20,7 @@ class Seeder extends AbstractSeed
     {
         $user = [
             [
-                'credential_id' => 'admin123!',
+                'credential_id' => '123456',
                 'password' => password_hash('123456', PASSWORD_DEFAULT),
                 'role' => 'admin',
                 'created_at' => date('Y-m-d H:i:s'),
