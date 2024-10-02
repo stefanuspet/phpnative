@@ -9,7 +9,6 @@
             <div class="bg-slate-100 w-52 h-52 rounded-full overflow-hidden flex items-center justify-center">
                 <img src="/uploads/{{$majelis->foto}}" alt="{{$majelis->foto}}" class="object-cover w-full h-full">
             </div>
-
             <div>
                 <table class="font-semibold table-auto">
                     <tr>
@@ -58,6 +57,9 @@
                         <td>{{$majelis->tingkat_sabuk}}</td>
                     </tr>
                 </table>
+            </div>
+            <div class="flex-grow h-full grid justify-end content-end">
+                <a href="dashboard-majelis/editBio" class="px-3 py-1 hover:bg-yellow-600 bg-yellow-500  rounded-md text-white h-fit">Edit Biodata</a>
             </div>
         </div>
     </div>

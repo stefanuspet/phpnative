@@ -177,7 +177,11 @@ class MajelisController
         }
 
         // Redirect back to the Majelis page
-        header('Location: /dashboard/majelis');
+        if ($_SESSION['user']['role'] == 'admin') {
+            header('Location: /dashboard/majelis');
+        } else if ($_SESSION['user']['role'] == 'majelis') {
+            header('Location: /dashboard-majelis');
+        }
         exit();
     }
 
@@ -454,5 +458,12 @@ class MajelisController
         $id = end($pathSegments); // Segmen terakhir
         $latihan = Latihan::find($id);
         echo $this->blade->run("MajelisViews.Latihan.edit", ['latihan' => $latihan]);
+    }
+
+    public function editBio()
+    {
+        $majelis = Majelis::where('nit', $_SESSION['user']['id'])->first();
+        $majelis->tanggal_lahir = date('Y-m-d', strtotime($majelis->tanggal_lahir));
+        echo $this->blade->run("MajelisViews.editBio", ['majelis' => $majelis]);
     }
 }

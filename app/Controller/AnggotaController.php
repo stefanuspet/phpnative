@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Model\Anggota;
+use App\Model\Dojo;
 use App\Model\Kegiatan;
 use App\Model\Latihan;
 use App\Model\Majelis;
@@ -191,6 +192,8 @@ class AnggotaController
             header('Location: /dashboard/anggota');
         } else if ($_SESSION['user']['role'] == 'majelis') {
             header('Location: /dashboard-majelis/anggota');
+        } else if ($_SESSION['user']['role'] == 'anggota') {
+            header('Location: /dashboard-anggota');
         }
         exit();
     }
@@ -384,5 +387,16 @@ class AnggotaController
             header('Location: /error');
         }
         echo $this->blade->run("AnggotaViews.Pembayaran.create");
+    }
+
+    public function editBio()
+    {
+        if ($_SESSION['user']['role'] != 'anggota') {
+            header('Location: /error');
+        }
+        $anggota = Anggota::with('dojo')->where('nomor_induk', $_SESSION['user']['id'])->first();
+
+        // var_dump($anggota->dojo->nama);
+        echo $this->blade->run("AnggotaViews.editBio", ['anggota' => $anggota]);
     }
 }

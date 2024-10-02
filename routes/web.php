@@ -76,6 +76,7 @@ return function (RouteCollector $r) {
     $r->addRoute('GET', '/dashboard-anggota/pembayaran', 'AnggotaController@pembayaran');
     $r->addRoute('GET', '/dashboard-anggota/pembayaran/create', 'AnggotaController@pembayaranCreate');
     $r->addRoute('GET', '/dashboard-anggota/pembayaran/edit/{id}', 'AnggotaController@pembayaranEdit');
+    $r->addRoute('GET', '/dashboard-anggota/editBio', 'AnggotaController@editBio');
 
 
 
@@ -94,6 +95,7 @@ return function (RouteCollector $r) {
     $r->addRoute('GET', '/dashboard-majelis/latihan/show/{id}', 'MajelisController@showlatihanByid');
     $r->addRoute('GET', '/dashboard-majelis/latihan/edit/{id}', 'MajelisController@latihanEdit');
     $r->addRoute('GET', '/dashboard-majelis/pembayaran/show/{id}', 'MajelisController@showPembayaranByid');
+    $r->addRoute('GET', '/dashboard-majelis/editBio', 'MajelisController@editBio');
 
 
 
