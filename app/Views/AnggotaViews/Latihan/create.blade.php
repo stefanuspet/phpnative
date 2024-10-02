@@ -13,7 +13,7 @@
             <!-- input tanggal -->
             <div class="mb-3 relative">
                 <label for="tanggal" class="block">Tanggal Latihan</label>
-                <input type="date" name="tanggal" id="tanggal" class="w-full border border-blue-600 rounded-md p-2" value="{{ date('Y-m-d') }}" disabled required>
+                <input type="date" name="tanggal" id="tanggal" class="w-full border border-blue-600 rounded-md p-2" value="{{ date('Y-m-d') }}" required>
             </div>
             <div class="flex justify-end mt-10">
                 <button class="px-3 py-1 bg-green-600 rounded-md text-white">Simpan</button>
