@@ -344,6 +344,45 @@ class MajelisController
         echo $this->blade->run("MajelisViews.Anggota.index", ['anggota' => $anggota]);
     }
 
+    public function anggotaCreate()
+    {
+        if ($_SESSION['user']['role'] != 'majelis') {
+            header('Location: /error');
+        }
+        $dojomajelis = DojoMajelis::where('id_majelis', $_SESSION['user']['id'])->get();
+        $dojos = [];
+        foreach ($dojomajelis as $dm) {
+            $dojos[] = Dojo::find($dm->id_dojo);
+        }
+
+        echo $this->blade->run("MajelisViews.Anggota.create", ['dojos' => $dojos]);
+    }
+
+    public function editAnggota()
+    {
+        $requestUri = $_SERVER['REQUEST_URI'];
+        $uri = strtok($requestUri, '?');
+        $pathSegments = explode('/', $uri);
+        $id = end($pathSegments);
+
+        $anggota = Anggota::find($id);
+
+        $dojomajelis = DojoMajelis::where('id_majelis', $_SESSION['user']['id'])->get();
+        $dojos = [];
+
+        foreach ($dojomajelis as $dm) {
+            $dojos[] = Dojo::find($dm->id_dojo);
+        }
+
+        echo $this->blade->run(
+            "adminViews.Anggota.edit",
+            [
+                'anggota' => $anggota,
+                'dojos' => $dojos
+            ]
+        );
+    }
+
     public function showlatihanByid()
     {
         $requestUri = $_SERVER['REQUEST_URI'];

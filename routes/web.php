@@ -89,6 +89,8 @@ return function (RouteCollector $r) {
     $r->addRoute('GET', '/dashboard-majelis/cabang/show/{id}', 'MajelisController@showDetailDojo');
     $r->addRoute('GET', '/dashboard-majelis/anggota', 'MajelisController@anggota');
     $r->addRoute('GET', '/dashboard-majelis/anggota/show/{id}', 'MajelisController@showAnggotaByid');
+    $r->addRoute('GET', '/dashboard-majelis/anggota/create', 'MajelisController@anggotaCreate');
+    $r->addRoute('GET', '/dashboard-majelis/anggota/edit/{id}', 'MajelisController@editAnggota');
     $r->addRoute('GET', '/dashboard-majelis/latihan/show/{id}', 'MajelisController@showlatihanByid');
     $r->addRoute('GET', '/dashboard-majelis/latihan/edit/{id}', 'MajelisController@latihanEdit');
     $r->addRoute('GET', '/dashboard-majelis/pembayaran/show/{id}', 'MajelisController@showPembayaranByid');

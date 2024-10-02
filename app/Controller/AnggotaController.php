@@ -95,7 +95,11 @@ class AnggotaController
         $anggota->tempat_lahir = $request['tempat_lahir'];
         $anggota->save();
 
-        header('Location: /dashboard/anggota');
+        if ($_SESSION['user']['role'] == 'admin') {
+            header('Location: /dashboard/anggota');
+        } else if ($_SESSION['user']['role'] == 'majelis') {
+            header('Location: /dashboard-majelis/anggota');
+        }
     }
 
     public function update($request)
@@ -183,7 +187,11 @@ class AnggotaController
         $anggota->save();
 
         // Redirect back to the anggota page
-        header('Location: /dashboard/anggota');
+        if ($_SESSION['user']['role'] == 'admin') {
+            header('Location: /dashboard/anggota');
+        } else if ($_SESSION['user']['role'] == 'majelis') {
+            header('Location: /dashboard-majelis/anggota');
+        }
         exit();
     }
 
@@ -239,7 +247,11 @@ class AnggotaController
         $anggota->delete();
 
         // Redirect back to the anggota page
-        header('Location: /dashboard/anggota');
+        if ($_SESSION['user']['role'] == 'admin') {
+            header('Location: /dashboard/anggota');
+        } else if ($_SESSION['user']['role'] == 'majelis') {
+            header('Location: /dashboard-majelis/anggota');
+        }
         exit();
     }
 
