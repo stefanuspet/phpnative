@@ -136,7 +136,7 @@ class Seeder extends AbstractSeed
             ],
             [
                 'nama' => 'Ferry Laodri (plt)',
-                'jabatan' => 'Serketaris umum',
+                'jabatan' => 'Sekretaris umum',
             ],
             [
                 'nama' => 'Hanizah Febrianti Tato',

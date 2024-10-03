@@ -19,7 +19,7 @@
                     <option value="Ketua Dewan Pembina">Ketua Dewan Pembina</option>
                     <option value="Anggota Dewan Pembina">Anggota Dewan Pembina</option>
                     <option value="Ketua umum">Ketua umum</option>
-                    <option value="Serketaris umum">Serketaris umum</option>
+                    <option value="Sekretaris umum">Sekretaris umum</option>
                     <option value="Bendahara umum">Bendahara umum</option>
                     <option value="Ketua staf pelatih">Ketua staf pelatih</option>
                     <option value="Ketua majelis sabuk hitam">Ketua majelis sabuk hitam</option>
