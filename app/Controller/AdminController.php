@@ -44,27 +44,47 @@ class AdminController
     }
 
     public function cabang()
-    {
+{
+    $search = isset($_GET['search']) ? $_GET['search'] : '';
+
+    // If search query exists, filter the dojos by name or another field
+    if (!empty($search)) {
+        $dojos = Dojo::whereRaw('LOWER(nama) LIKE ?', ['%' . strtolower($search) . '%'])->get();
+    } else {
         $dojos = Dojo::all();
-        // get anggota in every dojo
-
-        foreach ($dojos as $dojo) {
-            $dojo->count_anggota = Dojo::find($dojo->id)->anggota()->count();
-        }
-
-        echo $this->blade->run(
-            "adminViews.Dojo.index",
-            [
-                'dojos' => $dojos
-            ]
-        );
     }
+
+    // Get anggota count for each dojo
+    foreach ($dojos as $dojo) {
+        $dojo->count_anggota = Dojo::find($dojo->id)->anggota()->count();
+    }
+
+    echo $this->blade->run(
+        "adminViews.Dojo.index",
+        [
+            'dojos' => $dojos,
+            'search' => $search // Passing the search term to the view
+        ]
+    );
+}
+
+
 
     public function cabangBone()
     {
-        $dojos = Dojo::where('cabang', 'Bone')->get();
-        // get anggota in every dojo
+        $search = isset($_GET['search']) ? $_GET['search'] : '';
 
+        // If search query exists, filter the dojos by name (case-insensitive) and cabang 'Bone'
+        if (!empty($search)) {
+            $dojos = Dojo::where('cabang', 'Bone')
+                ->whereRaw('LOWER(nama) LIKE ?', ['%' . strtolower($search) . '%'])
+                ->get();
+        } else {
+            // Only filter by cabang 'Bone' if no search term is provided
+            $dojos = Dojo::where('cabang', 'Bone')->get();
+        }
+
+        // Get anggota count for each dojo
         foreach ($dojos as $dojo) {
             $dojo->count_anggota = Dojo::find($dojo->id)->anggota()->count();
         }
@@ -72,16 +92,28 @@ class AdminController
         echo $this->blade->run(
             "adminViews.Dojo.index",
             [
-                'dojos' => $dojos
+                'dojos' => $dojos,
+                'search' => $search // Passing the search term to the view
             ]
         );
     }
 
+
     public function cabangMakasar()
     {
-        $dojos = Dojo::where('cabang', 'Makasar')->get();
-        // get anggota in every dojo
+        $search = isset($_GET['search']) ? $_GET['search'] : '';
 
+        // If search query exists, filter the dojos by name (case-insensitive) and cabang 'Makasar'
+        if (!empty($search)) {
+            $dojos = Dojo::where('cabang', 'Makasar')
+                ->whereRaw('LOWER(nama) LIKE ?', ['%' . strtolower($search) . '%'])
+                ->get();
+        } else {
+            // Only filter by cabang 'Makasar' if no search term is provided
+            $dojos = Dojo::where('cabang', 'Makasar')->get();
+        }
+
+        // Get anggota count for each dojo
         foreach ($dojos as $dojo) {
             $dojo->count_anggota = Dojo::find($dojo->id)->anggota()->count();
         }
@@ -89,16 +121,27 @@ class AdminController
         echo $this->blade->run(
             "adminViews.Dojo.index",
             [
-                'dojos' => $dojos
+                'dojos' => $dojos,
+                'search' => $search // Passing the search term to the view
             ]
         );
     }
 
     public function cabangGowa()
     {
-        $dojos = Dojo::where('cabang', 'Gowa')->get();
-        // get anggota in every dojo
+        $search = isset($_GET['search']) ? $_GET['search'] : '';
 
+        // If search query exists, filter the dojos by name (case-insensitive) and cabang 'Gowa'
+        if (!empty($search)) {
+            $dojos = Dojo::where('cabang', 'Gowa')
+                ->whereRaw('LOWER(nama) LIKE ?', ['%' . strtolower($search) . '%'])
+                ->get();
+        } else {
+            // Only filter by cabang 'Gowa' if no search term is provided
+            $dojos = Dojo::where('cabang', 'Gowa')->get();
+        }
+
+        // Get anggota count for each dojo
         foreach ($dojos as $dojo) {
             $dojo->count_anggota = Dojo::find($dojo->id)->anggota()->count();
         }
@@ -106,7 +149,8 @@ class AdminController
         echo $this->blade->run(
             "adminViews.Dojo.index",
             [
-                'dojos' => $dojos
+                'dojos' => $dojos,
+                'search' => $search // Passing the search term to the view
             ]
         );
     }

@@ -4,77 +4,49 @@
 @section('content')
 <div class="w-full">
     <h1 class="text-4xl font-bold pb-10 text-blue-950">Cabang</h1>
+
     <div class="flex justify-between">
         @php
-        // Mengambil segmen terakhir dari URL
-        $segments = explode('/', $_SERVER['REQUEST_URI']);
+        $currentUrl = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+        $segments = explode('/', trim($currentUrl, '/'));
         $lastSegment = end($segments);
+
+        // Build URLs for each cabang with existing search query
+        $baseUrl = '/dashboard/';
+        $searchQuery = isset($_GET['search']) ? '?search=' . $_GET['search'] : '';
         @endphp
 
-        @if ($lastSegment == 'cabang-gowa')
         <div class="flex items-center justify-start gap-x-5">
-            <a href="/dashboard/cabang" class="px-3 py-1 border border-blue-600 hover:bg-blue-600 hover:text-white rounded-md text-blue-600 cursor-pointer">
+            <a href="/dashboard/cabang" class="{{ $lastSegment == 'cabang' ? 'bg-blue-600 text-white' : 'border border-blue-600 text-blue-600' }} px-3 py-1 rounded-md hover:bg-blue-600 hover:text-white cursor-pointer">
                 Semua
             </a>
-            <a href="/dashboard/cabang-gowa" class="px-3 py-1 bg-blue-600 rounded-md text-white hover:bg-blue-600 hover:text-white cursor-pointer">
+            <a href="/dashboard/cabang-gowa" class="{{ $lastSegment == 'cabang-gowa' ? 'bg-blue-600 text-white' : 'border border-blue-600 text-blue-600' }} px-3 py-1 rounded-md hover:bg-blue-600 hover:text-white cursor-pointer">
                 Gowa
             </a>
-            <a href="/dashboard/cabang-makasar" class="px-3 py-1 border border-blue-600 rounded-md text-blue-600 hover:bg-blue-600 hover:text-white cursor-pointer">
+            <a href="/dashboard/cabang-makasar" class="{{ $lastSegment == 'cabang-makasar' ? 'bg-blue-600 text-white' : 'border border-blue-600 text-blue-600' }} px-3 py-1 rounded-md hover:bg-blue-600 hover:text-white cursor-pointer">
                 Makasar
             </a>
-            <a href="/dashboard/cabang-bone" class="px-3 py-1 border border-blue-600 rounded-md text-blue-600 hover:bg-blue-600 hover:text-white cursor-pointer">
+            <a href="/dashboard/cabang-bone" class="{{ $lastSegment == 'cabang-bone' ? 'bg-blue-600 text-white' : 'border border-blue-600 text-blue-600' }} px-3 py-1 rounded-md hover:bg-blue-600 hover:text-white cursor-pointer">
                 Bone
             </a>
         </div>
-        @elseif ($lastSegment == 'cabang-makasar')
-        <div class="flex items-center justify-start gap-x-5">
-            <a href="/dashboard/cabang" class="px-3 py-1 border border-blue-600 hover:bg-blue-600 hover:text-white rounded-md text-blue-600 cursor-pointer">
-                Semua
-            </a>
-            <a href="/dashboard/cabang-gowa" class="px-3 py-1 border border-blue-600 rounded-md text-blue-600 hover:bg-blue-600 hover:text-white cursor-pointer">
-                Gowa
-            </a>
-            <a href="/dashboard/cabang-makasar" class="px-3 py-1 bg-blue-600 rounded-md text-white hover:bg-blue-600 hover:text-white cursor-pointer">
-                Makasar
-            </a>
-            <a href="/dashboard/cabang-bone" class="px-3 py-1 border border-blue-600 rounded-md text-blue-600 hover:bg-blue-600 hover:text-white cursor-pointer">
-                Bone
-            </a>
-        </div>
-        @elseif ($lastSegment == 'cabang-bone')
-        <div class="flex items-center justify-start gap-x-5">
-            <a href="/dashboard/cabang" class="px-3 py-1 border border-blue-600 hover:bg-blue-600 hover:text-white rounded-md text-blue-600 cursor-pointer">
-                Semua
-            </a>
-            <a href="/dashboard/cabang-gowa" class="px-3 py-1 border border-blue-600 rounded-md text-blue-600 hover:bg-blue-600 hover:text-white cursor-pointer">
-                Gowa
-            </a>
-            <a href="/dashboard/cabang-makasar" class="px-3 py-1 border border-blue-600 rounded-md text-blue-600 hover:bg-blue-600 hover:text-white cursor-pointer">
-                Makasar
-            </a>
-            <a href="/dashboard/cabang-bone" class="px-3 py-1 bg-blue-600 rounded-md text-white hover:bg-blue-600 hover:text-white cursor-pointer">
-                Bone
-            </a>
-        </div>
-        @else
-        <div class="flex items-center justify-start gap-x-5">
-            <a href="/dashboard/cabang" class="px-3 py-1 bg-blue-600 rounded-md text-white cursor-pointer">
-                Semua
-            </a>
-            <a href="/dashboard/cabang-gowa" class="px-3 py-1 border border-blue-600 rounded-md text-blue-600 hover:bg-blue-600 hover:text-white cursor-pointer">
-                Gowa
-            </a>
-            <a href="/dashboard/cabang-makasar" class="px-3 py-1 border border-blue-600 rounded-md text-blue-600 hover:bg-blue-600 hover:text-white cursor-pointer">
-                Makasar
-            </a>
-            <a href="/dashboard/cabang-bone" class="px-3 py-1 border border-blue-600 rounded-md text-blue-600 hover:bg-blue-600 hover:text-white cursor-pointer">
-                Bone
-            </a>
-        </div>
-        @endif
+
         <a href="/dashboard/cabang/create" class="px-3 py-1 bg-green-600 rounded-md text-white">Tambah Dojo</a>
     </div>
+
+    <!-- Search Form -->
     <div class="w-full py-5">
+        <form method="GET" action="" class="flex gap-x-3 mb-5">
+            <input 
+                type="text" 
+                name="search" 
+                class="px-4 py-2 border rounded-md w-1/2" 
+                placeholder="Cari nama dojo..." 
+                value="{{ isset($_GET['search']) ? $_GET['search'] : '' }}" 
+            />
+            <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-md">Cari</button>
+        </form>
+
         <div class="bg-white shadow-xl rounded-md px-8 py-4">
             @forelse ($dojos as $items )
             <div class="grid grid-cols-3">
@@ -116,7 +88,7 @@
             </div>
             <hr class="mt-4">
             @empty
-            <p class="text-center text-blue-950">Data Masih Kosong !!!</p>
+            <p class="text-center text-blue-950">Tidak ada dojo yang ditemukan.</p>
             @endforelse
         </div>
     </div>
