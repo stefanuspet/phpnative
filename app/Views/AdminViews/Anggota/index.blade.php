@@ -65,12 +65,13 @@
                 </table>
                 <div class="h-full"></div>
                 <div class="h-full flex justify-end gap-x-5">
-                    <a href="/dashboard/anggota/show/{{$items->nid}}">
+                    <a href="/dashboard/anggota/show/{{$items->nid}}" class="mt-5"> <!-- Added mt-10 here -->
                         <div class="h-full bg-slate-300 p-5 rounded-md">
                             <h1 class="text-center font-bold text-2xl">{{$items->count_prestasi}}</h1>
                             <p>Total Prestasi</p>
                         </div>
                     </a>
+
                     <div class="flex flex-col justify-center gap-5">
                         <a href="/dashboard/anggota/edit/{{$items->nid}}" class="px-3 py-1 hover:bg-yellow-600 bg-yellow-500 rounded-md text-white">Edit</a>
                         <form action="/dashboard/anggota/delete/{{ $items->nid }}" method="post">

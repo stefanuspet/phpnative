@@ -591,6 +591,8 @@ class AdminController
         // format tanggal lahir dd-mm-yyyy
         foreach ($prestasi as $p) {
             $p->anggota->tanggal_lahir = date('d-m-Y', strtotime($p->anggota->tanggal_lahir));
+            // Format tanggal_dapat of prestasi
+            $p->waktu_dapat = date('d-m-Y', strtotime($p->waktu_dapat));
         }
         echo $this->blade->run(
             "adminViews.Prestasi.index",

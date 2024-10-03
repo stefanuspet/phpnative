@@ -3,7 +3,6 @@
 @section('title', 'Anggota')
 @section('content')
 <div class="w-full">
-    <!-- <div class="flex justify-between items-center pb-10"> -->
     <div class="p-4 bg-white shadow-lg rounded-md">
         <h1 class="text-3xl font-bold">{{$anggota->nama}}</h1>
         <div class="rounded-md px-12 py-14 grid grid-cols-4 items-center">
@@ -37,9 +36,9 @@
                         <td class="px-4">:</td>
                         @if ($anggota->tempat_lahir == null)
                         <td>{{$anggota->tanggal_lahir}}</td>
-                        @elseif ($anggota->tanggal_lahir == 00-00-0000 && $anggota->tempat_lahir != null)
+                        @elseif ($anggota->tanggal_lahir == '0000-00-00' && $anggota->tempat_lahir != null)
                         <td>{{$anggota->tempat_lahir}}</td>
-                        @elseif ($anggota->tanggal_lahir == 00-00-0000 && $anggota->tempat_lahir == null)
+                        @elseif ($anggota->tanggal_lahir == '0000-00-00' && $anggota->tempat_lahir == null)
                         <td>-</td>
                         @else
                         <td>{{$anggota->tempat_lahir}}, {{$anggota->tanggal_lahir}}</td>
@@ -87,20 +86,18 @@
                         <td>{{$anggota->nomor_induk}}</td>
                     </tr>
                 </table>
-                <div class="w-fit h-fit justify-between flex self-end">
-                    <div class="flex gap-4">
-                        @if ($anggota->status == 'Atlet')
-                        <div class="grid grid-cols-1 ">
-                            <a href="/dashboard-majelis/latihan/show/{{$anggota->nid}}" class="px-3 py-2 hover:bg-blue-600 bg-blue-500 my-1  rounded-md text-white text-center">Progres latihan</a>
-                            <a href="/dashboard-majelis/pembayaran/show/{{$anggota->nid}}" class="px-3 py-2 hover:bg-blue-600 bg-blue-500 my-1  rounded-md text-white text-center">Pembayaran</a>
-                        </div>
-                        <div class="p-5 text-center bg-slate-300 rounded-md shadow-sm">
-                            <h1 class="text-2xl font-bold">{{$anggota->count_prestasi}}</h1>
-                            <p class="">Prestasi</p>
-                        </div>
-                        @endif
-
+                <div class="flex flex-col justify-end items-end">
+                    @if ($anggota->status == 'Atlet')
+                    
+                    <div class="p-5 text-center bg-slate-300 rounded-md shadow-sm">
+                        <h1 class="text-2xl font-bold">{{ $anggota->count_prestasi }}</h1>
+                        <p>Prestasi</p>
                     </div>
+                    <div class="flex flex-col items-center gap-2">
+                        <a href="/dashboard-majelis/latihan/show/{{ $anggota->nid }}" class="px-3 py-2 w-40 hover:bg-blue-600 bg-blue-500 rounded-md text-white text-center mt-2.5">Progres Latihan</a>
+                        <a href="/dashboard-majelis/pembayaran/show/{{ $anggota->nid }}" class="px-3 py-2 w-40 hover:bg-blue-600 bg-blue-500 rounded-md text-white text-center">Pembayaran</a>
+                    </div>
+                    @endif
                 </div>
             </div>
         </div>
@@ -116,16 +113,14 @@
                     <th scope="col" class="px-6 py-3">Peringkat atau Medali</th>
                     <th scope="col" class="px-6 py-3">Waktu</th>
                 </tr>
-
             </thead>
             <tbody>
-                @forelse ($prestasi as $items )
+                @forelse ($prestasi as $items)
                 <tr>
                     <td class="px-6 py-4">{{$items->nama}}</td>
                     <td class="px-6 py-4">{{$items->tingkat}}</td>
-                    <td class="px-6 py-4">{{$items->peringkat }}</td>
+                    <td class="px-6 py-4">{{$items->peringkat}}</td>
                     <td class="px-6 py-4">{{$items->waktu_dapat}}</td>
-
                 </tr>
                 @empty
                 <tr>
