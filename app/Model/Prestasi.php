@@ -19,7 +19,8 @@ class Prestasi extends Model
         'tahun',
         'tingkat',
         'created_at',
-        'updated_at'
+        'updated_at',
+        'foto'
     ];
 
     public function anggota()

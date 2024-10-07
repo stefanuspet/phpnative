@@ -29,6 +29,7 @@ final class CreatePrestasisTable extends AbstractMigration
             ->addColumn('waktu_dapat', 'date', ['null' => false])
             ->addColumn('created_at', 'timestamp', ['default' => 'CURRENT_TIMESTAMP'])
             ->addColumn('updated_at', 'timestamp', ['default' => 'CURRENT_TIMESTAMP'])
+            ->addColumn('foto', 'string', ['null' => false])
             ->addForeignKey("id_anggota", "anggotas", "nid", ['delete' => 'CASCADE', 'update' => 'CASCADE'])
             ->create();
     }

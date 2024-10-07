@@ -5,7 +5,7 @@
 <div class="w-full">
     <h1 class="text-4xl font-bold pb-10 text-blue-950">Edit Prestasi</h1>
     <div class="shadow-md rounded-md bg-white w-4/5">
-        <form action="/dashboard/prestasi/update/{{$prestasi->id}}/{{$id_anggota}}" class="p-4" method="post">
+        <form action="/dashboard/prestasi/update/{{$prestasi->id}}/{{$id_anggota}}" class="p-4" method="post" enctype="multipart/form-data">
             @csrf
             @method('PUT')
             <div class="mb-3">
@@ -24,6 +24,15 @@
             <div class="mb-3 relative">
                 <label for="waktu_dapat" class="block">Waktu Dapat</label>
                 <input type="date" name="waktu_dapat" id="waktu_dapat" class="w-full border border-blue-600 rounded-md p-2" value="{{ $prestasi->waktu_dapat }}" required>
+            </div>
+            <div class="mb-3">
+                <label for="foto" class="block">Foto</label>
+                <input type="file" name="foto" id="foto" class="w-full border border-blue-600 rounded-md p-2" accept="image/*">
+                @if($prestasi->foto)
+                <div class="mt-3">
+                    <img src="/uploads/{{$prestasi->foto}}" alt="Foto Prestasi" class="w-32 h-32 object-cover rounded-md">
+                </div>
+                @endif
             </div>
             <div class="flex justify-end mt-10">
                 <button class="px-3 py-1 bg-green-600 rounded-md text-white">Simpan</button>

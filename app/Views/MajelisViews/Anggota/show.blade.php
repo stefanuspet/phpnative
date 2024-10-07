@@ -112,15 +112,21 @@
                     <th scope="col" class="px-6 py-3">Tingkat</th>
                     <th scope="col" class="px-6 py-3">Peringkat atau Medali</th>
                     <th scope="col" class="px-6 py-3">Waktu</th>
+                    <th scope="col" class="px-6 py-3"></th>
                 </tr>
             </thead>
             <tbody>
                 @forelse ($prestasi as $items)
                 <tr>
-                    <td class="px-6 py-4">{{$items->nama}}</td>
-                    <td class="px-6 py-4">{{$items->tingkat}}</td>
-                    <td class="px-6 py-4">{{$items->peringkat}}</td>
-                    <td class="px-6 py-4">{{$items->waktu_dapat}}</td>
+                    <td class="px-6 py-4 border">
+                    <div class="h-44 w-44 bg-slate-300 overflow-hidden flex justify-center items-center mt-5">
+                        <img class="object-cover h-full w-full" src="/uploads/{{$items->foto}}" alt="Foto Prestasi">
+                    </div>
+                    </td>
+                    <td class="px-6 py-4 border">{{$items->nama}}</td>
+                    <td class="px-6 py-4 border">{{$items->tingkat}}</td>
+                    <td class="px-6 py-4 border">{{$items->peringkat}}</td>
+                    <td class="px-6 py-4 border">{{$items->waktu_dapat}}</td>
                 </tr>
                 @empty
                 <tr>
