@@ -5,7 +5,7 @@
 <div class="w-full">
     <h1 class="text-4xl font-bold pb-10 text-blue-950">Tambah Kegiatan/Event</h1>
     <div class="shadow-md rounded-md bg-white w-4/5">
-        <form action="/dashboard/kegiatan/store" class="p-4" method="post">
+        <form action="/dashboard/kegiatan/store" class="p-4" method="post" enctype="multipart/form-data">
             <div class="mb-3">
                 <label for="nama" class="block">Nama Kegiatan</label>
                 <input type="text" name="nama" id="nama" class="w-full border border-blue-600 rounded-md p-2" required>
@@ -19,9 +19,15 @@
                 <label for="tanggal" class="block">Tanggal</label>
                 <input type="date" name="tanggal" id="tanggal" class="w-full border border-blue-600 rounded-md p-2" required>
             </div>
+            <div class="mb-3">
+                <label for="foto" class="block">Foto Poster</label>
+                <input type="file" name="foto" id="foto" class="w-full border border-blue-600 rounded-md p-2"  required>
+            </div>
+
             <div class="flex justify-end mt-10">
                 <button class="px-3 py-1 bg-green-600 rounded-md text-white">Simpan</button>
             </div>
+           
 
         </form>
     </div>

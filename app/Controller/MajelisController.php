@@ -90,39 +90,64 @@ class MajelisController
         $pathSegments = explode('/', $uri);
         $id = end($pathSegments); // Extract the ID from the URI
 
-        // Validate the request data
-        $nit = $request['nit'];
-        $nama = $request['nama'];
-        $tahun_gabung = $request['tahun_gabung'];
-        $jenis_kelamin = $request['jenis_kelamin'];
-        $alamat = $request['alamat'];
-        $jabatan = $request['jabatan'];
-        $tingkat_sabuk = $request['tingkat_sabuk'];
-        $spesialis = $request['spesialis'];
-        $tanggal_lahir = $request['tanggal_lahir'];
-        $tempat_lahir = $request['tempat_lahir'];
-        $old_nit = $request['old_nit']; // Assume this is passed in the request
-
-        // Check for duplicates
-        if ($nit !== $old_nit) {
-            if (
-                Majelis::where('nit', $nit)->exists() ||
-                Anggota::where('nomor_induk', $nit)->exists() ||
-                User::where('credential_id', $nit)->exists()
-            ) {
-                $_SESSION['error'] = "Nomor Induk sudah Terpakai. Old NIT: $old_nit, New NIT: $nit";
-                echo $_SESSION['error'];
-                $_SESSION['error'] = null;
-                exit();
-            }
-        }
-
-
         // Find the existing Majelis record
         $majelis = Majelis::find($id);
         if (!$majelis) {
             die('Majelis not found');
         }
+
+        if (isset($request['nit']) && !empty($request['nit'])) {
+            // Only check for duplicates if old_nomor_induk is different from nomor_induk
+            if (isset($request['old_nit']) && $request['old_nit'] !== $request['nit']) {
+                // Check for duplicates
+                if (
+                    Majelis::where('nit', $request['nit'])->exists() ||
+                    Anggota::where('nomor_induk', $request['nit'])->exists() ||
+                    User::where('credential_id', $request['nit'])->exists()
+                ) {
+                    $_SESSION['error'] = "Nomor Induk sudah Terpakai.";
+                    echo $_SESSION['error'];
+                    $_SESSION['error'] = null;
+                    exit();
+                }
+                
+                // Check if old_nit exists in User table
+                if (isset($request['old_nit']) && User::where('credential_id', $request['old_nit'])->exists()) {
+                    // Update DojoMajelis with the new nit
+                    User::where('credential_id', $request['old_nit'])->update(['credential_id' => $request['nit']]);
+                }
+
+                // Check if old_nit exists in User table
+                // if (isset($request['old_nit']) && DojoMajelis::where('id_majelis', $request['old_nit'])->exists()) {
+                //     // Update DojoMajelis with the new nit
+                //     DojoMajelis::where('id_majelis', $request['old_nit'])->update(['id_majelis' => $request['nit']]);
+                // }
+            }
+
+            // Update nomor_induk if it is unique or if old_nomor_induk is the same as nomor_induk
+            $majelis->nit = $request['nit'];
+        }
+        // Validate the request data
+        // $nit = $request['nit'];
+    
+        // $old_nit = $request['old_nit']; // Assume this is passed in the request
+
+        // // Check for duplicates
+        // if ($nit !== $old_nit) {
+        //     if (
+        //         Majelis::where('nit', $nit)->exists() ||
+        //         Anggota::where('nomor_induk', $nit)->exists() ||
+        //         User::where('credential_id', $nit)->exists()
+        //     ) {
+        //         $_SESSION['error'] = "Nomor Induk sudah Terpakai. Old NIT: $old_nit, New NIT: $nit";
+        //         echo $_SESSION['error'];
+        //         $_SESSION['error'] = null;
+        //         exit();
+        //     }
+        // }
+
+
+        
 
         // Handle file upload for foto
         if (isset($_FILES['foto']) && $_FILES['foto']['error'] === UPLOAD_ERR_OK) {
@@ -137,47 +162,26 @@ class MajelisController
             $this->filesystem->write($fileName, $fileContent);
 
             // Update Majelis record with new data
-            $majelis->update([
-                'nit' => $nit,
-                'nama' => $nama,
-                'tahun_gabung' => $tahun_gabung,
-                'jenis_kelamin' => $jenis_kelamin,
-                'alamat' => $alamat,
-                'jabatan' => $jabatan,
-                'tingkat_sabuk' => $tingkat_sabuk,
-                'spesialis' => $spesialis,
-                'tanggal_lahir' => $tanggal_lahir,
-                'tempat_lahir' => $tempat_lahir,
-                'foto' => $fileName
-            ]);
+            $majelis->foto=$fileName;
         } else {
             // Update Majelis record without new foto
-            $majelis->update([
-                'nit' => $nit,
-                'nama' => $nama,
-                'tahun_gabung' => $tahun_gabung,
-                'jenis_kelamin' => $jenis_kelamin,
-                'alamat' => $alamat,
-                'jabatan' => $jabatan,
-                'tingkat_sabuk' => $tingkat_sabuk,
-                'spesialis' => $spesialis,
-                'tanggal_lahir' => $tanggal_lahir,
-                'tempat_lahir' => $tempat_lahir
-            ]);
+            // If no new photo is uploaded, keep the existing photo
+            if (!$majelis->foto) {
+                $majelis->foto = 'default_img.jpg'; // Default photo if not already set
+            }
         }
 
-        // Check if old_nit exists in User table
-        if (isset($old_nit) && User::where('credential_id', $old_nit)->exists()) {
-            // Update DojoMajelis with the new nit
-            User::where('credential_id', $old_nit)->update(['credential_id' => $nit]);
-        }
+        $majelis->nama = $request['nama'];
+        $majelis->tahun_gabung = $request['tahun_gabung'];
+        $majelis->jenis_kelamin = $request['jenis_kelamin'];
+        $majelis->alamat = $request['alamat'];
+        $majelis->jabatan = $request['jabatan'];
+        $majelis->tingkat_sabuk = $request['tingkat_sabuk'];
+        $majelis->spesialis = $request['spesialis'];
+        $majelis->tanggal_lahir = $request['tanggal_lahir'];
+        $majelis->tempat_lahir = $request['tempat_lahir'];
 
-        // Check if old_nit exists in User table
-        if (isset($old_nit) && DojoMajelis::where('id_majelis', $old_nit)->exists()) {
-            // Update DojoMajelis with the new nit
-            DojoMajelis::where('id_majelis', $id)->update(['id_majelis' => $nit]);
-        }
-        
+        $majelis->save();
         // Redirect back to the Majelis page
         if ($_SESSION['user']['role'] == 'admin') {
             header('Location: /dashboard/majelis');

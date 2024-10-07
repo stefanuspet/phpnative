@@ -79,7 +79,7 @@
                         </div>
                     </a>
                     <div class="flex flex-col justify-center gap-5">
-                        <a href="/dashboard/cabang/edit/{{$items->id}}" class="px-3 py-1 hover:bg-yellow-600 bg-yellow-500  rounded-md text-white">Edit</a>
+                        <a href="/dashboard/cabang/edit/{{$items->id}}" class="px-3 py-1 hover:bg-yellow-600 bg-yellow-500  rounded-md text-white  mt-5">Edit</a>
                         <form action="/dashboard/cabang/delete/{{ $items->id }}" method="post">
                             <input type="hidden" name="_method" value="DELETE">
                             <input type="hidden" name="id" value="{{ $items->id }}">

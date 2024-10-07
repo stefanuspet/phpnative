@@ -27,6 +27,7 @@ final class CreateKegiatansTable extends AbstractMigration
             ->addColumn('tanggal', 'date', ['null' => false])
             ->addColumn('created_at', 'timestamp', ['default' => 'CURRENT_TIMESTAMP'])
             ->addColumn('updated_at', 'timestamp', ['default' => 'CURRENT_TIMESTAMP'])
+            ->addColumn('foto', 'string', ['null' => false])
             ->create();
     }
 }

@@ -46,46 +46,57 @@
     <div class="w-full">
         <div class="bg-white shadow-xl rounded-md px-8 py-4">
             @forelse ($kegiatan as $items )
-            <div class="grid grid-cols-3">
-                <table class="w-fit mt-2">
-                    <tr>
-                        <td>Nama Kegiatan</td>
-                        <td class="px-2">:</td>
-                        <td>{{$items->nama}}</td>
-                    </tr>
-                    <tr>
-                        <td>Lokasi</td>
-                        <td class="px-2">:</td>
-                        <td>{{$items->lokasi}}</td>
-                    </tr>
-                    <tr>
-                        <td>Tanggal Kegiatan</td>
-                        <td class="px-2">:</td>
-                        <td>{{$items->tanggal}}</td>
-                    </tr>
-                </table>
-                <div class="h-full">
+            <div class="flex items-center gap-5 mb-5 mt-5"> 
+                <!-- Image Section -->
+                <div class="max-h-44 max-w-44 bg-slate-300 overflow-hidden flex justify-center items-center">
+                    @if($items->foto)
+                        <img class="object-cover h-full w-full max-h-44 max-w-44" 
+                            src="/uploads/{{$items->foto}}" 
+                            alt="Kegiatan Photo">
+                    @endif
                 </div>
-                <div class="h-full flex justify-end gap-x-5">
-                    <div class="flex flex-col justify-center gap-5">
-                        <!-- if user not register -->
-                        @if ($items->peserta->where('id_anggota', $_SESSION['user']['nid'])->count() == 0)
-                        <form action="/dashboard/peserta/store" method="post">
-                            @csrf
-                            <input type="hidden" name="id_kegiatan" value="{{$items->id}}">
-                            <input type="hidden" name="id_anggota" value="{{$_SESSION['user']['nid']}}">
-                            <button class="px-3 py-2 hover:bg-blue-600 bg-blue-500  rounded-md text-white">Daftar Kegiatan</button>
-                        </form>
-                        @else
-                        <form action="/dashboard/peserta/delete" method="post">
-                            @csrf
-                            <input type="hidden" name="id_kegiatan" value="{{$items->id}}">
-                            <input type="hidden" name="id_anggota" value="{{$_SESSION['user']['nid']}}">
-                            <button class="px-3 py-2 hover:bg-red-600 bg-red-500  rounded-md text-white">Batalkan Pendaftaran</button>
-                        </form>
-                        @endif
+                <div class="flex-1 grid grid-cols-3">
+                    <table class="w-fit mt-2">
+                        <tr>
+                            <td>Nama Kegiatan</td>
+                            <td class="px-2">:</td>
+                            <td>{{$items->nama}}</td>
+                        </tr>
+                        <tr>
+                            <td>Lokasi</td>
+                            <td class="px-2">:</td>
+                            <td>{{$items->lokasi}}</td>
+                        </tr>
+                        <tr>
+                            <td>Tanggal Kegiatan</td>
+                            <td class="px-2">:</td>
+                            <td>{{$items->tanggal}}</td>
+                        </tr>
+                    </table>
+                    <div class="h-full">
+                    </div>
+                    <div class="h-full flex justify-end gap-x-5">
+                        <div class="flex flex-col justify-center gap-5">
+                            <!-- if user not register -->
+                            @if ($items->peserta->where('id_anggota', $_SESSION['user']['nid'])->count() == 0)
+                            <form action="/dashboard/peserta/store" method="post">
+                                @csrf
+                                <input type="hidden" name="id_kegiatan" value="{{$items->id}}">
+                                <input type="hidden" name="id_anggota" value="{{$_SESSION['user']['nid']}}">
+                                <button class="px-3 py-2 hover:bg-blue-600 bg-blue-500  rounded-md text-white">Daftar Kegiatan</button>
+                            </form>
+                            @else
+                            <form action="/dashboard/peserta/delete" method="post">
+                                @csrf
+                                <input type="hidden" name="id_kegiatan" value="{{$items->id}}">
+                                <input type="hidden" name="id_anggota" value="{{$_SESSION['user']['nid']}}">
+                                <button class="px-3 py-2 hover:bg-red-600 bg-red-500  rounded-md text-white">Batalkan Pendaftaran</button>
+                            </form>
+                            @endif
+                        </div>
                     </div>
                 </div>
+            
             </div>
             <hr class="mt-4">
             @empty

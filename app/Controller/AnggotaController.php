@@ -283,6 +283,9 @@ class AnggotaController
             header('Location: /error');
         }
         $kegiatan = Kegiatan::all();
+        foreach ($kegiatan as $k) {
+            $k->tanggal = date('d-m-Y', strtotime($k->tanggal));
+        }
         echo $this->blade->run("AnggotaViews.Kegiatan.index", ['kegiatan' => $kegiatan]);
     }
 
