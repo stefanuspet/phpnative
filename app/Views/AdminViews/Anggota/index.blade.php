@@ -45,27 +45,42 @@
 
         <div class="bg-white shadow-xl rounded-md px-8 py-4">
             @forelse ($anggota as $items )
-            <div class="grid grid-cols-3">
-                <table class="w-fit mt-2">
-                    <tr>
-                        <td>Nama</td>
-                        <td class="px-2">:</td>
-                        <td>{{$items->nama}}</td>
-                    </tr>
-                    <tr>
-                        <td>Dojo</td>
-                        <td class="px-2">:</td>
-                        <td>{{$items->dojo->nama}}</td>
-                    </tr>
-                    <tr>
-                        <td>Tahun Bergabung</td>
-                        <td class="px-2">:</td>
-                        <td>{{$items->tahun_gabung}}</td>
-                    </tr>
-                </table>
-                <div class="h-full"></div>
+            <div class="flex items-center gap-5 mb-5"> 
+                <!-- Image Section with margin-top -->
+                <div class="rounded-full h-44 w-44 bg-slate-300 overflow-hidden flex justify-center items-center mt-5">
+                    <img class="object-cover h-full w-full" src="/uploads/{{$items->foto}}" alt="Anggota Photo">
+                </div>
+                
+                <!-- Table Section with fixed width for labels -->
+                <div class="flex-1">
+                    <table class="w-full">
+                        <tr>
+                            <td class="font-semibold w-60"> <!-- Fixed width for the first column -->
+                                Nama
+                            </td>
+                            <td class="px-2 w-10">:</td> <!-- Make this column narrow to ensure alignment -->
+                            <td>{{$items->nama}}</td>
+                        </tr>
+                        <tr>
+                            <td class="font-semibold w-32"> <!-- Fixed width for the first column -->
+                                Dojo
+                            </td>
+                            <td class="px-2 w-10">:</td>
+                            <td>{{$items->dojo->nama}}</td>
+                        </tr>
+                        <tr>
+                            <td class="font-semibold w-32"> <!-- Fixed width for the first column -->
+                                Tahun Bergabung
+                            </td>
+                            <td class="px-2 w-10">:</td>
+                            <td>{{$items->tahun_gabung}}</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <!-- Actions and Stats Section -->
                 <div class="h-full flex justify-end gap-x-5">
-                    <a href="/dashboard/anggota/show/{{$items->nid}}" class="mt-5"> <!-- Added mt-10 here -->
+                    <a href="/dashboard/anggota/show/{{$items->nid}}" class="mt-5"> 
                         <div class="h-full bg-slate-300 p-5 rounded-md">
                             <h1 class="text-center font-bold text-2xl">{{$items->count_prestasi}}</h1>
                             <p>Total Prestasi</p>

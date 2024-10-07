@@ -79,8 +79,7 @@
                         <p>Prestasi</p>
                     </div>
                     <div class="flex flex-col items-center gap-2">
-                    <a href="/dashboard/latihan/show/{{ $anggota->nid }}" class="px-3 py-2 w-40 hover:bg-blue-600 bg-blue-500 rounded-md text-white text-center mt-2.5">Progres Latihan</a>
-
+                        <a href="/dashboard/latihan/show/{{ $anggota->nid }}" class="px-3 py-2 w-40 hover:bg-blue-600 bg-blue-500 rounded-md text-white text-center mt-2.5">Progres Latihan</a>
                         <a href="/dashboard/pembayaran/show/{{ $anggota->nid }}" class="px-3 py-2 w-40 hover:bg-blue-600 bg-blue-500 rounded-md text-white text-center">Pembayaran</a>
                     </div>
                     @endif
