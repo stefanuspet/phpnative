@@ -22,13 +22,22 @@
             </tr>
         </thead>
         <tbody>
+            @php
+                $previousDojoId = null; // Initialize previous dojo id variable
+            @endphp
+
             @foreach ($dojoMajelis as $dj )
             <tr class="text-center">
-                <td class="border py-1">{{$dj->dojo->nama}}</td>
+                <td class="border py-1">
+                    @if ($previousDojoId != $dj->dojo->id)
+                        {{$dj->dojo->nama}} <!-- Show Dojo Name if it's not a repeat -->
+                    @else
+                        &nbsp; <!-- Display blank if same dojo id -->
+                    @endif
+                </td>
                 <td class="border py-1">{{$dj->majelis->nama}}</td>
                 <td class="border">
                     <div class="inline-flex py-2 gap-x-2">
-                        <!-- <button class="px-3 py-1 hover:bg-yellow-600 bg-yellow-500  rounded-md text-white">Edit</button> -->
                         <form action="/dashboard/dojoMajelis/delete" method="post">
                             <input type="hidden" name="_method" value="DELETE">
                             <input type="hidden" name="id_dojo" value="{{ $dj->dojo->id }}">
@@ -38,10 +47,15 @@
                     </div>
                 </td>
             </tr>
+
+            @php
+                $previousDojoId = $dj->dojo->id; // Update the previous dojo id to current dojo id
+            @endphp
             @endforeach
         </tbody>
     </table>
 </div>
+
 <!-- Modal -->
 <div id="modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden">
     <div class="bg-white rounded-lg p-6 w-1/2">

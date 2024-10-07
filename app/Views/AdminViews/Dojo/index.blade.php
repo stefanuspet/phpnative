@@ -66,11 +66,13 @@
                         <td class="px-2">:</td>
                         <td>{{$items->cabang}}</td>
                     </tr>
+
+                    
                 </table>
                 <div class="h-full">
                 </div>
                 <div class="h-full flex justify-end gap-x-5">
-                    <a href="/dashboard/cabang/show/{{$items->id}}">
+                    <a href="/dashboard/cabang/show/{{$items->id}}" class="mt-5">
                         <div class="h-full bg-slate-300 p-5 rounded-md">
                             <h1 class="text-center font-bold text-2xl">{{$items->count_anggota}}</h1>
                             <p>Jumlah Anggota</p>
