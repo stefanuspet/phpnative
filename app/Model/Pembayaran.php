@@ -18,6 +18,7 @@ class Pembayaran extends Model
         'bukti_pembayaran',
         'created_at',
         'updated_at',
+        'catatan'
     ];
 
     public function anggota()

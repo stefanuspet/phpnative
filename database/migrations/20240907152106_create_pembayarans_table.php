@@ -24,6 +24,7 @@ final class CreatePembayaransTable extends AbstractMigration
             ->addColumn('id_anggota', 'biginteger', ['signed' => false, 'null' => false])
             ->addColumn('bulan', 'string', ['null' => false])
             ->addColumn('bukti_pembayaran', 'string', ['null' => false])
+            ->addColumn('catatan', 'string', ['null' => false])
             ->addColumn('created_at', 'timestamp', ['default' => 'CURRENT_TIMESTAMP'])
             ->addColumn('updated_at', 'timestamp', ['default' => 'CURRENT_TIMESTAMP'])
             ->addForeignKey("id_anggota", "anggotas", "nid", ['delete' => 'CASCADE', 'update' => 'CASCADE'])

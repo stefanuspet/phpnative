@@ -48,6 +48,7 @@ return function (RouteCollector $r) {
 
     $r->addRoute('GET', '/dashboard/pembayaran', 'AdminController@pembayaran');
     $r->addRoute('GET', '/dashboard/pembayaran/show/{id}', 'AdminController@showPembayaranByid');
+    $r->addRoute('GET', '/dashboard/pembayaran/edit/{id}', 'AdminController@editPembayaran');
 
     $r->addRoute('GET', '/dashboard/kegiatan', 'AdminController@kegiatan');
     $r->addRoute('GET', '/dashboard/kegiatan/show/{id}', 'AdminController@showKegiatanByid');

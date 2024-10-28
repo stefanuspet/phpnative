@@ -28,7 +28,7 @@
                     <td class="px-6 py-4">{{$items->catatan }}</td>
                     <!-- form delete -->
                     <td class="px-6 py-4 inline-flex gap-x-5">
-                        @if ($items->catatan != null)
+                        @if (!is_null($items->catatan) && trim($items->catatan) !== "")
                         <a href="/dashboard-majelis/latihan/edit/{{$items->id}}" class="bg-yellow-500 text-white p-2 rounded-md">Edit</a>
                         @else
                         <a href="/dashboard-majelis/latihan/edit/{{$items->id}}" class="bg-blue-600 text-white p-2 rounded-md">Tambah Catatan</a>

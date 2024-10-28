@@ -499,6 +499,24 @@ class AdminController
             ]
         );
     }
+
+
+    public function editPembayaran()
+    {
+        $requestUri = $_SERVER['REQUEST_URI'];
+        $uri = strtok($requestUri, '?');
+        $pathSegments = explode('/', $uri);
+        $id = end($pathSegments);
+
+        $pembayaran = Pembayaran::find($id);
+        echo $this->blade->run(
+            "adminViews.Pembayaran.edit",
+            [
+                'pembayaran' => $pembayaran
+            ]
+        );
+    }
+
     public function kegiatan()
     {
         $kegiatan = Kegiatan::all();

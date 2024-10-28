@@ -15,6 +15,7 @@
                     <th scope="col" class="px-6 py-3">Tanggal Pembayaran</th>
                     <th scope="col" class="px-6 py-3">Pembayaran Bulan</th>
                     <th scope="col" class="px-6 py-3">Foto Bukti</th>
+                    <th scope="col" class="px-6 py-3">Catatan Admin</th>
                     <th scope="col" class="px-6 py-3">Aksi</th>
                 </tr>
 
@@ -25,13 +26,26 @@
                     <td class="px-6 py-4">{{$items->created_at}}</td>
                     <td class="px-6 py-4">{{$items->bulan}}</td>
                     <td class="px-6 py-4">
-                        <img src="{{$items->foto}}" alt="bukti">
+                        <a href="/uploads/{{$items->bukti_pembayaran}}" class="w-44">
+                            <img class="object-fill w-44 mx-auto" src="/uploads/{{$items->bukti_pembayaran}}" alt="{{$items->bukti_pembayaran}}">
+                        </a>
                     </td>
+                    <td class="px-6 py-4 max-w-[150px]">{{$items->catatan}}</td>
                     <!-- form delete -->
-                    <td class="px-6 py-4">
+                    <!-- <td class="px-6 py-4">
                         <form action="/dashboard/pembayaran/delete/{{$items->id}}" method="POST">
                             <input type="hidden" name="id" value="{{ $items->id }}">
                             <button type="submit" class="bg-red-500 text-white p-2 rounded-md">Delete</button>
+                        </form>
+                    </td> -->
+                    <td class="px-6 py-4 inline-flex gap-x-5">
+                        @if (!is_null($items->catatan) && trim($items->catatan) !== "")
+                        <a href="/dashboard/pembayaran/edit/{{$items->id}}" class="bg-yellow-500 text-white p-2 rounded-md">Edit</a>
+                        @else
+                        <a href="/dashboard/pembayaran/edit/{{$items->id}}" class="bg-blue-600 text-white p-2 rounded-md">Tambah Catatan</a>
+                        @endif
+                        <form action="/dashboard/pembayaran/delete/{{$items->id}}" method="POST">
+                            <button type="submit" class="bg-red-500 text-white p-2 rounded-md">Delete Catatan</button>
                         </form>
                     </td>
                 </tr>

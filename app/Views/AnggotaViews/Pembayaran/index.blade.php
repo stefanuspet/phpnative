@@ -15,6 +15,7 @@
                     <th scope="col" class="px-6 py-3">Tanggal Bukti Diunggah</th>
                     <th scope="col" class="px-6 py-3">Pembayaran Bulan</th>
                     <th scope="col" class="px-6 py-3">Foto Bukti</th>
+                    <th scope="col" class="px-6 py-3">Catatan Admin</th>
                     <th scope="col" class="px-6 py-3">Aksi</th>
                 </tr>
 
@@ -29,6 +30,7 @@
                             <img class="object-fill w-44 mx-auto" src="/uploads/{{$items->bukti_pembayaran}}" alt="{{$items->bukti_pembayaran}}">
                         </a>
                     </td>
+                    <td class="px-6 py-4 max-w-[150px]">{{$items->catatan}}</td>
                     <td class="px-6 py-4 inline-flex gap-x-5">
                         <a href="/dashboard-anggota/pembayaran/edit/{{$items->id}}" class="bg-yellow-500 text-white p-2 rounded-md">Edit</a>
                         <form action="/dashboard/pembayaran/delete/{{$items->id}}" method="POST">

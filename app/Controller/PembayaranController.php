@@ -59,17 +59,18 @@ class PembayaranController
     $uri = strtok($requestUri, '?');
     $pathSegments = explode('/', $uri);
     $id = end($pathSegments);
-
+    
     // Find the existing payment record
     $pembayaran = Pembayaran::find($id);
+    
     if (!$pembayaran) {
         // Handle the case when the payment record does not exist
         header('Location: /dashboard/pembayaran');
         exit();
     }
-
+    $pembayaran->catatan = isset ($request ['catatan']) ? $request['catatan']:'';
     // Update payment details
-    $pembayaran->id_anggota = $_SESSION['user']['nid'];
+    // $pembayaran->id_anggota = $_SESSION['user']['nid'];
     // $pembayaran->tanggal_bayar = $request['tanggal']; // Assuming you have 'tanggal' in your request
     $pembayaran->bulan = $request['bulan'] . '-' . $request['tahun'];
 
@@ -97,7 +98,9 @@ class PembayaranController
     // Redirect based on user role
     if ($_SESSION['user']['role'] == 'anggota') {
         header('Location: /dashboard-anggota/pembayaran');
-    } else {
+    } else if ($_SESSION['user']['role'] == 'admin') {
+        header('Location: /dashboard/pembayaran/show/' . $pembayaran->id_anggota);
+    }else {
         header('Location: /dashboard/pembayaran');
     }
 }
