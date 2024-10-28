@@ -52,7 +52,16 @@
             </div>
             <div class="mb-3">
                 <label for="tingkat_sabuk" class="block">Tingkat Sabuk</label>
-                <input type="text" name="tingkat_sabuk" id="tingkat_sabuk" class="w-full border border-blue-600 rounded-md p-2" required value="{{ $anggota->tingkat_sabuk }}">
+                <select name="tingkat_sabuk" id="tingkat_sabuk" class="w-full border border-blue-600 rounded-md p-2">
+                    <option value="" {{ $anggota->tingkat_sabuk == "" ? 'selected' : '' }}>Choose</option>
+                    <option value="Sabuk putih (Kyu VII)" {{ $anggota->tingkat_sabuk == "Sabuk putih (Kyu VII)" ? 'selected' : '' }}>Sabuk putih (Kyu VII)</option>
+                    <option value="Sabuk kuning (Kyi VI)" {{ $anggota->tingkat_sabuk == "Sabuk kuning (Kyi VI)" ? 'selected' : '' }}>Sabuk kuning (Kyi VI)</option>
+                    <option value="Sabuk orange (Kyu V)" {{ $anggota->tingkat_sabuk == "Sabuk orange (Kyu V)" ? 'selected' : '' }}>Sabuk orange (Kyu V)</option>
+                    <option value="Sabuk hijau (Kyu IV)" {{ $anggota->tingkat_sabuk == "Sabuk hijau (Kyu IV)" ? 'selected' : '' }}>Sabuk hijau (Kyu IV)</option>
+                    <option value="Sabuk biru (Kyu III)" {{ $anggota->tingkat_sabuk == "Sabuk biru (Kyu III)" ? 'selected' : '' }}>Sabuk biru (Kyu III)</option>
+                    <option value="Sabuk Coklat (Kyu II)" {{ $anggota->tingkat_sabuk == "Sabuk Coklat (Kyu II)" ? 'selected' : '' }}>Sabuk Coklat (Kyu II)</option>
+                    <option value="Sabuk Coklat (Kyu I)" {{ $anggota->tingkat_sabuk == "Sabuk Coklat (Kyu I)" ? 'selected' : '' }}>Sabuk Coklat (Kyu I)</option>
+                </select>
             </div>
             <div class="mb-3">
                 <label for="status" class="block">Status</label>

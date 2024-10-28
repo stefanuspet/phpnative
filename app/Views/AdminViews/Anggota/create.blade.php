@@ -57,7 +57,16 @@
             </div>
             <div class="mb-3">
                 <label for="tingkat_sabuk" class="block">Tingkat Sabuk</label>
-                <input type="text" name="tingkat_sabuk" id="tingkat_sabuk" class="w-full border border-blue-600 rounded-md p-2">
+                <select name="tingkat_sabuk" id="tingkat_sabuk" class="w-full border border-blue-600 rounded-md p-2" required>
+                    <option value="">Choose</option>
+                    <option value="Sabuk putih (Kyu VII)">Sabuk putih (Kyu VII)</option>
+                    <option value="Sabuk kuning (Kyi VI)">Sabuk kuning (Kyi VI)</option>
+                    <option value="Sabuk orange (Kyu V)">Sabuk orange (Kyu V)</option>
+                    <option value="Sabuk hijau (Kyu IV)">Sabuk hijau (Kyu IV)</option>
+                    <option value="Sabuk biru (Kyu III)">Sabuk biru (Kyu III)</option>
+                    <option value="Sabuk Coklat (Kyu II)">Sabuk Coklat (Kyu II)</option>
+                    <option value="Sabuk Coklat (Kyu I)">Sabuk Coklat (Kyu I)</option>
+                </select>
             </div>
             <!-- Status field -->
             <div class="mb-3">

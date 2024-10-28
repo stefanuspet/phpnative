@@ -385,7 +385,7 @@ class MajelisController
         }
 
         echo $this->blade->run(
-            "adminViews.Anggota.edit",
+            "MajelisViews.Anggota.edit",
             [
                 'anggota' => $anggota,
                 'dojos' => $dojos
