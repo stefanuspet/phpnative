@@ -11,6 +11,7 @@ use App\Model\Kegiatan;
 use App\Model\Latihan;
 use App\Model\Pembayaran;
 use App\Model\Pengurus;
+use App\Model\Perlengkapan;
 
 class AdminController
 {
@@ -719,6 +720,46 @@ class AdminController
                 'dojoMajelis' => $dojoMajelis,
                 'dojoall' => $dojoall,
                 'majelisall' => $majelisall
+            ]
+        );
+    }
+
+    public function perlengkapan()
+    {
+        $perlengkapan = Perlengkapan::orderByRaw("FIELD(ukuran, 'M', 'L', 'XL')")->get();
+        echo $this->blade->run(
+            "adminViews.Perlengkapan.index",
+            [
+                'perlengkapan' => $perlengkapan
+            ]
+        );
+    }
+
+    public function createPerlengkapan()
+    {
+        echo $this->blade->run(
+            "adminViews.Perlengkapan.create"
+        );
+    }
+
+    public function editPerlengkapan()
+    {
+        // Mendapatkan URL yang diakses
+        $requestUri = $_SERVER['REQUEST_URI'];
+
+        // Menghapus query string jika ada
+        $uri = strtok($requestUri, '?');
+
+        // Memecah URL menjadi segmen
+        $pathSegments = explode('/', $uri);
+        // Mendapatkan {id} dan {id_anggota}
+        $id = end($pathSegments); // Segmen terakhir
+
+        $perlengkapan = Perlengkapan::find($id);
+        echo $this->blade->run(
+            "adminViews.Perlengkapan.edit",
+            [
+                'perlengkapan' => $perlengkapan
             ]
         );
     }

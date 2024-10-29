@@ -65,6 +65,10 @@ return function (RouteCollector $r) {
 
     $r->addRoute('GET', '/dashboard/dojoMajelis', 'AdminController@dojoMajelis');
 
+    $r->addRoute('GET', '/dashboard/perlengkapan', 'AdminController@perlengkapan');
+    $r->addRoute('GET', '/dashboard/perlengkapan/create', 'AdminController@createPerlengkapan');
+    $r->addRoute('GET', '/dashboard/perlengkapan/edit/{id}', 'AdminController@editPerlengkapan');
+
 
 
 
@@ -154,6 +158,11 @@ return function (RouteCollector $r) {
     $r->addRoute('POST', '/dashboard/pembayaran/store', 'PembayaranController@store');
     $r->addRoute('POST', '/dashboard/pembayaran/update/{id}', 'PembayaranController@update');
     $r->addRoute('POST', '/dashboard/pembayaran/delete/{id}', 'PembayaranController@destroy');
+
+    // perlengkapan
+    $r->addRoute('POST', '/dashboard/perlengkapan/store', 'PerlengkapanController@store');
+    $r->addRoute('POST', '/dashboard/perlengkapan/update/{id}', 'PerlengkapanController@update');
+    $r->addRoute('POST', '/dashboard/perlengkapan/delete/{id}', 'PerlengkapanController@destroy');
 
 
     //errors

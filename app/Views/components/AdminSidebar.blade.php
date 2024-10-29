@@ -139,6 +139,14 @@
                 </svg>
             </div>
         </a>
+        <a href="/dashboard/perlengkapan">
+            <div class="w-8 h-8 rounded-full bg-slate-100 bg-opacity-50 mb-3 hover:bg-opacity-100 flex justify-center items-center">
+                <svg class="text-blue-800 w-4 h-4" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M10 2c-1.1 0-2 .9-2 2v2H4c-1.1 0-2 .9-2 2v4h20V8c0-1.1-.9-2-2-2h-4V4c0-1.1-.9-2-2-2h-4zm0 2h4v2h-4V4zM2 14v6c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2v-6H2zm5 2h2v4H7v-4zm8 0h2v4h-2v-4z"/>
+                </svg>
+            </div>
+        </a>
+
         <a href="/logout" class="flex items-center justify-center gap-3 bg-slate-100 bg-opacity-50 w-8 h-8 hover:bg-opacity-100 rounded-full">
             <div class="flex justify-center items-center">
                 <svg viewBox="0 0 24 24" class="text-blue-800 w-5 h-5" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -284,6 +292,15 @@
             </div>
             <p class="p-0 mb-0 text-blue-800 font-semibold">Pelatih</p>
         </a>
+        <a href="/dashboard/perlengkapan" class="flex items-center justify-start px-5 gap-3 bg-slate-100 bg-opacity-50 h-8 hover:bg-opacity-100 rounded-full mb-3">
+            <div class="flex justify-center items-center">
+                <svg class="text-blue-800 w-4 h-4" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M10 2c-1.1 0-2 .9-2 2v2H4c-1.1 0-2 .9-2 2v4h20V8c0-1.1-.9-2-2-2h-4V4c0-1.1-.9-2-2-2h-4zm0 2h4v2h-4V4zM2 14v6c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2v-6H2zm5 2h2v4H7v-4zm8 0h2v4h-2v-4z"/>
+                </svg>
+            </div>
+            <p class="p-0 mb-0 text-blue-800 font-semibold text-sm">Perlengkapan</p>
+        </a>
+
         <a href="/logout" class="flex items-center justify-start px-5 gap-3 bg-slate-100 bg-opacity-50 justify-start px-5 h-8 hover:bg-opacity-100 rounded-full">
             <div class="flex justify-center items-center">
                 <svg viewBox="0 0 24 24" class="text-blue-800 w-5 h-5" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -297,6 +314,7 @@
             </div>
             <p class="p-0 mb-0 text-blue-800 font-semibold">Logout</p>
         </a>
+        
     </div>
 </aside>
 
