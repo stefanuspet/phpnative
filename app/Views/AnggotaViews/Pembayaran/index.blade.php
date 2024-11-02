@@ -14,6 +14,7 @@
                 <tr class="border text-center">
                     <th scope="col" class="px-6 py-3">Tanggal Bukti Diunggah</th>
                     <th scope="col" class="px-6 py-3">Pembayaran Bulan</th>
+                    <th scope="col" class="px-6 py-3">Nominal</th>
                     <th scope="col" class="px-6 py-3">Foto Bukti</th>
                     <th scope="col" class="px-6 py-3">Catatan Admin</th>
                     <th scope="col" class="px-6 py-3">Aksi</th>
@@ -25,6 +26,9 @@
                 <tr>
                     <td class="px-6 py-4">{{ \Carbon\Carbon::parse($items->created_at)->format('d-m-Y') }}</td>
                     <td class="px-6 py-4">{{$items->bulan}}</td>
+                    <!-- nominal -->
+                    <td class="px-6 py-4">
+                        Rp {{$items->nominal}}
                     <td class="px-6 py-4">
                         <a href="/uploads/{{$items->bukti_pembayaran}}" class="w-44">
                             <img class="object-fill w-44 mx-auto" src="/uploads/{{$items->bukti_pembayaran}}" alt="{{$items->bukti_pembayaran}}">

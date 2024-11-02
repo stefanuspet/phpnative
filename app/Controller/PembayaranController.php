@@ -37,11 +37,13 @@ class PembayaranController
             $pembayaran->id_anggota = $_SESSION['user']['nid'];
             $pembayaran->bulan = $request['bulan'] . '-' . $request['tahun'];
             $pembayaran->bukti_pembayaran = $fileName;
+            $pembayaran->nominal = $request['nominal'];
             $pembayaran->save();
         } else {
             // if dont have foto make foto default from /public/uploads/default_img.jpg
             $pembayaran = new Pembayaran();
             $pembayaran->id_anggota = $_SESSION['user']['nid'];
+            $pembayaran->nominal = $request['nominal'];
             $pembayaran->bulan = $request['bulan'] . '-' . $request['tahun'];
             $pembayaran->save();
         }
@@ -53,57 +55,58 @@ class PembayaranController
     }
 
     public function update($request)
-{
-    // Get the ID from the request URI
-    $requestUri = $_SERVER['REQUEST_URI'];
-    $uri = strtok($requestUri, '?');
-    $pathSegments = explode('/', $uri);
-    $id = end($pathSegments);
-    
-    // Find the existing payment record
-    $pembayaran = Pembayaran::find($id);
-    
-    if (!$pembayaran) {
-        // Handle the case when the payment record does not exist
-        header('Location: /dashboard/pembayaran');
-        exit();
+    {
+        // Get the ID from the request URI
+        $requestUri = $_SERVER['REQUEST_URI'];
+        $uri = strtok($requestUri, '?');
+        $pathSegments = explode('/', $uri);
+        $id = end($pathSegments);
+
+        // Find the existing payment record
+        $pembayaran = Pembayaran::find($id);
+
+        if (!$pembayaran) {
+            // Handle the case when the payment record does not exist
+            header('Location: /dashboard/pembayaran');
+            exit();
+        }
+        $pembayaran->nominal = $request['nominal'];
+        $pembayaran->catatan = isset($request['catatan']) ? $request['catatan'] : '';
+        // Update payment details
+        // $pembayaran->id_anggota = $_SESSION['user']['nid'];
+        // $pembayaran->tanggal_bayar = $request['tanggal']; // Assuming you have 'tanggal' in your request
+        $pembayaran->bulan = $request['bulan'] . '-' . $request['tahun'];
+
+        // Check if a new file is uploaded
+        if (isset($_FILES['foto']) && $_FILES['foto']['error'] === UPLOAD_ERR_OK) {
+            // Handle file upload
+            $file = $_FILES['foto'];
+
+            // Generate unique file name
+            $uniqueId = uniqid();
+            $fileExtension = pathinfo($file['name'], PATHINFO_EXTENSION);
+            $fileName = "{$uniqueId}.{$fileExtension}";
+
+            // Save the new file content
+            $fileContent = file_get_contents($file['tmp_name']);
+            $this->filesystem->write($fileName, $fileContent);
+
+            // Update the file name in the payment record
+            $pembayaran->bukti_pembayaran = $fileName;
+        }
+
+        // Save the updated payment record
+        $pembayaran->save();
+
+        // Redirect based on user role
+        if ($_SESSION['user']['role'] == 'anggota') {
+            header('Location: /dashboard-anggota/pembayaran');
+        } else if ($_SESSION['user']['role'] == 'admin') {
+            header('Location: /dashboard/pembayaran/show/' . $pembayaran->id_anggota);
+        } else {
+            header('Location: /dashboard/pembayaran');
+        }
     }
-    $pembayaran->catatan = isset ($request ['catatan']) ? $request['catatan']:'';
-    // Update payment details
-    // $pembayaran->id_anggota = $_SESSION['user']['nid'];
-    // $pembayaran->tanggal_bayar = $request['tanggal']; // Assuming you have 'tanggal' in your request
-    $pembayaran->bulan = $request['bulan'] . '-' . $request['tahun'];
-
-    // Check if a new file is uploaded
-    if (isset($_FILES['foto']) && $_FILES['foto']['error'] === UPLOAD_ERR_OK) {
-        // Handle file upload
-        $file = $_FILES['foto'];
-
-        // Generate unique file name
-        $uniqueId = uniqid();
-        $fileExtension = pathinfo($file['name'], PATHINFO_EXTENSION);
-        $fileName = "{$uniqueId}.{$fileExtension}";
-
-        // Save the new file content
-        $fileContent = file_get_contents($file['tmp_name']);
-        $this->filesystem->write($fileName, $fileContent);
-
-        // Update the file name in the payment record
-        $pembayaran->bukti_pembayaran = $fileName;
-    }
-
-    // Save the updated payment record
-    $pembayaran->save();
-
-    // Redirect based on user role
-    if ($_SESSION['user']['role'] == 'anggota') {
-        header('Location: /dashboard-anggota/pembayaran');
-    } else if ($_SESSION['user']['role'] == 'admin') {
-        header('Location: /dashboard/pembayaran/show/' . $pembayaran->id_anggota);
-    }else {
-        header('Location: /dashboard/pembayaran');
-    }
-}
 
 
     // destroy

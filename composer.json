@@ -15,7 +15,9 @@
     "illuminate/database": "^11.22",
     "eftec/bladeone": "^4.13",
     "nikic/fast-route": "^1.3",
-    "league/flysystem": "^3.28"
+    "league/flysystem": "^3.28",
+    "dompdf/dompdf": "^3.0",
+    "laravel/serializable-closure": "^1.3"
   },
   "require-dev": {
     "phpunit/phpunit": "^9.5"

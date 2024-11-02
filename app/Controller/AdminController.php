@@ -12,6 +12,8 @@ use App\Model\Latihan;
 use App\Model\Pembayaran;
 use App\Model\Pengurus;
 use App\Model\Perlengkapan;
+use Dompdf\Dompdf;
+use Dompdf\Options;
 
 class AdminController
 {
@@ -45,29 +47,29 @@ class AdminController
     }
 
     public function cabang()
-{
-    $search = isset($_GET['search']) ? $_GET['search'] : '';
+    {
+        $search = isset($_GET['search']) ? $_GET['search'] : '';
 
-    // If search query exists, filter the dojos by name or another field
-    if (!empty($search)) {
-        $dojos = Dojo::whereRaw('LOWER(nama) LIKE ?', ['%' . strtolower($search) . '%'])->get();
-    } else {
-        $dojos = Dojo::all();
+        // If search query exists, filter the dojos by name or another field
+        if (!empty($search)) {
+            $dojos = Dojo::whereRaw('LOWER(nama) LIKE ?', ['%' . strtolower($search) . '%'])->get();
+        } else {
+            $dojos = Dojo::all();
+        }
+
+        // Get anggota count for each dojo
+        foreach ($dojos as $dojo) {
+            $dojo->count_anggota = Dojo::find($dojo->id)->anggota()->count();
+        }
+
+        echo $this->blade->run(
+            "adminViews.Dojo.index",
+            [
+                'dojos' => $dojos,
+                'search' => $search // Passing the search term to the view
+            ]
+        );
     }
-
-    // Get anggota count for each dojo
-    foreach ($dojos as $dojo) {
-        $dojo->count_anggota = Dojo::find($dojo->id)->anggota()->count();
-    }
-
-    echo $this->blade->run(
-        "adminViews.Dojo.index",
-        [
-            'dojos' => $dojos,
-            'search' => $search // Passing the search term to the view
-        ]
-    );
-}
 
 
 
@@ -277,7 +279,7 @@ class AdminController
     {
         // Get the search query from the request
         $search = isset($_GET['search']) ? $_GET['search'] : '';
-    
+
         // If a search query exists, filter anggota records by name (case-insensitive)
         if (!empty($search)) {
             $anggota = Anggota::whereRaw('LOWER(nama) LIKE ?', ['%' . strtolower($search) . '%'])->get();
@@ -285,17 +287,17 @@ class AdminController
             // If no search query, get all anggota records
             $anggota = Anggota::all();
         }
-    
+
         // Get dojo information for each anggota
         foreach ($anggota as $a) {
             $a->dojo = Dojo::find($a->id_dojo);
         }
-    
+
         // Add count of total prestasi for each anggota
         foreach ($anggota as $a) {
             $a->count_prestasi = Anggota::find($a->nid)->prestasi()->count();
         }
-    
+
         // Render the view with anggota data and the search term
         echo $this->blade->run(
             "adminViews.Anggota.index",
@@ -307,39 +309,39 @@ class AdminController
     }
 
     public function showAnggotaAtlet()
-{
-    // Get the search query from the request
-    $search = isset($_GET['search']) ? $_GET['search'] : '';
+    {
+        // Get the search query from the request
+        $search = isset($_GET['search']) ? $_GET['search'] : '';
 
-    // If a search query exists, filter anggota records by name (case-insensitive) and status 'Atlet'
-    if (!empty($search)) {
-        $anggota = Anggota::where('status', 'Atlet')
-            ->whereRaw('LOWER(nama) LIKE ?', ['%' . strtolower($search) . '%'])
-            ->get();
-    } else {
-        // If no search query, get all anggota with status 'Atlet'
-        $anggota = Anggota::where('status', 'Atlet')->get();
+        // If a search query exists, filter anggota records by name (case-insensitive) and status 'Atlet'
+        if (!empty($search)) {
+            $anggota = Anggota::where('status', 'Atlet')
+                ->whereRaw('LOWER(nama) LIKE ?', ['%' . strtolower($search) . '%'])
+                ->get();
+        } else {
+            // If no search query, get all anggota with status 'Atlet'
+            $anggota = Anggota::where('status', 'Atlet')->get();
+        }
+
+        // Get dojo information for each anggota
+        foreach ($anggota as $a) {
+            $a->dojo = Dojo::find($a->id_dojo);
+        }
+
+        // Add count of total prestasi for each anggota
+        foreach ($anggota as $a) {
+            $a->count_prestasi = Anggota::find($a->nid)->prestasi()->count();
+        }
+
+        // Render the view with anggota data and the search term
+        echo $this->blade->run(
+            "adminViews.Anggota.index",
+            [
+                'anggota' => $anggota,
+                'search' => $search // Passing the search term to the view
+            ]
+        );
     }
-
-    // Get dojo information for each anggota
-    foreach ($anggota as $a) {
-        $a->dojo = Dojo::find($a->id_dojo);
-    }
-
-    // Add count of total prestasi for each anggota
-    foreach ($anggota as $a) {
-        $a->count_prestasi = Anggota::find($a->nid)->prestasi()->count();
-    }
-
-    // Render the view with anggota data and the search term
-    echo $this->blade->run(
-        "adminViews.Anggota.index",
-        [
-            'anggota' => $anggota,
-            'search' => $search // Passing the search term to the view
-        ]
-    );
-}
 
     public function showAnggotaBiasa()
     {
@@ -376,7 +378,7 @@ class AdminController
         );
     }
 
-    
+
 
     public function createAnggota()
     {
@@ -478,6 +480,54 @@ class AdminController
         );
     }
 
+    public function pembayaran()
+    {
+        // get all
+        $pembayaran = Pembayaran::all();
+        // get name anggota
+        foreach ($pembayaran as $p) {
+            $p->anggota = Anggota::find($p->id_anggota);
+        }
+
+        // get dojo anggota
+        foreach ($pembayaran as $p) {
+            $p->anggota->dojo = Dojo::find($p->anggota->id_dojo);
+        }
+        echo $this->blade->run(
+            "adminViews.Pembayaran.index",
+            [
+                'pembayaran' => $pembayaran
+            ]
+        );
+    }
+
+    public function printpembayaran()
+    {
+        $pembayaran = Pembayaran::all();
+
+        foreach ($pembayaran as $p) {
+            $p->anggota = Anggota::find($p->id_anggota);
+            $p->anggota->dojo = Dojo::find($p->anggota->id_dojo);
+        }
+
+        $html = $this->blade->run(
+            "adminViews.Pembayaran.printView",
+            ['pembayaran' => $pembayaran]
+        );
+
+        $options = new Options();
+        $options->set('isHtml5ParserEnabled', true);
+        $options->set('isRemoteEnabled', true); // Enable loading images
+
+        $dompdf = new Dompdf($options);
+        $dompdf->loadHtml($html);
+
+        $dompdf->setPaper('A4', 'landscape');
+
+        $dompdf->render();
+
+        $dompdf->stream("pembayaran.pdf", ["Attachment" => false]);
+    }
     public function showpembayaranByid()
     {
         $requestUri = $_SERVER['REQUEST_URI'];

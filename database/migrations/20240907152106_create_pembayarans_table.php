@@ -24,6 +24,7 @@ final class CreatePembayaransTable extends AbstractMigration
             ->addColumn('id_anggota', 'biginteger', ['signed' => false, 'null' => false])
             ->addColumn('bulan', 'string', ['null' => false])
             ->addColumn('bukti_pembayaran', 'string', ['null' => false])
+            ->addColumn('nominal', 'decimal', ['precision' => 10, 'scale' => 2, 'null' => false])
             ->addColumn('catatan', 'string', ['null' => false])
             ->addColumn('created_at', 'timestamp', ['default' => 'CURRENT_TIMESTAMP'])
             ->addColumn('updated_at', 'timestamp', ['default' => 'CURRENT_TIMESTAMP'])

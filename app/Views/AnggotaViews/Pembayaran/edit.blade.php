@@ -20,17 +20,25 @@
             </div>
 
             <div class="mb-3">
+                <label for="nominal" class="block">Nominal Pembayaran</label>
+                <input type="number" name="nominal" id="nominal" class="w-full border border-blue-600 rounded-md p-2"
+                    value="{{ intval($pembayaran->nominal) == $pembayaran->nominal ? intval($pembayaran->nominal) : $pembayaran->nominal }}"
+                    required>
+
+            </div>
+
+            <div class="mb-3">
                 <label for="bulan" class="block">Pembayaran untuk Bulan</label>
                 <select name="bulan" id="bulan" class="w-full border border-blue-600 rounded-md p-2" required>
                     @php
-                        $months = [
-                            'Januari', 'Februari', 'Maret', 'April', 'Mei', 
-                            'Juni', 'Juli', 'Agustus', 'September', 
-                            'Oktober', 'November', 'Desember'
-                        ];
+                    $months = [
+                    'Januari', 'Februari', 'Maret', 'April', 'Mei',
+                    'Juni', 'Juli', 'Agustus', 'September',
+                    'Oktober', 'November', 'Desember'
+                    ];
                     @endphp
                     @foreach($months as $month)
-                        <option value="{{ $month }}" {{ $month == explode('-', $pembayaran->bulan)[0] ? 'selected' : '' }}>{{ $month }}</option>
+                    <option value="{{ $month }}" {{ $month == explode('-', $pembayaran->bulan)[0] ? 'selected' : '' }}>{{ $month }}</option>
                     @endforeach
                 </select>
             </div>
@@ -39,12 +47,12 @@
                 <label for="tahun" class="block">Tahun Pembayaran</label>
                 <select name="tahun" id="tahun" class="w-full border border-blue-600 rounded-md p-2" required>
                     @php
-                        $currentYear = date('Y');
-                        $startYear = $currentYear - 10; // Adjust as needed
+                    $currentYear = date('Y');
+                    $startYear = $currentYear - 10; // Adjust as needed
                     @endphp
                     @for ($year = $startYear; $year <= $currentYear + 1; $year++)
                         <option value="{{ $year }}" {{ $year == explode('-', $pembayaran->bulan)[1] ? 'selected' : '' }}>{{ $year }}</option>
-                    @endfor
+                        @endfor
                 </select>
             </div>
 

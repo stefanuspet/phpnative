@@ -10,7 +10,12 @@
                 <label for="foto" class="block">Bukti Pembayaran</label>
                 <input type="file" name="foto" id="foto" class="w-full border border-blue-600 rounded-md p-2" accept="image/*" required>
             </div>
-            
+            <!-- nominal -->
+            <div class="mb-3">
+                <label for="nominal" class="block">Nominal Pembayaran</label>
+                <input type="number" name="nominal" id="nominal" class="w-full border border-blue-600 rounded-md p-2" required>
+            </div>
+
             <!-- Input Tanggal (optional) -->
             <!-- <div class="mb-3 relative">
                 <label for="tanggal" class="block">Tanggal Hari Ini</label>
@@ -39,16 +44,16 @@
                 <label for="tahun" class="block">Tahun Pembayaran</label>
                 <select name="tahun" id="tahun" class="w-full border border-blue-600 rounded-md p-2" required>
                     @php
-                        $currentYear = date('Y');
-                        $startYear = $currentYear - 10; // Start 10 years back
-                        $endYear = $currentYear + 1; // Optionally allow next year
+                    $currentYear = date('Y');
+                    $startYear = $currentYear - 10; // Start 10 years back
+                    $endYear = $currentYear + 1; // Optionally allow next year
                     @endphp
                     @for ($year = $startYear; $year <= $endYear; $year++)
                         <option value="{{ $year }}">{{ $year }}</option>
-                    @endfor
+                        @endfor
                 </select>
             </div>
-            
+
             <div class="flex justify-end mt-10">
                 <button class="px-3 py-1 bg-green-600 rounded-md text-white">Simpan</button>
             </div>

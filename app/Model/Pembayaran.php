@@ -16,6 +16,7 @@ class Pembayaran extends Model
         'id_anggota',
         'bulan',
         'bukti_pembayaran',
+        'nominal',
         'created_at',
         'updated_at',
         'catatan'
