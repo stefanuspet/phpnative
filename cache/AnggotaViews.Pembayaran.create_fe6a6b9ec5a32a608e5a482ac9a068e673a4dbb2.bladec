@@ -10,7 +10,12 @@
  <label for="foto" class="block">Bukti Pembayaran</label>
  <input type="file" name="foto" id="foto" class="w-full border border-blue-600 rounded-md p-2" accept="image/*" required>
  </div>
- 
+ <!-- nominal -->
+ <div class="mb-3">
+ <label for="nominal" class="block">Nominal Pembayaran</label>
+ <input type="number" name="nominal" id="nominal" class="w-full border border-blue-600 rounded-md p-2" required>
+ </div>
+
  <!-- Input Tanggal (optional) -->
  <!-- <div class="mb-3 relative">
  <label for="tanggal" class="block">Tanggal Hari Ini</label>
@@ -48,7 +53,7 @@
  <?php endfor; ?>
  </select>
  </div>
- 
+
  <div class="flex justify-end mt-10">
  <button class="px-3 py-1 bg-green-600 rounded-md text-white">Simpan</button>
  </div>
@@ -56,5 +61,4 @@
  </div>
 </div>
 <?php $this->stopSection(); ?>
-
 <?php if (isset($_shouldextend[1])) { echo $this->runChild('layouts.AnggotaLayout'); } ?>
