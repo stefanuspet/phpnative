@@ -139,10 +139,25 @@
  </svg>
  </div>
  </a>
+ <a href="/dashboard/pembayaran">
+ <div class="w-8 h-8 rounded-full bg-slate-100 bg-opacity-50 mb-3 hover:bg-opacity-100 flex justify-center items-center">
+ <svg class="text-blue-800 w-4 h-4" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+ <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+ <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+ <g id="SVGRepo_iconCarrier">
+ <path d="M3 2H0V5C1.65685 5 3 3.65685 3 2Z" fill="currentColor"></path>
+ <path fill-rule="evenodd" clip-rule="evenodd" d="M5 2C5 4.76142 2.76142 7 0 7V9C2.76142 9 5 11.2386 5 14H11C11 11.2386 13.2386 9 16 9V7C13.2386 7 11 4.76142 11 2H5ZM8 10C9.10457 10 10 9.10457 10 8C10 6.89543 9.10457 6 8 6C6.89543 6 6 6.89543 6 8C6 9.10457 6.89543 10 8 10Z" fill="currentColor"></path>
+ <path d="M16 2V5C14.3431 5 13 3.65685 13 2H16Z" fill="currentColor"></path>
+ <path d="M16 14H13C13 12.3431 14.3431 11 16 11V14Z" fill="currentColor"></path>
+ <path d="M3 14C3 12.3431 1.65685 11 0 11V14H3Z" fill="currentColor"></path>
+ </g>
+ </svg>
+ </div>
+ </a>
  <a href="/dashboard/perlengkapan">
  <div class="w-8 h-8 rounded-full bg-slate-100 bg-opacity-50 mb-3 hover:bg-opacity-100 flex justify-center items-center">
  <svg class="text-blue-800 w-4 h-4" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
- <path d="M10 2c-1.1 0-2 .9-2 2v2H4c-1.1 0-2 .9-2 2v4h20V8c0-1.1-.9-2-2-2h-4V4c0-1.1-.9-2-2-2h-4zm0 2h4v2h-4V4zM2 14v6c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2v-6H2zm5 2h2v4H7v-4zm8 0h2v4h-2v-4z"/>
+ <path d="M10 2c-1.1 0-2 .9-2 2v2H4c-1.1 0-2 .9-2 2v4h20V8c0-1.1-.9-2-2-2h-4V4c0-1.1-.9-2-2-2h-4zm0 2h4v2h-4V4zM2 14v6c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2v-6H2zm5 2h2v4H7v-4zm8 0h2v4h-2v-4z" />
  </svg>
  </div>
  </a>
@@ -292,10 +307,28 @@
  </div>
  <p class="p-0 mb-0 text-blue-800 font-semibold">Pelatih</p>
  </a>
+
+ <a href="/dashboard/pembayaran" class="flex items-center justify-start px-5 gap-3 bg-slate-100 bg-opacity-50 h-8 hover:bg-opacity-100 rounded-full mb-3">
+ <div class="flex justify-center items-center">
+ <svg class="text-blue-800 w-5 h-5" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+ <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+ <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+ <g id="SVGRepo_iconCarrier">
+ <path d="M3 2H0V5C1.65685 5 3 3.65685 3 2Z" fill="currentColor"></path>
+ <path fill-rule="evenodd" clip-rule="evenodd" d="M5 2C5 4.76142 2.76142 7 0 7V9C2.76142 9 5 11.2386 5 14H11C11 11.2386 13.2386 9 16 9V7C13.2386 7 11 4.76142 11 2H5ZM8 10C9.10457 10 10 9.10457 10 8C10 6.89543 9.10457 6 8 6C6.89543 6 6 6.89543 6 8C6 9.10457 6.89543 10 8 10Z" fill="currentColor"></path>
+ <path d="M16 2V5C14.3431 5 13 3.65685 13 2H16Z" fill="currentColor"></path>
+ <path d="M16 14H13C13 12.3431 14.3431 11 16 11V14Z" fill="currentColor"></path>
+ <path d="M3 14C3 12.3431 1.65685 11 0 11V14H3Z" fill="currentColor"></path>
+ </g>
+ </svg>
+ </div>
+ <p class="p-0 mb-0 text-blue-800 font-semibold text-sm">Pembayaran</p>
+ </a>
+
  <a href="/dashboard/perlengkapan" class="flex items-center justify-start px-5 gap-3 bg-slate-100 bg-opacity-50 h-8 hover:bg-opacity-100 rounded-full mb-3">
  <div class="flex justify-center items-center">
  <svg class="text-blue-800 w-4 h-4" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
- <path d="M10 2c-1.1 0-2 .9-2 2v2H4c-1.1 0-2 .9-2 2v4h20V8c0-1.1-.9-2-2-2h-4V4c0-1.1-.9-2-2-2h-4zm0 2h4v2h-4V4zM2 14v6c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2v-6H2zm5 2h2v4H7v-4zm8 0h2v4h-2v-4z"/>
+ <path d="M10 2c-1.1 0-2 .9-2 2v2H4c-1.1 0-2 .9-2 2v4h20V8c0-1.1-.9-2-2-2h-4V4c0-1.1-.9-2-2-2h-4zm0 2h4v2h-4V4zM2 14v6c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2v-6H2zm5 2h2v4H7v-4zm8 0h2v4h-2v-4z" />
  </svg>
  </div>
  <p class="p-0 mb-0 text-blue-800 font-semibold text-sm">Perlengkapan</p>
@@ -314,7 +347,7 @@
  </div>
  <p class="p-0 mb-0 text-blue-800 font-semibold">Logout</p>
  </a>
- 
+
  </div>
 </aside>
 

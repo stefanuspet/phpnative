@@ -13,10 +13,6 @@
                 <input type="text" name="nama" id="nama" class="w-full border border-blue-600 rounded-md p-2" value="{{ $perlengkapan->nama }}" required>
             </div>
             <div class="mb-3">
-                <label for="jumlah" class="block">Jumlah</label>
-                <input type="number" name="jumlah" id="jumlah" class="w-full border border-blue-600 rounded-md p-2" value="{{ $perlengkapan->jumlah }}" required>
-            </div>
-            <div class="mb-3">
                 <label for="ukuran" class="block">Ukuran</label>
                 <select name="ukuran" id="ukuran" class="w-full border border-blue-600 rounded-md p-2" required>
                     <option value="">Choose</option>
@@ -24,6 +20,14 @@
                     <option value="L" {{ $perlengkapan->ukuran == 'L' ? 'selected' : '' }}>L</option>
                     <option value="XL" {{ $perlengkapan->ukuran == 'XL' ? 'selected' : '' }}>XL</option>
                 </select>
+            </div>
+            <div class="mb-3">
+                <label for="jumlah" class="block">Jumlah</label>
+                <input type="number" name="jumlah" id="jumlah" class="w-full border border-blue-600 rounded-md p-2" value="{{ $perlengkapan->jumlah }}" required>
+            </div>
+            <div class="mb-3">
+                <label for="status" class="block">Status</label>
+                <input type="text" name="status" id="status" class="w-full border border-blue-600 rounded-md p-2" value="{{ $perlengkapan->status }}" required>
             </div>
             <div class="mb-3">
                 <label for="foto" class="block">Foto</label>

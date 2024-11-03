@@ -18,6 +18,7 @@
                         <th scope="col" class="px-6 py-3">Nama Perlengkapan</th>
                         <th scope="col" class="px-6 py-3">Ukuran</th>
                         <th scope="col" class="px-6 py-3">Jumlah</th>
+                        <th scope="col" class="px-6 py-3">Status</th>
                         <th scope="col" class="px-6 py-3"></th>
                     </tr>
                 </thead>
@@ -32,6 +33,7 @@
                         <td class="px-6 py-4 border">{{$items->nama}}</td>
                         <td class="px-6 py-4 border">{{$items->ukuran}}</td>
                         <td class="px-6 py-4 border">{{$items->jumlah}}</td>
+                        <td class="px-6 py-4 border">{{$items->status}}</td>
                         <td class="px-6 py-4 flex justify-center gap-x-4">
                             <a href="/dashboard/perlengkapan/edit/{{$items->id}}" class="px-3 py-1 hover:bg-yellow-600 bg-yellow-500  rounded-md text-white">Edit</a>
                             <form action="/dashboard/perlengkapan/delete/{{$items->id}}" method="POST">

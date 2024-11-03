@@ -8,7 +8,7 @@
  <form action="/dashboard/perlengkapan/store" class="p-4" method="post" enctype="multipart/form-data">
  <div class="mb-3">
  <label for="nama" class="block">Nama Perlengkapan</label>
- <input type="text" name="nama" id="nama" class="w-full border border-blue-600 rounded-md p-2"  accept="image/*" required>
+ <input type="text" name="nama" id="nama" class="w-full border border-blue-600 rounded-md p-2"  required>
  </div>
  <div class="mb-3">
  <label for="ukuran" class="block">Ukuran</label>
@@ -22,6 +22,10 @@
  <div class="mb-3">
  <label for="jumlah" class="block">Jumlah</label>
  <input type="number" name="jumlah" id="jumlah" class="w-full border border-blue-600 rounded-md p-2" required>
+ </div>
+ <div class="mb-3">
+ <label for="status" class="block">Status</label>
+ <input type="text" name="status" id="status" class="w-full border border-blue-600 rounded-md p-2" required>
  </div>
  <div class="mb-3">
  <label for="foto" class="block">Foto</label>

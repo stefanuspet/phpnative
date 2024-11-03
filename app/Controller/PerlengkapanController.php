@@ -24,6 +24,7 @@ class PerlengkapanController
         $perlengkapan->nama = $request['nama'];
         $perlengkapan->ukuran = $request['ukuran'];
         $perlengkapan->jumlah = $request['jumlah'];
+        $perlengkapan->status = $request['status'];
 
         if (isset($_FILES['foto']) && $_FILES['foto']['error'] === UPLOAD_ERR_OK) {
             // Handle file upload
@@ -61,6 +62,7 @@ class PerlengkapanController
     $perlengkapan->nama = $request['nama'];
     $perlengkapan->ukuran = $request['ukuran'];
     $perlengkapan->jumlah = $request['jumlah'];
+    $perlengkapan->status = $request['status'];
 
     if (isset($_FILES['foto']) && $_FILES['foto']['error'] === UPLOAD_ERR_OK) {
         // Handle file upload
