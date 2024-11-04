@@ -55,6 +55,11 @@
                         @endfor
                 </select>
             </div>
+            <div class="mb-3">
+                <label for="catatan" class="block">Catatan Admin</label>
+                <input type="text" name="catatan" id="catatan" class="w-full border border-blue-600 rounded-md p-2" value="{{ $pembayaran->catatan }}" required disabled>
+                <input type="hidden" name="catatan" id="catatan" class="w-full border border-blue-600 rounded-md p-2" value="{{ $pembayaran->catatan }}">
+            </div>
 
             <div class="flex justify-end mt-10">
                 <button class="px-3 py-1 bg-green-600 rounded-md text-white">Update</button>

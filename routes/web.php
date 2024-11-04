@@ -159,7 +159,8 @@ return function (RouteCollector $r) {
     $r->addRoute('POST', '/dashboard/pembayaran/store', 'PembayaranController@store');
     $r->addRoute('POST', '/dashboard/pembayaran/update/{id}', 'PembayaranController@update');
     $r->addRoute('POST', '/dashboard/pembayaran/delete/{id}', 'PembayaranController@destroy');
-
+    $r->addRoute('POST', '/dashboard/pembayaran/delete-notes/{id}', 'PembayaranController@deleteNotes');
+ 
     // perlengkapan
     $r->addRoute('POST', '/dashboard/perlengkapan/store', 'PerlengkapanController@store');
     $r->addRoute('POST', '/dashboard/perlengkapan/update/{id}', 'PerlengkapanController@update');

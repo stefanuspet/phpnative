@@ -16,6 +16,7 @@
                     <th scope="col" class="px-6 py-3">Pembayaran Bulan</th>
                     <th scope="col" class="px-6 py-3">Nominal</th>  
                     <th scope="col" class="px-6 py-3">Foto Bukti</th>
+                    <th scope="col" class="px-6 py-3">Catatan Admin</th>
                     <!-- <th scope="col" class="px-6 py-3">Aksi</th> -->
                 </tr>
 
@@ -34,6 +35,7 @@
                             <img class="object-fill w-44 mx-auto" src="/uploads/{{$items->bukti_pembayaran}}" alt="{{$items->bukti_pembayaran}}">
                         </a>
                     </td>
+                    <td class="px-6 py-4 max-w-[150px]">{{$items->catatan}}</td>
                     <!-- form delete -->
                     <!-- <td class="px-6 py-4">
                         <form action="/dashboard/pembayaran/delete/{{$items->id}}" method="POST">
