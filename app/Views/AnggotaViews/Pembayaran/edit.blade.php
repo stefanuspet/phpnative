@@ -47,10 +47,11 @@
                 <label for="tahun" class="block">Tahun Pembayaran</label>
                 <select name="tahun" id="tahun" class="w-full border border-blue-600 rounded-md p-2" required>
                     @php
-                    $currentYear = date('Y');
-                    $startYear = $currentYear - 10; // Adjust as needed
+                 
+                    $startYear = 2020;
+                    $endYear = $startYear + 10;
                     @endphp
-                    @for ($year = $startYear; $year <= $currentYear + 1; $year++)
+                    @for ($year = $endYear; $year >= $startYear; $year--) 
                         <option value="{{ $year }}" {{ $year == explode('-', $pembayaran->bulan)[1] ? 'selected' : '' }}>{{ $year }}</option>
                         @endfor
                 </select>
