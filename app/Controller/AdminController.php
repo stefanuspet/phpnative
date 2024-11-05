@@ -481,29 +481,85 @@ class AdminController
     }
 
     public function pembayaran()
-    {
-        // get all
-        $pembayaran = Pembayaran::all();
-        // get name anggota
-        foreach ($pembayaran as $p) {
-            $p->anggota = Anggota::find($p->id_anggota);
-        }
+{
+    // Retrieve `tahun` and `bulan` from the POST data
+    $tahun = $_POST['tahun'] ?? 'semua';
+    $bulan = $_POST['bulan'] ?? '-';
 
-        // get dojo anggota
-        foreach ($pembayaran as $p) {
-            $p->anggota->dojo = Dojo::find($p->anggota->id_dojo);
-        }
+    // Base query for Pembayaran
+    $query = Pembayaran::query();
+
+    // Apply filters based on `tahun` and `bulan`
+    if ($tahun !== 'semua') {
+        $query->where('bulan', 'like', '%-' . $tahun);
+    }
+
+    if ($bulan !== '-') {
+        $query->where('bulan', 'like', $bulan . '-%');
+    }
+
+    // Retrieve filtered Pembayaran data
+    $pembayaran = $query->get();
+
+    // Get related data for Pembayaran
+    foreach ($pembayaran as $p) {
+        $p->anggota = Anggota::find($p->id_anggota);
+        $p->anggota->dojo = Dojo::find($p->anggota->id_dojo);
+    }
+
+    // Get list of anggota IDs who have already paid
+    $paidMemberIds = $pembayaran->pluck('id_anggota')->toArray();
+
+    // Retrieve anggota with status "atlet" who haven't paid for the specified month and year
+    $unpaidMembers = Anggota::where('status', 'atlet')
+        ->whereNotIn('nid', $paidMemberIds)
+        ->get();
+
+    // Get related dojo data for unpaid members
+    foreach ($unpaidMembers as $unpaid) {
+        $unpaid->dojo = Dojo::find($unpaid->id_dojo);
+    }
+
+    echo $this->blade->run(
+        "adminViews.Pembayaran.index",
+        [
+            'tahun' => $tahun,
+            'bulan' => $bulan,
+            'pembayaran' => $pembayaran,
+            'unpaidMembers' => $unpaidMembers // Pass unpaid members to the view
+        ]
+    );
+}
+
+
+
+    public function selectPembayaran()
+    {
         echo $this->blade->run(
-            "adminViews.Pembayaran.index",
-            [
-                'pembayaran' => $pembayaran
-            ]
+            "adminViews.Pembayaran.select"
         );
     }
 
     public function printpembayaran()
     {
-        $pembayaran = Pembayaran::all();
+        // Retrieve `tahun` and `bulan` from the query parameters
+        $tahun = $_POST['tahun'] ?? 'semua';
+        $bulan = $_POST['bulan'] ?? '-';
+
+        // Base query
+        $query = Pembayaran::query();
+
+        // Apply filters based on `tahun` and `bulan`
+        if ($tahun !== 'semua') {
+            $query->where('bulan', 'like', '%-' . $tahun);
+        }
+
+        if ($bulan !== '-') {
+            $query->where('bulan', 'like', $bulan . '-%');
+        }
+
+        // Retrieve filtered data
+        $pembayaran = $query->get();
 
         foreach ($pembayaran as $p) {
             $p->anggota = Anggota::find($p->id_anggota);
@@ -512,7 +568,9 @@ class AdminController
 
         $html = $this->blade->run(
             "adminViews.Pembayaran.printView",
-            ['pembayaran' => $pembayaran]
+            ['tahun' => $tahun,
+            'bulan' => $bulan,
+                'pembayaran' => $pembayaran]
         );
 
         $options = new Options();

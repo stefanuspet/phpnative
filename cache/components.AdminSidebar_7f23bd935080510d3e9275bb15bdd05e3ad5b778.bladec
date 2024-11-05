@@ -139,7 +139,7 @@
  </svg>
  </div>
  </a>
- <a href="/dashboard/pembayaran">
+ <a href="/dashboard/pembayaran/select">
  <div class="w-8 h-8 rounded-full bg-slate-100 bg-opacity-50 mb-3 hover:bg-opacity-100 flex justify-center items-center">
  <svg class="text-blue-800 w-4 h-4" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
  <g id="SVGRepo_bgCarrier" stroke-width="0"></g>

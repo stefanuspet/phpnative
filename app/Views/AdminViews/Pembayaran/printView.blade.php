@@ -37,7 +37,19 @@
 </head>
 
 <body>
-    <div class="table-title">Laporan Pembayaran</div>
+@php
+        $reportTitle = 'Laporan Pembayaran'; // Default title
+
+        if ($tahun !== 'semua') {
+            if ($bulan === '-') {
+                $reportTitle = "Laporan Pembayaran $tahun";
+            } else {
+                $reportTitle = "Laporan Pembayaran $bulan $tahun";
+            }
+        }
+    @endphp
+
+    <div class="table-title">{{ $reportTitle }}</div>
     <table>
         <thead>
             <tr>

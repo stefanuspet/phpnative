@@ -46,10 +46,11 @@ return function (RouteCollector $r) {
     $r->addRoute('GET', '/dashboard/latihan', 'AdminController@latihan');
     $r->addRoute('GET', '/dashboard/latihan/show/{id}', 'AdminController@showlatihanByid');
 
-    $r->addRoute('GET', '/dashboard/pembayaran', 'AdminController@pembayaran');
+    $r->addRoute('POST', '/dashboard/pembayaran', 'AdminController@pembayaran');
     $r->addRoute('GET', '/dashboard/pembayaran/show/{id}', 'AdminController@showPembayaranByid');
     $r->addRoute('GET', '/dashboard/pembayaran/edit/{id}', 'AdminController@editPembayaran');
-    $r->addRoute('GET', '/dashboard/pembayaran/print', 'AdminController@printPembayaran');
+    $r->addRoute('GET', '/dashboard/pembayaran/select', 'AdminController@selectPembayaran');
+    $r->addRoute('POST', '/dashboard/pembayaran/print', 'AdminController@printPembayaran');
 
     $r->addRoute('GET', '/dashboard/kegiatan', 'AdminController@kegiatan');
     $r->addRoute('GET', '/dashboard/kegiatan/show/{id}', 'AdminController@showKegiatanByid');
