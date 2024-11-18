@@ -20,9 +20,10 @@ class Seeder extends AbstractSeed
     {
         $user = [
             [
-                'credential_id' => '123456',
-                'password' => password_hash('123456', PASSWORD_DEFAULT),
+                'credential_id' => '123',
+                'password' => password_hash('123', PASSWORD_DEFAULT),
                 'role' => 'admin',
+                'plain_password' => '123',
                 'created_at' => date('Y-m-d H:i:s'),
             ],
             // [
@@ -75,24 +76,24 @@ class Seeder extends AbstractSeed
 
         $this->table('dojos')->insert($dojo)->saveData();
 
-        $anggota = [
-            [
-                'nid' => '1',
-                'id_dojo' => $dojo[0]['id'],
-                'nama' => 'anggota',
-                'jenis_kelamin' => 'Laki-laki',
-                'alamat' => 'indoensia',
-                'tahun_gabung' => '2024',
-                'status' => 'Atlet',
-                'tingkat_sabuk' => 'putih',
-                'nomor' => '123',
-                'foto' => '123',
-                'tanggal_lahir' => date('Y-m-d H:i:s'),
-                'tempat_lahir' => 'indonesia',
-            ]
-        ];
+        // $anggota = [
+        //     [
+        //         'nid' => '1',
+        //         'id_dojo' => $dojo[0]['id'],
+        //         'nama' => 'anggota',
+        //         'jenis_kelamin' => 'Laki-laki',
+        //         'alamat' => 'indoensia',
+        //         'tahun_gabung' => '2024',
+        //         'status' => 'Atlet',
+        //         'tingkat_sabuk' => 'putih',
+        //         'nomor' => '123',
+        //         'foto' => '123',
+        //         'tanggal_lahir' => date('Y-m-d H:i:s'),
+        //         'tempat_lahir' => 'indonesia',
+        //     ]
+        // ];
 
-        $this->table('anggotas')->insert($anggota)->saveData();
+        // $this->table('anggotas')->insert($anggota)->saveData();
 
         // $majelis = [
         //     [

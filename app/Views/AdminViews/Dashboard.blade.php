@@ -6,11 +6,11 @@
     <h1 class="text-4xl font-bold pb-10 text-blue-950">Dashboard</h1>
     <div class="w-4/5 grid grid-cols-3 gap-10">
         <div class="bg-white shadow-xl rounded-md px-8 py-4">
-            <p>Total Anggota</p>
+            <p>Total Kohai</p>
             <p class="text-center text-2xl font-bold py-5">{{$count_anggota}}</p>
             <a href="/dashboard/anggota">
                 <div class="w-full bg-blue-600 text-white hover:bg-blue-500 rounded-md py-2">
-                    <p class="text-center">Lihat Atlet</p>
+                    <p class="text-center">Lihat Kohai</p>
                 </div>
             </a>
         </div>

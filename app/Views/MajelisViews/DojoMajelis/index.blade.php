@@ -1,4 +1,4 @@
-@extends('layouts.DashboardLayout')
+@extends('layouts.MajelisLayout')
 
 @section('title', 'Anggota')
 @section('content')
@@ -168,6 +168,40 @@
         </form>
     </div>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const startTimeSelect = document.getElementById('start_time');
+        const endTimeSelect = document.getElementById('end_time');
+
+        // Function to update end time options based on selected start time
+        function updateEndTimeOptions() {
+            const startTime = parseInt(startTimeSelect.value);
+            
+            // Remove all existing options in end_time select
+            endTimeSelect.innerHTML = '';
+
+            // Create new options based on the selected start time
+            for (let i = startTime + 1; i <= 24; i++) {
+                const option = document.createElement('option');
+                option.value = i;
+                option.textContent = `${i} WITA`;
+                endTimeSelect.appendChild(option);
+            }
+
+            // Set the end time to be at least start time + 1 if there are valid options
+            if (endTimeSelect.options.length > 0) {
+                endTimeSelect.value = startTime + 1;
+            }
+        }
+
+        // Initial call to set end time options based on the default selected start time
+        updateEndTimeOptions();
+
+        // Update end time options whenever start time changes
+        startTimeSelect.addEventListener('change', updateEndTimeOptions);
+    });
+</script>
 
 
 <script>

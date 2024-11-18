@@ -108,7 +108,7 @@
         <table class="w-full mt-2 text-center border">
             <thead>
                 <tr class="border">
-                    <th scope="col" class="px-6 py-3">Nama Prestasi</th>
+                    <th scope="col" class="px-6 py-3">Nama Kejuaraan</th>
                     <th scope="col" class="px-6 py-3">Tingkat</th>
                     <th scope="col" class="px-6 py-3">Peringkat atau Medali</th>
                     <th scope="col" class="px-6 py-3">Waktu</th>

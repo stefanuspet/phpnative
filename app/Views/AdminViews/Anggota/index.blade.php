@@ -4,7 +4,7 @@
 @section('title', 'Anggota')
 @section('content')
 <div class="w-full">
-    <h1 class="text-4xl font-bold text-blue-950 pb-10">Data Anggota</h1>
+    <h1 class="text-4xl font-bold text-blue-950 pb-10">Data Kohai</h1>
 
     <div class="flex justify-between">
         <div class="flex items-center justify-start gap-x-5">
@@ -27,7 +27,7 @@
         </div>
 
         <a href="/dashboard/anggota/create" class="px-3 py-2 bg-green-600 rounded-md text-white">
-            Tambah Anggota
+            Tambah Kohai
         </a>
     </div>
 

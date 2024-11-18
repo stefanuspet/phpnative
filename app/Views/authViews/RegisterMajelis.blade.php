@@ -2,7 +2,7 @@
 @section('title', 'Register')
 
 @section('content')
-<h1 class="text-center font-semibold text-xl">Register Anggota</h1>
+<h1 class="text-center font-semibold text-xl">Register Majelis</h1>
 <form action="/register/majelis/create" class="p-4" method="post" enctype="multipart/form-data">
     <div class="mb-3">
         <label for="nit" class="block">Nit</label>

@@ -18,7 +18,7 @@
             </tr>
             <!-- jumlah anggota -->
             <tr>
-                <td>Jumlah Anggota</td>
+                <td>Jumlah Kohai</td>
                 <td class="px-2">:</td>
                 <td>{{$dojo->count_anggota}}</td>
             </tr>
@@ -36,7 +36,7 @@
         </table>
 
         <hr class="mt-5 border border-blue-900" />
-        <h1 class="text-xl font-bold pt-10 pb-5 text-blue-950">Data Anggota</h1>
+        <h1 class="text-xl font-bold pt-10 pb-5 text-blue-950">Data Kohai</h1>
         <table class="w-full text-sm text-center border">
             <thead class="uppercase bg-blue-500 text-white">
                 <tr>

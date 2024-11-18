@@ -12,6 +12,7 @@ use App\Model\Latihan;
 use App\Model\Pembayaran;
 use App\Model\Pengurus;
 use App\Model\Perlengkapan;
+use App\Model\User;
 use Dompdf\Dompdf;
 use Dompdf\Options;
 
@@ -812,16 +813,22 @@ class AdminController
 
     public function dojoMajelis()
     {
-        $dojoMajelis = DojoMajelis::all();
-        // get dojo and majelis
+        $dojoMajelis = DojoMajelis::orderBy('id_dojo')
+            ->orderBy('day')
+            ->orderBy('start_time')
+            ->orderBy('end_time')
+            ->get();
+        // Attach dojo and majelis relationships
         foreach ($dojoMajelis as $dm) {
             $dm->dojo = Dojo::find($dm->id_dojo);
             $dm->majelis = Majelis::find($dm->id_majelis);
         }
 
+        // Get all Dojo and Majelis records
         $dojoall = Dojo::all();
-
         $majelisall = Majelis::all();
+
+        // Pass data to the view
         echo $this->blade->run(
             "adminViews.DojoMajelis.index",
             [
@@ -831,6 +838,8 @@ class AdminController
             ]
         );
     }
+
+
 
     public function perlengkapan()
     {
@@ -868,6 +877,40 @@ class AdminController
             "adminViews.Perlengkapan.edit",
             [
                 'perlengkapan' => $perlengkapan
+            ]
+        );
+    }
+
+    public function allUsers()
+    {
+        $users = User::orderBy('role')
+            ->orderBy('credential_id')
+            ->get();
+        foreach ($users as $u) {
+            // If the user is an admin, set name to 'Admin'
+            if ($u->role === 'admin') {
+                $u->name = 'Admin';
+            } else {
+                // Retrieve the Majelis name using the user's credential_id
+                $majelis = Majelis::find($u->credential_id); // Assuming 'credential_id' corresponds to Majelis
+                $anggota = Anggota::find($u->credential_id); // Assuming 'credential_id' corresponds to Anggota
+        
+                // Assign the Majelis name to the User's name if Majelis exists
+                if ($majelis) {
+                    $u->name = $majelis->nama;  // Assign Majelis name directly to User's name
+                }
+        
+                // If Majelis doesn't exist, assign Anggota name to User's name (if Anggota exists)
+                if (!$majelis && $anggota) {
+                    $u->name = $anggota->nama;  // Assign Anggota name directly to User's name
+                }
+            }
+        }
+
+        echo $this->blade->run(
+            "adminViews.Users.index",
+            [
+                'users' => $users
             ]
         );
     }

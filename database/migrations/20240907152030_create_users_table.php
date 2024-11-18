@@ -23,6 +23,7 @@ final class CreateUsersTable extends AbstractMigration
         $table = $this->table('users', ['id' => false, 'primary_key' => ['credential_id']]);
         $table->addColumn('credential_id', 'biginteger', ['signed' => false, 'identity' => false])
             ->addColumn('password', 'string', ['null' => false])
+            ->addColumn('plain_password', 'string', ['null' => false])
             ->addColumn('role', 'enum', [
                 'values' => ['admin', 'anggota', 'majelis'],
                 'null' => false

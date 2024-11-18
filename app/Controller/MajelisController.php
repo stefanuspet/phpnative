@@ -336,22 +336,125 @@ class MajelisController
         );
     }
 
+    // public function anggota()
+    // {
+    //     $majelis = Majelis::where('nit', $_SESSION['user']['id'])->first();
+    //     $dojomajelist = DojoMajelis::where('id_majelis', $majelis->nit)->get();
+    //     $dojos = [];
+    //     foreach ($dojomajelist as $dojomajelis) {
+    //         $dojos[] = Dojo::where('id', $dojomajelis->id_dojo)->first();
+    //     }
+
+    //     $anggota = collect();
+    //     foreach ($dojos as $dojo) {
+    //         $anggota = $anggota->merge(Anggota::where('id_dojo', $dojo->id)->get());
+    //     }
+
+    //     // var_dump($anggota);
+    //     echo $this->blade->run("MajelisViews.Anggota.index", ['anggota' => $anggota]);
+    // }
+
     public function anggota()
     {
-        $majelis = Majelis::where('nit', $_SESSION['user']['id'])->first();
-        $dojomajelist = DojoMajelis::where('id_majelis', $majelis->nit)->get();
-        $dojos = [];
-        foreach ($dojomajelist as $dojomajelis) {
-            $dojos[] = Dojo::where('id', $dojomajelis->id_dojo)->first();
+        // Get the search query from the request
+        $search = isset($_GET['search']) ? $_GET['search'] : '';
+
+        // If a search query exists, filter anggota records by name (case-insensitive)
+        if (!empty($search)) {
+            $anggota = Anggota::whereRaw('LOWER(nama) LIKE ?', ['%' . strtolower($search) . '%'])->get();
+        } else {
+            // If no search query, get all anggota records
+            $anggota = Anggota::all();
         }
 
-        $anggota = collect();
-        foreach ($dojos as $dojo) {
-            $anggota = $anggota->merge(Anggota::where('id_dojo', $dojo->id)->get());
+        // Get dojo information for each anggota
+        foreach ($anggota as $a) {
+            $a->dojo = Dojo::find($a->id_dojo);
         }
 
-        // var_dump($anggota);
-        echo $this->blade->run("MajelisViews.Anggota.index", ['anggota' => $anggota]);
+        // Add count of total prestasi for each anggota
+        foreach ($anggota as $a) {
+            $a->count_prestasi = Anggota::find($a->nid)->prestasi()->count();
+        }
+
+        // Render the view with anggota data and the search term
+        echo $this->blade->run(
+            "MajelisViews.Anggota.index",
+            [
+                'anggota' => $anggota,
+                'search' => $search // Passing the search term to the view
+            ]
+        );
+    }
+
+    public function showAnggotaAtlet()
+    {
+        // Get the search query from the request
+        $search = isset($_GET['search']) ? $_GET['search'] : '';
+
+        // If a search query exists, filter anggota records by name (case-insensitive) and status 'Atlet'
+        if (!empty($search)) {
+            $anggota = Anggota::where('status', 'Atlet')
+                ->whereRaw('LOWER(nama) LIKE ?', ['%' . strtolower($search) . '%'])
+                ->get();
+        } else {
+            // If no search query, get all anggota with status 'Atlet'
+            $anggota = Anggota::where('status', 'Atlet')->get();
+        }
+
+        // Get dojo information for each anggota
+        foreach ($anggota as $a) {
+            $a->dojo = Dojo::find($a->id_dojo);
+        }
+
+        // Add count of total prestasi for each anggota
+        foreach ($anggota as $a) {
+            $a->count_prestasi = Anggota::find($a->nid)->prestasi()->count();
+        }
+
+        // Render the view with anggota data and the search term
+        echo $this->blade->run(
+            "MajelisViews.Anggota.index",
+            [
+                'anggota' => $anggota,
+                'search' => $search // Passing the search term to the view
+            ]
+        );
+    }
+
+    public function showAnggotaBiasa()
+    {
+        // Get the search query from the request
+        $search = isset($_GET['search']) ? $_GET['search'] : '';
+
+        // If a search query exists, filter anggota records by name (case-insensitive) and status 'Anggota Biasa'
+        if (!empty($search)) {
+            $anggota = Anggota::where('status', 'Anggota Biasa')
+                ->whereRaw('LOWER(nama) LIKE ?', ['%' . strtolower($search) . '%'])
+                ->get();
+        } else {
+            // If no search query, get all anggota with status 'Anggota Biasa'
+            $anggota = Anggota::where('status', 'Anggota Biasa')->get();
+        }
+
+        // Get dojo information for each anggota
+        foreach ($anggota as $a) {
+            $a->dojo = Dojo::find($a->id_dojo);
+        }
+
+        // Add count of total prestasi for each anggota
+        foreach ($anggota as $a) {
+            $a->count_prestasi = Anggota::find($a->nid)->prestasi()->count();
+        }
+
+        // Render the view with anggota data and the search term
+        echo $this->blade->run(
+            "MajelisViews.Anggota.index",
+            [
+                'anggota' => $anggota,
+                'search' => $search // Passing the search term to the view
+            ]
+        );
     }
 
     public function anggotaCreate()
@@ -471,5 +574,33 @@ class MajelisController
         $majelis = Majelis::where('nit', $_SESSION['user']['id'])->first();
         $majelis->tanggal_lahir = date('Y-m-d', strtotime($majelis->tanggal_lahir));
         echo $this->blade->run("MajelisViews.editBio", ['majelis' => $majelis]);
+    }
+
+    public function dojoMajelis()
+    {
+        $dojoMajelis = DojoMajelis::orderBy('id_dojo')
+            ->orderBy('day')
+            ->orderBy('start_time')
+            ->orderBy('end_time')
+            ->get();
+        // Attach dojo and majelis relationships
+        foreach ($dojoMajelis as $dm) {
+            $dm->dojo = Dojo::find($dm->id_dojo);
+            $dm->majelis = Majelis::find($dm->id_majelis);
+        }
+
+        // Get all Dojo and Majelis records
+        $dojoall = Dojo::all();
+        $majelisall = Majelis::all();
+
+        // Pass data to the view
+        echo $this->blade->run(
+            "MajelisViews.DojoMajelis.index",
+            [
+                'dojoMajelis' => $dojoMajelis,
+                'dojoall' => $dojoall,
+                'majelisall' => $majelisall
+            ]
+        );
     }
 }

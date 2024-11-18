@@ -12,7 +12,7 @@
                 <thead>
                     <tr class="border">
                         <th scope="col" class="px-6 py-3">Foto Prestasi</th>
-                        <th scope="col" class="px-6 py-3">Nama Prestasi</th>
+                        <th scope="col" class="px-6 py-3">Nama Kejuaraan</th>
                         <th scope="col" class="px-6 py-3">Tingkat</th>
                         <th scope="col" class="px-6 py-3">Peringkat</th>
                         <th scope="col" class="px-6 py-3">Waktu Dapat</th>

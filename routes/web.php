@@ -71,6 +71,8 @@ return function (RouteCollector $r) {
     $r->addRoute('GET', '/dashboard/perlengkapan/create', 'AdminController@createPerlengkapan');
     $r->addRoute('GET', '/dashboard/perlengkapan/edit/{id}', 'AdminController@editPerlengkapan');
 
+    $r->addRoute('GET', '/dashboard/users', 'AdminController@allUsers');
+
 
 
 
@@ -99,6 +101,8 @@ return function (RouteCollector $r) {
     $r->addRoute('GET', '/dashboard-majelis/cabang', 'MajelisController@cabang');
     $r->addRoute('GET', '/dashboard-majelis/cabang/show/{id}', 'MajelisController@showDetailDojo');
     $r->addRoute('GET', '/dashboard-majelis/anggota', 'MajelisController@anggota');
+    $r->addRoute('GET', '/dashboard-majelis/anggota-biasa', 'MajelisController@showAnggotaBiasa');
+    $r->addRoute('GET', '/dashboard-majelis/anggota-atlet', 'MajelisController@showAnggotaAtlet');
     $r->addRoute('GET', '/dashboard-majelis/anggota/show/{id}', 'MajelisController@showAnggotaByid');
     $r->addRoute('GET', '/dashboard-majelis/anggota/create', 'MajelisController@anggotaCreate');
     $r->addRoute('GET', '/dashboard-majelis/anggota/edit/{id}', 'MajelisController@editAnggota');
@@ -106,6 +110,7 @@ return function (RouteCollector $r) {
     $r->addRoute('GET', '/dashboard-majelis/latihan/edit/{id}', 'MajelisController@latihanEdit');
     $r->addRoute('GET', '/dashboard-majelis/pembayaran/show/{id}', 'MajelisController@showPembayaranByid');
     $r->addRoute('GET', '/dashboard-majelis/editBio', 'MajelisController@editBio');
+    $r->addRoute('GET', '/dashboard-majelis/dojoMajelis', 'MajelisController@dojoMajelis');
 
 
 

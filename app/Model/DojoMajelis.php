@@ -11,7 +11,10 @@ class DojoMajelis extends Model
     public $incrementing = false;
     protected $fillable = [
         'id_dojo',
-        'id_majelis'
+        'id_majelis',
+        'day',
+        'start_time',
+        'end_time'
     ];
     protected $keyType = 'bigint';
     public $timestamps = false;

@@ -29,7 +29,7 @@
  </g>
  </svg>
  </div>
- <p class="p-0 mb-0 text-blue-800 hidden font-semibold">Dashboard</p>
+ <p class="p-0 mb-0 text-blue-800 hidden font-semibold">Profile</p>
  </a>
  <a href="/dashboard-anggota/kegiatan">
  <div class="w-8 h-8 rounded-full bg-slate-100 bg-opacity-50 mb-3 hover:bg-opacity-100 flex justify-center items-center">
@@ -125,7 +125,7 @@
  </g>
  </svg>
  </div>
- <p class="p-0 mb-0 text-blue-800 font-semibold">Dashboard</p>
+ <p class="p-0 mb-0 text-blue-800 font-semibold">Profile</p>
  </a>
  <a href="/dashboard-anggota/kegiatan" class="flex items-center justify-start px-5 gap-3 bg-slate-100 bg-opacity-50 h-8 hover:bg-opacity-100 rounded-full mb-3">
  <div class="flex justify-center items-center">

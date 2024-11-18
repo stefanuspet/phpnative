@@ -18,15 +18,19 @@ final class CreateDojoMajelisTable extends AbstractMigration
      * with the Table class.
      */
     public function change(): void
-    {
-        $table = $this->table('dojo_majelis', ['id' => false, 'primary_key' => ['id_dojo', 'id_majelis']]);
-        $table
-            ->addColumn('id_dojo', 'biginteger', ['signed' => false, 'null' => false])
-            ->addColumn('id_majelis', 'biginteger', ['signed' => false, 'null' => false])
-            ->addColumn('created_at', 'timestamp', ['default' => 'CURRENT_TIMESTAMP'])
-            ->addColumn('updated_at', 'timestamp', ['default' => 'CURRENT_TIMESTAMP'])
-            ->addForeignKey('id_dojo', 'dojos', 'id', ['delete' => 'CASCADE', 'update' => 'CASCADE'])
-            ->addForeignKey('id_majelis', 'majelis', 'nit', ['delete' => 'CASCADE', 'update' => 'CASCADE'])
-            ->create();
-    }
+{
+    $table = $this->table('dojo_majelis', ['id' => true]); // Enable automatic primary key (id)
+    $table
+        ->addColumn('id_dojo', 'biginteger', ['signed' => false, 'null' => false])
+        ->addColumn('id_majelis', 'biginteger', ['signed' => false, 'null' => false])
+        ->addColumn('created_at', 'timestamp', ['default' => 'CURRENT_TIMESTAMP'])
+        ->addColumn('updated_at', 'timestamp', ['default' => 'CURRENT_TIMESTAMP'])
+        ->addColumn('day', 'string', ['null' => false])
+        ->addColumn('start_time', "integer", ['null' => false])
+        ->addColumn('end_time', "integer", ['null' => false])
+        ->addForeignKey('id_dojo', 'dojos', 'id', ['delete' => 'CASCADE', 'update' => 'CASCADE'])
+        ->addForeignKey('id_majelis', 'majelis', 'nit', ['delete' => 'CASCADE', 'update' => 'CASCADE'])
+        ->create();
+}
+
 }

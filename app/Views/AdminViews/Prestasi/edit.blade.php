@@ -9,7 +9,7 @@
             @csrf
             @method('PUT')
             <div class="mb-3">
-                <label for="nama" class="block">Nama Prestasi</label>
+                <label for="nama" class="block">Nama Kejuaraan</label>
                 <input type="text" name="nama" id="nama" class="w-full border border-blue-600 rounded-md p-2" value="{{ $prestasi->nama }}" required>
             </div>
             <div class="mb-3">

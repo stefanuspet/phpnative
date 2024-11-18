@@ -14,7 +14,7 @@
         <table class="w-full mt-2 text-center border">
             <thead>
                 <tr class="border">
-                    <th scope="col" class="px-6 py-3">Nama Anggota</th>
+                    <th scope="col" class="px-6 py-3">Nama Kohai</th>
                     <th scope="col" class="px-6 py-3">Jenis Kelamin</th>
                     <th scope="col" class="px-6 py-3">Tingkat Sabuk</th>
                     <th scope="col" class="px-6 py-3">Status</th>

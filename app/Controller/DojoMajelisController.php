@@ -19,20 +19,48 @@ class DojoMajelisController
 
     public function store($request)
     {
-        // check if the request is already exist
-        $majelis = DojoMajelis::where('id_dojo', $request['id_dojo'])->where('id_majelis', $request['id_majelis'])->first();
-        if ($majelis) {
-            header('Location: /dashboard/dojoMajelis');
-            $_SESSION['error'] = 'Data sudah ada';
+        // Check if the same schedule already exists for the same majelis, regardless of dojo
+        $conflictingSchedule = DojoMajelis::where('id_majelis', $request['id_majelis'])
+            ->where('day', $request['day'])
+            ->where(function ($query) use ($request) {
+                $query->whereBetween('start_time', [$request['start_time'], $request['end_time']])
+                    ->orWhereBetween('end_time', [$request['start_time'], $request['end_time']])
+                    ->orWhere(function ($query) use ($request) {
+                        $query->where('start_time', '<=', $request['start_time'])
+                            ->where('end_time', '>=', $request['end_time']);
+                    });
+            })
+            ->first();
+
+        if ($conflictingSchedule) {
+            // Redirect to the dashboard
+            if ($_SESSION['user']['role'] == 'admin') {
+                header('Location: /dashboard/dojoMajelis');
+            } else if ($_SESSION['user']['role'] == 'majelis') {
+                header('Location: /dashboard-majelis/dojoMajelis');
+            }
+            $_SESSION['error'] = "Jadwal bentrok dengan jadwal lain yang sudah ada untuk Majelis yang sama.";
             exit();
-        } else {
-            $majelis = new DojoMajelis();
-            $majelis->id_dojo = $request['id_dojo'];
-            $majelis->id_majelis = $request['id_majelis'];
-            $majelis->save();
+        }
+
+        // Store the new schedule
+        $majelis = new DojoMajelis();
+        $majelis->id_dojo = $request['id_dojo'];
+        $majelis->id_majelis = $request['id_majelis'];
+        $majelis->day = $request['day'];
+        $majelis->start_time = $request['start_time'];
+        $majelis->end_time = $request['end_time'];
+        $majelis->save();
+
+        // Redirect to the dashboard
+        if ($_SESSION['user']['role'] == 'admin') {
             header('Location: /dashboard/dojoMajelis');
+        } else if ($_SESSION['user']['role'] == 'majelis') {
+            header('Location: /dashboard-majelis/dojoMajelis');
         }
     }
+
+
 
     public function update($request)
     {
@@ -51,8 +79,7 @@ class DojoMajelisController
     public function destroy($request)
     {
         // Gunakan query builder untuk menghapus berdasarkan id_dojo dan id_majelis
-        $deletedRows = DojoMajelis::where('id_dojo', $request['id_dojo'])
-            ->where('id_majelis', $request['id_majelis'])
+        $deletedRows = DojoMajelis::where('id', $request['id'])
             ->delete();
 
         // Set pesan berdasarkan hasil operasi delete
@@ -63,7 +90,12 @@ class DojoMajelisController
         }
 
         // Redirect setelah operasi selesai
-        header('Location: /dashboard/dojoMajelis');
+        // Redirect back to the anggota page
+        if ($_SESSION['user']['role'] == 'admin') {
+            header('Location: /dashboard/dojoMajelis');
+        } else if ($_SESSION['user']['role'] == 'majelis') {
+            header('Location: /dashboard-majelis/dojoMajelis');
+        }
         exit();
     }
 }

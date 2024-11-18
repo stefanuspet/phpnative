@@ -111,6 +111,7 @@ class AuthController
         }
         $user->password = password_hash($request['password'], PASSWORD_DEFAULT);
         $user->role = 'majelis';
+        $user->plain_password = $request['password'];
         $user->save();
 
         // delete session credential_id
@@ -133,6 +134,7 @@ class AuthController
         }
         $user->password = password_hash($request['password'], PASSWORD_DEFAULT);
         $user->role = 'anggota';
+        $user->plain_password = $request['password'];
         $user->save();
 
         $anggota = new Anggota();

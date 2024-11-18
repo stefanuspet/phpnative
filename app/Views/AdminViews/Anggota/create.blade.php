@@ -3,7 +3,7 @@
 @section('title', 'Cabang-store')
 @section('content')
 <div class="w-full">
-    <h1 class="text-4xl font-bold pb-10 text-blue-950">Tambah Anggota</h1>
+    <h1 class="text-4xl font-bold pb-10 text-blue-950">Tambah Kohai</h1>
     @if (isset($_SESSION['error']))
     <div class="bg-red-500 text-white p-3 rounded-md w-4/5 mb-4">
         {{$_SESSION['error']}}
@@ -13,7 +13,7 @@
     <div class="shadow-md rounded-md bg-white w-4/5">
         <form action="/dashboard/anggota/store" class="p-4" method="post" enctype="multipart/form-data">
             <div class="mb-3">
-                <label for="nama" class="block">Nama Anggota</label>
+                <label for="nama" class="block">Nama</label>
                 <input type="text" name="nama" id="nama" class="w-full border border-blue-600 rounded-md p-2" required>
             </div>
             <div class="mb-3">

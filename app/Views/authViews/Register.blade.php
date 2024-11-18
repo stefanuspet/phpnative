@@ -14,10 +14,10 @@
     </div>
     @if ($_SESSION['error'] == 'Credential ID tidak ditemukan')
     <!-- Center the link using text-align and display block -->
-    <div class="text-center mt-2">
+    <!-- <div class="text-center mt-2">
         <a href="/register/guest/anggota" class="inline-block px-4 py-2 text-blue-600">Atlet</a>
         <a href="/register/guest/majelis" class="inline-block px-4 py-2 text-blue-600">majelis</a>
-    </div>
+    </div> -->
     @endif
     <?php unset($_SESSION['error']); ?> <!-- Hapus pesan error setelah ditampilkan -->
     @endif

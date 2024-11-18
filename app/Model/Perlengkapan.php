@@ -20,6 +20,7 @@ class Perlengkapan extends Model
         'foto',
         'created_at',
         'updated_at',
+        'status'
         
     ];
 }

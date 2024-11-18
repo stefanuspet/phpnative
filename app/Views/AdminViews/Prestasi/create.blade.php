@@ -7,7 +7,7 @@
     <div class="shadow-md rounded-md bg-white w-4/5">
         <form action="/dashboard/prestasi/store/{{$anggota->nid}}" class="p-4" method="post" enctype="multipart/form-data">
             <div class="mb-3">
-                <label for="nama" class="block">Nama Prestasi</label>
+                <label for="nama" class="block">Nama Kejuaraan</label>
                 <input type="text" name="nama" id="nama" class="w-full border border-blue-600 rounded-md p-2"  accept="image/*" required>
             </div>
             <div class="mb-3">
