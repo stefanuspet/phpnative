@@ -15,11 +15,11 @@
     @endif
     <table class="w-full border">
         <thead>
-            <tr class="border font-bold text-center">
-                <td class="border py-2">Nama Dojo</td>
-                <td class="border">Hari</td>
-                <td class="border">Waktu</td>
-                <td class="border">Pelatih</td>
+            <tr class="border border-black font-bold text-center">
+                <td class="border border-black py-2">Nama Dojo</td>
+                <td class="border border-black ">Hari</td>
+                <td class="border border-black">Waktu</td>
+                <td class="border border-black" >Pelatih</td>
                 <td>Aksi</td>
             </tr>
         </thead>
@@ -62,22 +62,22 @@
 
                 <tr class="text-center">
                     @if (!$isSameDojo)
-                        <td class="border py-1" rowspan="{{ $dojoRowspanCounter }}">
+                        <td class="border border-black py-1" rowspan="{{ $dojoRowspanCounter }}">
                             {{$dj->dojo->nama}}
                         </td>
                     @endif
 
                     @if (!$isSameDayTime)
-                        <td class="border py-1" rowspan="{{ $timeRowspanCounter }}">
+                        <td class="border border-black py-1" rowspan="{{ $timeRowspanCounter }}">
                             {{$dj->day}}
                         </td>
-                        <td class="border py-1" rowspan="{{ $timeRowspanCounter }}">
+                        <td class="border border-black py-1" rowspan="{{ $timeRowspanCounter }}">
                             {{ $dj->start_time }}-{{ $dj->end_time }} WITA
                         </td>
                     @endif
 
-                    <td class="border py-1">{{$dj->majelis->nama}}</td>
-                    <td class="border">
+                    <td class="border border-black py-1">{{$dj->majelis->nama}}</td>
+                    <td class="border border-black ">
                         <div class="inline-flex py-2 gap-x-2">
                             <form action="/dashboard/dojoMajelis/delete" method="post">
                                 <input type="hidden" name="_method" value="DELETE">

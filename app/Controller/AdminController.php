@@ -893,8 +893,8 @@ class AdminController
             } else {
                 // Retrieve the Majelis name using the user's credential_id
                 $majelis = Majelis::find($u->credential_id); // Assuming 'credential_id' corresponds to Majelis
-                $anggota = Anggota::find($u->credential_id); // Assuming 'credential_id' corresponds to Anggota
-        
+                $anggota = Anggota::where('nomor_induk', $u->credential_id)->first();
+
                 // Assign the Majelis name to the User's name if Majelis exists
                 if ($majelis) {
                     $u->name = $majelis->nama;  // Assign Majelis name directly to User's name
