@@ -236,9 +236,17 @@ class MajelisController
     public function kegiatan()
     {
         $kegiatan = Kegiatan::all();
-        // format tanggal
+        // count peserta
         foreach ($kegiatan as $k) {
-            $k->tanggal = date('d-m-Y', strtotime($k->tanggal));
+            $k->count_peserta = Kegiatan::find($k->id)->peserta()->count();
+        }
+        // get dd on kegiatan->date
+        foreach ($kegiatan as $k) {
+            $k->day = date('d', strtotime($k->tanggal));
+        }
+        //get month years on kegiatan->date
+        foreach ($kegiatan as $k) {
+            $k->month = date('F Y', strtotime($k->tanggal));
         }
         echo $this->blade->run("MajelisViews.Kegiatan.index", ['kegiatan' => $kegiatan]);
     }
@@ -297,6 +305,41 @@ class MajelisController
                 'dojo' => $dojo,
                 'majelis' => $majelis,
                 'anggota' => $anggota
+            ]
+        );
+    }
+
+    public function showKegiatanById()
+    {
+        $requestUri = $_SERVER['REQUEST_URI'];
+        $uri = strtok($requestUri, '?');
+        $pathSegments = explode('/', $uri);
+        $id = end($pathSegments);
+
+        $kegiatan = Kegiatan::find($id);
+        // echo($kegiatan);
+        // count perserta
+        $kegiatan->count_peserta = Kegiatan::find($id)->peserta()->count();
+        // format tanggal kegiatan day Mother Year
+        $kegiatan->date = date('d F Y', strtotime($kegiatan->tanggal));
+        $peserta = Kegiatan::find($id)->peserta()->get();
+        // add anggota to peserta
+        foreach ($peserta as $p) {
+            $p->anggota = Anggota::find($p->id_anggota);
+        }
+
+        // format tanggal lahir dd-mm-yyyy
+        foreach ($peserta as $p) {
+            $p->anggota->tanggal_lahir = date('d-m-Y', strtotime($p->anggota->tanggal_lahir));
+        }
+
+        // add
+
+        echo $this->blade->run(
+            "MajelisViews.Kegiatan.showDetail",
+            [
+                'kegiatan' => $kegiatan,
+                'peserta' => $peserta
             ]
         );
     }
@@ -603,4 +646,6 @@ class MajelisController
             ]
         );
     }
+
+    
 }

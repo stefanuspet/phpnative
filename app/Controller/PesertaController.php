@@ -23,6 +23,7 @@ class PesertaController
         $peserta->id_kegiatan = $request['id_kegiatan'];
         $peserta->id_anggota = $_SESSION['user']['nid'];
         $peserta->tanggal_daftar = date('Y-m-d');
+        $peserta->status = "pending";
         // if peserta already exist
         if (Peserta::where('id_kegiatan', $request['id_kegiatan'])->where('id_anggota', $_SESSION['user']['nid'])->exists()) {
             if ($_SESSION['user']['role'] == 'anggota') {
@@ -46,18 +47,32 @@ class PesertaController
     }
 
     public function update($request)
-    {
-        $requestUri = $_SERVER['REQUEST_URI'];
-        $uri = strtok($requestUri, '?');
-        $pathSegments = explode('/', $uri);
-        $id = end($pathSegments);
-        $peserta = Peserta::find($id);
-        $peserta->nama = $request['nama'];
-        $peserta->email = $request['email'];
-        $peserta->no_hp = $request['no_hp'];
-        $peserta->save();
-        header('Location: /dashboard/peserta');
+{
+    // Get the current URI and extract the ID from the URL
+    // $requestUri = $_SERVER['REQUEST_URI'];
+    // $uri = strtok($requestUri, '?');
+    // $pathSegments = explode('/', $uri);
+    // $id = end($pathSegments);
+    $id= $request['id'];
+    // $id_kegiatan= $request['kegiatan_id'];
+    
+    // Find the Peserta by ID
+    $peserta = Peserta::find($id);
+
+    // Check if 'catatan' exists in the request, and update status accordingly
+    if (isset($request['catatan']) && !empty($request['catatan'])) {
+        $peserta->status = $request['catatan'];  // If catatan exists, set status to "catatan"
+    } else {
+        $peserta->status = 'diterima';  // Otherwise, set status to "diterima"
     }
+
+    // Save the updated Peserta data
+    $peserta->save();
+    // echo($id_kegiatan);
+    // Redirect back to the peserta dashboard
+    header('Location: /dashboard-majelis/kegiatan/show/'. $request['kegiatan_id']);
+}
+
 
     public function destroy($request)
     {

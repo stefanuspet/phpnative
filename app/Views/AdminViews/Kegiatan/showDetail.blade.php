@@ -32,6 +32,7 @@
                     <th scope="col" class="px-6 py-3">Jenis Kelamin</th>
                     <th scope="col" class="px-6 py-3">Alamat</th>
                     <th scope="col" class="px-6 py-3">Tahun Bergabung</th>
+                    <th scope="col" class="px-6 py-3">Status Pendaftaran</th>
                 </tr>
 
             </thead>
@@ -43,6 +44,7 @@
                     <td class="px-6 py-4">{{$items->anggota->jenis_kelamin }}</td>
                     <td class="px-6 py-4">{{$items->anggota->alamat}}</td>
                     <td class="px-6 py-4">{{$items->anggota->tahun_gabung}}</td>
+                    <td class="px-6 py-4">{{$items->status}}</td>
                     <!-- form delete -->
                     <td>
                         <form action="/dashboard/peserta/delete/{{$items->id}}/{{$kegiatan->id}}" method="post">

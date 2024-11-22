@@ -50,7 +50,7 @@
  
  // Set the selected value to the current month
  document.getElementById("bulan").value = months[currentMonthIndex];
-</script>
+ </script>
  <div class="mb-3">
  <label for="tahun" class="block">Tahun Pembayaran</label>
  <select name="tahun" id="tahun" class="w-full border border-blue-600 rounded-md p-2" required>

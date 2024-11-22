@@ -13,6 +13,7 @@ use App\Model\Pembayaran;
 use App\Model\Pengurus;
 use App\Model\Perlengkapan;
 use App\Model\User;
+use App\Model\ForgetPass;
 use Dompdf\Dompdf;
 use Dompdf\Options;
 
@@ -914,4 +915,20 @@ class AdminController
             ]
         );
     }
+
+    public function forgetPass()
+    {
+        $pass = ForgetPass::orderByRaw("FIELD(status, 'pending', 'selesai')")
+            ->orderBy('created_at', 'asc')
+            ->get();
+
+        echo $this->blade->run(
+            "adminViews.ForgetPass.index",
+            [
+                'forgetpass' => $pass
+            ]
+        );
+    }
+
+
 }

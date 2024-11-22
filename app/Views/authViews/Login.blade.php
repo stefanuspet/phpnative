@@ -10,16 +10,19 @@
     <div>
         <input id="password" name="password" type="password" class="border w-full rounded-sm p-2" placeholder="Password" required>
     </div>
-    <!-- Menampilkan pesan kesalahan jika ada -->
+    <!-- Display error message if it exists -->
     @if (isset($_SESSION['error']))
     <div style="color: red; text-align: center; margin-top: 12px">
         {{ $_SESSION['error'] }}
     </div>
-    <?php unset($_SESSION['error']); ?> <!-- Hapus pesan error setelah ditampilkan -->
+    <?php unset($_SESSION['error']); ?> <!-- Remove the error message after displaying -->
     @endif
     <button type="submit" class="bg-blue-600 text-white w-full rounded-sm py-2 mt-5">MASUK</button>
     <div class="text-center mt-5">
         <a href="/register" class="text-blue-600">Belum punya akun? Daftar disini</a>
+    </div>
+    <div class="text-center mt-3">
+        <a href="/forget-pass" class="text-red-600">Lupa Password?</a>
     </div>
 </form>
 @endsection

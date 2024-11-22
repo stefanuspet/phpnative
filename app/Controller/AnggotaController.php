@@ -278,30 +278,69 @@ class AnggotaController
     }
 
     public function kegiatan()
-    {
-        if ($_SESSION['user']['role'] != 'anggota') {
-            header('Location: /error');
-        }
-        $kegiatan = Kegiatan::all();
-        foreach ($kegiatan as $k) {
-            $k->tanggal = date('d-m-Y', strtotime($k->tanggal));
-        }
-        echo $this->blade->run("AnggotaViews.Kegiatan.index", ['kegiatan' => $kegiatan]);
+{
+    // Check if the user is an anggota, else redirect
+    if ($_SESSION['user']['role'] != 'anggota') {
+        header('Location: /error');
     }
 
-    public function kegiatanbyUser()
-    {
-        if ($_SESSION['user']['role'] != 'anggota') {
-            header('Location: /error');
+    // Fetch all kegiatan records
+    $kegiatan = Kegiatan::all();
+
+    // Loop through the kegiatan records
+    foreach ($kegiatan as $k) {
+        // Format the date for the kegiatan
+        $k->tanggal = date('d-m-Y', strtotime($k->tanggal));
+
+        // Retrieve the status of the peserta related to this kegiatan
+        // Assuming there's a relationship between Kegiatan and Peserta
+        $peserta = Peserta::where('id_kegiatan', $k->id)->first();  // Assuming `kegiatan_id` is the foreign key
+        if ($peserta) {
+            $k->status = $peserta->status;  // Add the status to the kegiatan
+        } else {
+            $k->status = 'Belum terdaftar';  // Set a default value if no peserta is found
         }
-        $peserta = Peserta::where('id_anggota', $_SESSION['user']['nid'])->get();
-        // get kegiatan 
-        $kegiatan = [];
-        foreach ($peserta as $p) {
-            $kegiatan[] = Kegiatan::where('id', $p->id_kegiatan)->first();
-        }
-        echo $this->blade->run("AnggotaViews.Kegiatan.terdaftar", ['peserta' => $peserta, 'kegiatan' => $kegiatan]);
     }
+
+    // Pass the kegiatan (with status) to the view
+    echo $this->blade->run("AnggotaViews.Kegiatan.index", ['kegiatan' => $kegiatan]);
+}
+
+
+public function kegiatanbyUser()
+{
+    if ($_SESSION['user']['role'] != 'anggota') {
+        header('Location: /error');
+    }
+
+    // Fetch the peserta records for the current user
+    $peserta = Peserta::where('id_anggota', $_SESSION['user']['nid'])->get();
+
+    // Initialize an array to store kegiatan with status
+    $kegiatan = [];
+
+    // Loop through each peserta to get the related kegiatan
+    foreach ($peserta as $p) {
+        // Get the kegiatan for the current peserta
+        $kegiatanItem = Kegiatan::where('id', $p->id_kegiatan)->first();
+
+        if ($kegiatanItem) {
+            // Format the kegiatan date
+            $kegiatanItem->tanggal = date('d-m-Y', strtotime($kegiatanItem->tanggal));
+
+            // Add the status to the kegiatan item from the peserta model
+            $kegiatanItem->status = $p->status;  // Assuming `status` exists on Peserta
+        }
+
+        // Append the kegiatan item to the kegiatan array
+        $kegiatan[] = $kegiatanItem;
+    }
+
+    // Pass the peserta and kegiatan (with status) to the view
+    echo $this->blade->run("AnggotaViews.Kegiatan.terdaftar", ['peserta' => $peserta, 'kegiatan' => $kegiatan]);
+}
+
+
     public function prestasi()
     {
         if ($_SESSION['user']['role'] != 'anggota') {

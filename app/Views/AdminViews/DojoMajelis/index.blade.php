@@ -85,7 +85,16 @@
                                 <input type="hidden" name="id_dojo" value="{{ $dj->dojo->id }}">
                                 <input type="hidden" name="id_majelis" value="{{ $dj->majelis->nit }}">
                                 <button type="submit" class="px-3 py-1 hover:bg-red-700 bg-red-600 rounded-md text-white">Hapus</button>
+                                
                             </form>
+                            <button 
+                                class="px-3 py-1 hover:bg-blue-700 bg-blue-600 rounded-md text-white editButton" 
+                                data-id="{{ $dj->id }}" 
+                                data-dojo="{{ $dj->dojo->id }}" 
+                                data-majelis="{{ $dj->majelis->nit }}" 
+                                data-day="{{ $dj->day }}" 
+                                data-start_time="{{ $dj->start_time }}" 
+                                data-end_time="{{ $dj->end_time }}">Edit</button>
                         </div>
                     </td>
                 </tr>
@@ -191,6 +200,98 @@
         if (event.target === modal) {
             modal.classList.add('hidden');
         }
+    });
+</script>
+
+<!-- Edit Modal -->
+<div id="editModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden">
+    <div class="bg-white rounded-lg p-6 w-1/2">
+        <h2 class="text-2xl font-bold mb-4">Edit Jadwal</h2>
+        <form id="editForm" action="/dashboard/dojoMajelis/update" method="POST">
+            @csrf
+            <input type="hidden" name="id" id="editId">
+            <div class="mb-3">
+                <label for="editIdMajelis" class="block text-sm font-medium text-gray-700">Nama Pelatih</label>
+                <select name="id_majelis" id="editIdMajelis" class="mt-1 block w-full p-2 border border-gray-300 rounded-md">
+                    @foreach ($majelisall as $m)
+                        <option value="{{ $m->nit }}">{{ $m->nama }}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="editIdDojo" class="block text-sm font-medium text-gray-700">Nama Dojo</label>
+                <select name="id_dojo" id="editIdDojo" class="mt-1 block w-full p-2 border border-gray-300 rounded-md">
+                    @foreach ($dojoall as $dojo)
+                        <option value="{{ $dojo->id }}">{{ $dojo->nama }}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="editDay" class="block text-sm font-medium text-gray-700">Hari</label>
+                <select name="day" id="editDay" class="mt-1 block w-full p-2 border border-gray-300 rounded-md">
+                    <option value="Senin">Senin</option>
+                    <option value="Selasa">Selasa</option>
+                    <option value="Rabu">Rabu</option>
+                    <option value="Kamis">Kamis</option>
+                    <option value="Jumat">Jumat</option>
+                    <option value="Sabtu">Sabtu</option>
+                    <option value="Minggu">Minggu</option>
+                </select>
+            </div>
+            <!-- Start Time Selection -->
+            <div class="mb-3">
+                <label for="editStartTime" class="block text-sm font-medium text-gray-700">Waktu Mulai</label>
+                <select name="start_time" id="editStartTime" class="mt-1 block w-full p-2 border border-gray-300 rounded-md">
+                    @for ($i = 1; $i <= 24; $i++)
+                        <option value="{{ $i }}">{{ $i }} WITA</option>
+                    @endfor
+                </select>
+            </div>
+            
+            <!-- End Time Selection -->
+            <div class="mb-6">
+                <label for="editEndTime" class="block text-sm font-medium text-gray-700">Waktu Selesai</label>
+                <select name="end_time" id="editEndTime" class="mt-1 block w-full p-2 border border-gray-300 rounded-md">
+                    @for ($i = 1; $i <= 24; $i++)
+                        <option value="{{ $i }}">{{ $i }} WITA</option>
+                    @endfor
+                </select>
+            </div>
+            <div class="flex justify-end">
+                <button type="button" id="closeEditModalBtn" class="bg-red-600 text-white px-4 py-2 rounded-md mr-2">Batal</button>
+                <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded-md">Simpan</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    const editModal = document.getElementById('editModal');
+    const closeEditModalBtn = document.getElementById('closeEditModalBtn');
+    const editButtons = document.querySelectorAll('.editButton');
+
+    editButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const id = button.dataset.id;
+            const dojo = button.dataset.dojo;
+            const majelis = button.dataset.majelis;
+            const day = button.dataset.day;
+            const startTime = button.dataset.start_time;
+            const endTime = button.dataset.end_time;
+
+            document.getElementById('editId').value = id;
+            document.getElementById('editIdDojo').value = dojo;
+            document.getElementById('editIdMajelis').value = majelis;
+            document.getElementById('editDay').value = day;
+            document.getElementById('editStartTime').value = startTime;
+            document.getElementById('editEndTime').value = endTime;
+
+            editModal.classList.remove('hidden');
+        });
+    });
+
+    closeEditModalBtn.addEventListener('click', () => {
+        editModal.classList.add('hidden');
     });
 </script>
 @endsection

@@ -18,6 +18,7 @@ class Peserta extends Model
         'tanggal_daftar',
         'created_at',
         'updated_at',
+        'status',
     ];
 
     public function kegiatan()

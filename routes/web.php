@@ -18,8 +18,9 @@ return function (RouteCollector $r) {
     $r->addRoute('GET', '/register/guest/majelis', 'AuthController@registerGuestMajelis');
     $r->addRoute('POST', '/register/guest/anggota/create', 'AuthController@registerGuestAnggotaStore');
     $r->addRoute('POST', '/register/guest/majelis/create', 'AuthController@registerGuestMajelisStore');
+    $r->addRoute('GET', '/forget-pass', 'AuthController@forgetPass');
 
-
+    
 
     // ************************************ ADMIN ************************************
     $r->addRoute('GET', '/dashboard', 'AdminController@index');
@@ -72,9 +73,7 @@ return function (RouteCollector $r) {
     $r->addRoute('GET', '/dashboard/perlengkapan/edit/{id}', 'AdminController@editPerlengkapan');
 
     $r->addRoute('GET', '/dashboard/users', 'AdminController@allUsers');
-
-
-
+    $r->addRoute('GET', '/dashboard/forget-pass', 'AdminController@forgetPass');
 
 
     // ************************************ ANGGOTA ************************************
@@ -98,6 +97,7 @@ return function (RouteCollector $r) {
     // ************************************ MAJELIS ************************************
     $r->addRoute('GET', '/dashboard-majelis', 'MajelisController@index');
     $r->addRoute('GET', '/dashboard-majelis/kegiatan', 'MajelisController@kegiatan');
+    $r->addRoute('GET', '/dashboard-majelis/kegiatan/show/{id}', 'MajelisController@showKegiatanByid');
     $r->addRoute('GET', '/dashboard-majelis/cabang', 'MajelisController@cabang');
     $r->addRoute('GET', '/dashboard-majelis/cabang/show/{id}', 'MajelisController@showDetailDojo');
     $r->addRoute('GET', '/dashboard-majelis/anggota', 'MajelisController@anggota');
@@ -143,8 +143,9 @@ return function (RouteCollector $r) {
 
     //peserta
     $r->addRoute('POST', '/dashboard/peserta/store', 'PesertaController@store');
-    $r->addRoute('POST', '/dashboard/peserta/update/{id}', 'PesertaController@update');
+    $r->addRoute('POST', '/dashboard/peserta/update', 'PesertaController@update');
     $r->addRoute('POST', '/dashboard/peserta/delete', 'PesertaController@destroy');
+    
 
     // prestasi
     $r->addRoute('POST', '/dashboard/prestasi/store/{id_anggota}', 'PrestasiController@store');
@@ -158,7 +159,7 @@ return function (RouteCollector $r) {
 
     // dojoMajelis
     $r->addRoute('POST', '/dashboard/dojoMajelis/store', 'DojoMajelisController@store');
-    $r->addRoute('POST', '/dashboard/dojoMajelis/update/{id}', 'DojoMajelisController@update');
+    $r->addRoute('POST', '/dashboard/dojoMajelis/update', 'DojoMajelisController@update');
     $r->addRoute('POST', '/dashboard/dojoMajelis/delete', 'DojoMajelisController@destroy');
 
     // pembayaran
@@ -171,6 +172,12 @@ return function (RouteCollector $r) {
     $r->addRoute('POST', '/dashboard/perlengkapan/store', 'PerlengkapanController@store');
     $r->addRoute('POST', '/dashboard/perlengkapan/update/{id}', 'PerlengkapanController@update');
     $r->addRoute('POST', '/dashboard/perlengkapan/delete/{id}', 'PerlengkapanController@destroy');
+
+
+    $r->addRoute('POST', '/forget-pass/store', 'ForgetPassController@store');
+    $r->addRoute('POST', '/forget-pass/update/{id}', 'ForgetPassController@update');
+    $r->addRoute('POST', '/forget-pass/delete/{id}', 'ForgetPassController@destroy');
+
 
 
     //errors

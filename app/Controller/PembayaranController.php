@@ -38,6 +38,7 @@ class PembayaranController
             $pembayaran->bulan = $request['bulan'] . '-' . $request['tahun'];
             $pembayaran->bukti_pembayaran = $fileName;
             $pembayaran->nominal = $request['nominal'];
+            $pembayaran->catatan = isset($request['catatan']) ? $request['catatan'] : '';
             $pembayaran->save();
         } else {
             // if dont have foto make foto default from /public/uploads/default_img.jpg
@@ -45,6 +46,7 @@ class PembayaranController
             $pembayaran->id_anggota = $_SESSION['user']['nid'];
             $pembayaran->nominal = $request['nominal'];
             $pembayaran->bulan = $request['bulan'] . '-' . $request['tahun'];
+            $pembayaran->catatan = isset($request['catatan']) ? $request['catatan'] : '';
             $pembayaran->save();
         }
         if ($_SESSION['user']['role'] == 'anggota') {

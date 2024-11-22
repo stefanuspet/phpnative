@@ -6,6 +6,7 @@ use App\Model\Anggota;
 use App\Model\Dojo;
 use App\Model\Majelis;
 use App\Model\User;
+use App\Model\forgetPass;
 use Exception;
 
 class AuthController
@@ -272,4 +273,21 @@ class AuthController
             echo "Failed to save majelis.";
         }
     }
+    public function forgetPass()
+{
+    // Get only Majelis where 'nit' exists in the User table
+    $majelisall = Majelis::whereIn('nit', User::pluck('credential_id'))->get();
+    $atlet = Anggota::whereIn('nomor_induk', User::pluck('credential_id'))->get();
+    $dojos = Dojo::All();
+
+    echo $this->blade->run(
+        "authViews.create",
+        [
+            'majelis' => $majelisall,
+            'atlet' => $atlet,
+            'dojos' => $dojos
+        ]
+    );
+}
+
 }

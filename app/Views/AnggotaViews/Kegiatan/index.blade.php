@@ -56,23 +56,29 @@
                     @endif
                 </div>
                 <div class="flex-1 grid grid-cols-3">
-                    <table class="w-fit mt-2">
-                        <tr>
-                            <td>Nama Kegiatan</td>
-                            <td class="px-2">:</td>
-                            <td>{{$items->nama}}</td>
-                        </tr>
-                        <tr>
-                            <td>Lokasi</td>
-                            <td class="px-2">:</td>
-                            <td>{{$items->lokasi}}</td>
-                        </tr>
-                        <tr>
-                            <td>Tanggal Kegiatan</td>
-                            <td class="px-2">:</td>
-                            <td>{{$items->tanggal}}</td>
-                        </tr>
-                    </table>
+                <table class="w-full mt-2 table-auto">
+                    <tr>
+                        <td class="w-1/3 whitespace-nowrap">Nama Kegiatan</td>
+                        <td class="px-2">:</td>
+                        <td class="whitespace-nowrap">{{$items->nama}}</td>
+                    </tr>
+                    <tr>
+                        <td class="w-1/3 whitespace-nowrap">Lokasi</td>
+                        <td class="px-2">:</td>
+                        <td class="whitespace-nowrap">{{$items->lokasi}}</td>
+                    </tr>
+                    <tr>
+                        <td class="w-1/3 whitespace-nowrap">Tanggal Kegiatan</td>
+                        <td class="px-2">:</td>
+                        <td class="whitespace-nowrap">{{$items->tanggal}}</td>
+                    </tr>
+                    <tr>
+                        <td class="w-1/3 whitespace-nowrap">Status Pendaftaran</td>
+                        <td class="px-2">:</td>
+                        <td class="whitespace-nowrap">{{$items->status}}</td>
+                    </tr>
+                </table>
+
                     <div class="h-full">
                     </div>
                     <div class="h-full flex justify-end gap-x-5">

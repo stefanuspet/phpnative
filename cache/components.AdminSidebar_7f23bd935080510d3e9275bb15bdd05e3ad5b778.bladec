@@ -177,6 +177,16 @@
  </div>
  </a>
 
+ <a href="/dashboard/forget-pass">
+ <div class="w-8 h-8 rounded-full bg-slate-100 bg-opacity-50 mb-3 hover:bg-opacity-100 flex justify-center items-center">
+ <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" class="text-blue-800 w-5 h-5">
+ <path d="M12 2C9.243 2 7 4.243 7 7v4H6c-1.103 0-2 .897-2 2v9c0 1.103.897 2 2 2h12c1.103 0 2-.897 2-2v-9c0-1.103-.897-2-2-2h-1V7c0-2.757-2.243-5-5-5zm-3 5c0-1.654 1.346-3 3-3s3 1.346 3 3v4H9V7z"></path>
+ </svg>
+
+ </div>
+ </a>
+
+
  <a href="/logout" class="flex items-center justify-center gap-3 bg-slate-100 bg-opacity-50 w-8 h-8 hover:bg-opacity-100 rounded-full">
  <div class="flex justify-center items-center">
  <svg viewBox="0 0 24 24" class="text-blue-800 w-5 h-5" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -363,6 +373,15 @@
  </svg>
  </div>
  <p class="p-0 mb-0 text-blue-800 font-semibold">Users</p>
+ </a>
+
+ <a href="/dashboard/forget-pass" class="flex items-center justify-start px-5 gap-3 bg-slate-100 bg-opacity-50 h-8 hover:bg-opacity-100 rounded-full mb-3">
+ <div class="flex justify-center items-center">
+ <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" class="text-blue-800 w-5 h-5">
+ <path d="M12 2C9.243 2 7 4.243 7 7v4H6c-1.103 0-2 .897-2 2v9c0 1.103.897 2 2 2h12c1.103 0 2-.897 2-2v-9c0-1.103-.897-2-2-2h-1V7c0-2.757-2.243-5-5-5zm-3 5c0-1.654 1.346-3 3-3s3 1.346 3 3v4H9V7z"></path>
+ </svg>
+ </div>
+ <p class="p-0 mb-0 text-blue-800 font-semibold">Password</p>
  </a>
 
  <a href="/logout" class="flex items-center justify-start px-5 gap-3 bg-slate-100 bg-opacity-50 justify-start px-5 h-8 hover:bg-opacity-100 rounded-full">
